@@ -2,7 +2,6 @@
 
 class YesOrNo {
 	public static String boolToWord(boolean b) {
-		String result = (b ? "Yes" : "No");
-		return result;
+		return (b ? "Yes" : "No");
 	}
 }

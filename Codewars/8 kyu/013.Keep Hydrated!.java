@@ -2,8 +2,6 @@
 
 public class KeepHydrated {
 	public int Liters(double time) {
-		float litres = 0.5f;
-		int result = (int) (litres * time);
-		return result;
+		return (int) (time / 2);
 	}
 }

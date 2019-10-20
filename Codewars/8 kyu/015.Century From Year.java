@@ -2,10 +2,6 @@
 
 public class Solution {
 	public static int century(int number) {
-		int ans = number % 100, result = number / 100;
-		if (ans != 0) {
-			result++;
-		}
-		return result;
+		return (number + 99) / 100;
 	}
 }

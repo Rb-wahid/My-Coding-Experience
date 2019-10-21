@@ -2,10 +2,10 @@
 
 public class Kata {
     public static int squareSum(int[] n) {
-        int result = 0;
+        int x = 0;
         for (int i: n) {
-            result += (int) Math.pow(i, 2);
+            x += i * i;
         }
-        return result;
+        return x;
     }
 }

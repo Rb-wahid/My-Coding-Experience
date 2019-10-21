@@ -2,11 +2,6 @@
 
 public class GrassHopper {
     public static int summation(int n) {
-        int ans = 0;
-        while (n > 0) {
-            ans += n;
-            n--;
-        }
-        return ans;
+        return n * (n + 1) / 2;
     }
 }

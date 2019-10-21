@@ -13,8 +13,14 @@ public class BasicOperations {
                 return v1 * v2;
 
             case "/":
+                {
+                    if (v2 == 0) {
+                        throw new IllegalArgumentException("Division by zero");
+                    }
+                }
                 return v1 / v2;
+            default:
+                throw new IllegalArgumentException("Unknown operation: " + op);
         }
-        return 0;
     }
 }

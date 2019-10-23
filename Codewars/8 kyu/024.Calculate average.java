@@ -1,4 +1,4 @@
-//Codewars link --> https://www.codewars.com/kata/53af2b8861023f1d88000832
+//Codewars link --> https://www.codewars.com/kata/57a2013acf1fa5bfc4000921
 
 public class Kata {
     public static double find_average(int[] array) {

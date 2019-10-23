@@ -7,8 +7,8 @@ public class Kata {
         }
         int highestNum = numbers[0];
         int lowestNum = numbers[0];
-        int sum = 0;
-        for (int i = 0; i < numbers.length; i++) {
+        int sum = numbers[0];
+        for (int i = 1; i < numbers.length; i++) {
             if (highestNum < numbers[i]) {
                 highestNum = numbers[i];
             } else if (lowestNum > numbers[i]) {

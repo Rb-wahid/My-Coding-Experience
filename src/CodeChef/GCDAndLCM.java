@@ -1,4 +1,4 @@
-package CodeChef.Math;
+package CodeChef;
 /**
  * Built using CHelper plug-in
  *

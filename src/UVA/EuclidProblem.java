@@ -1,4 +1,4 @@
-package UVA.Math;
+package UVA;
 /**
  * Built using CHelper plug-in
  *

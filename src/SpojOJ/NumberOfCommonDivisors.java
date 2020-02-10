@@ -1,4 +1,4 @@
-package SpojOJ.Math;
+package SpojOJ;
 /**
  * Built using CHelper plug-in
  *

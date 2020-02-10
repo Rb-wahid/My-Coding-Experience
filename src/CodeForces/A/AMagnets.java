@@ -17,11 +17,21 @@ public class AMagnets {
         int magnet = in.nextInt();
         int[] megnets = new int[magnet];
         int value = 0, groupsOfMagnets = 0;
+        boolean[] flag = new boolean[2];
         for (int i = 0; i < magnet; i++) {
             megnets[i] = in.nextInt();
-            value = megnets[i];
-            if (megnets[i] != value){
+                value = megnets[i];
+            if (value == 10){
+                if (!flag[0])
                 groupsOfMagnets++;
+
+                flag[0] = true;
+                flag[1] = false;
+            }else if (value == 01){
+                if (!flag[1])
+                    groupsOfMagnets++;
+                flag[1] = true;
+                flag[0] = false;
             }
         }
 

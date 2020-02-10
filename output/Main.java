@@ -22,35 +22,33 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        AMagnets solver = new AMagnets();
+        ASerejaAndDima solver = new ASerejaAndDima();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class AMagnets {
+    static class ASerejaAndDima {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
-            int magnet = in.nextInt();
-            int[] megnets = new int[magnet];
-            int value = 0, groupsOfMagnets = 0;
-            boolean[] flag = new boolean[2];
-            for (int i = 0; i < magnet; i++) {
-                megnets[i] = in.nextInt();
-                value = megnets[i];
-                if (value == 10) {
-                    if (!flag[0])
-                        groupsOfMagnets++;
-
-                    flag[0] = true;
-                    flag[1] = false;
-                } else if (value == 01) {
-                    if (!flag[1])
-                        groupsOfMagnets++;
-                    flag[1] = true;
-                    flag[0] = false;
+            int numberOfCard = in.nextInt();
+            int[] cards = new int[numberOfCard];
+            int Sereja = 0, Dima = 0;
+            if ((numberOfCard & 1) == 1) {
+                for (int i = 0; i < numberOfCard; i += 2) {
+                    Sereja += cards[i];
+                }
+                for (int i = 1; i < numberOfCard; i += 2) {
+                    Dima += cards[i];
+                }
+            } else {
+                for (int i = 0; i < numberOfCard >> 1; i++) {
+                    Sereja += cards[i];
+                }
+                for (int i = numberOfCard >> 1; i < numberOfCard; i++) {
+                    Dima += cards[i];
                 }
             }
 
-            out.println(groupsOfMagnets);
+            out.println(Sereja + " " + Dima);
         }
 
     }
@@ -135,12 +133,22 @@ public class Main {
             this.writer = new PrintWriter(writer);
         }
 
-        public void close() {
-            writer.close();
+        public void print(Object... objects) {
+            for (int i = 0; i < objects.length; i++) {
+                if (i != 0) {
+                    writer.print(' ');
+                }
+                writer.print(objects[i]);
+            }
         }
 
-        public void println(int i) {
-            writer.println(i);
+        public void println(Object... objects) {
+            print(objects);
+            writer.println();
+        }
+
+        public void close() {
+            writer.close();
         }
 
     }

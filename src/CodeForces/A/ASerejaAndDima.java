@@ -17,6 +17,10 @@ public class ASerejaAndDima {
         int numberOfCard = in.nextInt();
         int[] cards = new int[numberOfCard];
         int Sereja = 0, Dima = 0;
+
+        for (int i = 0; i < numberOfCard; i++) {
+            cards[i] = in.nextInt();
+        }
         if ((numberOfCard & 1) == 1){
             for (int i = 0; i < numberOfCard; i += 2) {
                 Sereja += cards[i];
@@ -24,6 +28,9 @@ public class ASerejaAndDima {
             for (int i = 1; i < numberOfCard; i += 2) {
                 Dima += cards[i];
             }
+
+            out.println(Sereja + " " + Dima);
+
         }else {
             for (int i = 0; i < numberOfCard>>1; i++) {
                 Sereja += cards[i];
@@ -31,8 +38,8 @@ public class ASerejaAndDima {
             for (int i = numberOfCard>>1; i < numberOfCard; i++) {
                 Dima += cards[i];
             }
+            out.println(Dima + " " + Sereja);
         }
 
-        out.println(Sereja + " " + Dima);
     }
 }

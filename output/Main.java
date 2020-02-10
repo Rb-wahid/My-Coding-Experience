@@ -31,30 +31,29 @@ public class Main {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
             int numberOfCard = in.nextInt();
             int[] cards = new int[numberOfCard];
-            int Sereja = 0, Dima = 0;
+            int Sereja = 0, Dima = 0, person = 0, low = 0, high = numberOfCard - 1, max = 0;
 
             for (int i = 0; i < numberOfCard; i++) {
                 cards[i] = in.nextInt();
             }
-            if ((numberOfCard & 1) == 1) {
-                for (int i = 0; i < numberOfCard; i += 2) {
-                    Sereja += cards[i];
-                }
-                for (int i = 1; i < numberOfCard; i += 2) {
-                    Dima += cards[i];
+
+            while (low <= high) {
+                if (cards[high] > cards[low]) {
+                    max = cards[high];
+                    high--;
+                } else {
+                    max = cards[low];
+                    low++;
                 }
 
-                out.println(Sereja + " " + Dima);
-
-            } else {
-                for (int i = 0; i < numberOfCard >> 1; i++) {
-                    Sereja += cards[i];
-                }
-                for (int i = numberOfCard >> 1; i < numberOfCard; i++) {
-                    Dima += cards[i];
-                }
-                out.println(Dima + " " + Sereja);
+                if ((person & 1) == 0)
+                    Sereja += max;
+                else
+                    Dima += max;
+                person++;
             }
+
+            out.println(Sereja + " " + Dima);
 
         }
 

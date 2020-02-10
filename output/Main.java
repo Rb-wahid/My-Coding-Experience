@@ -22,30 +22,62 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        ABlackSquare solver = new ABlackSquare();
+        ANightAtTheMuseum solver = new ANightAtTheMuseum();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class ABlackSquare {
+    static class ANightAtTheMuseum {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
-            int a1 = in.nextInt(), a2 = in.nextInt(), a3 = in.nextInt(), a4 = in.nextInt();
             String str = in.nextString();
+            str = "a" + str;
+            char[] ch = str.toCharArray();
+            int ans = 0;
+            for (int i = 0; i < ch.length - 1; i++) {
+                int a = ch[i];
+                int b = ch[i + 1];
 
-            int calories = 0;
-            for (int i = 0; i < str.length(); i++) {
-                char ch = str.charAt(i);
-                if (ch == '1')
-                    calories += a1;
-                if (ch == '2')
-                    calories += a2;
-                if (ch == '3')
-                    calories += a3;
-                if (ch == '4')
-                    calories += a4;
+                if (a < b) {
+                    int max = (a + 26) - b;
+                    int min = b - a;
+                    if (min < max)
+                        ans += min;
+                    else
+                        ans += max;
+
+                }
+                if (a > b) {
+                    int max = (b + 26) - a;
+                    int min = a - b;
+                    if (max < min)
+                        ans += max;
+                    else
+                        ans += min;
+                }
             }
 
-            out.println(calories);
+            out.println(ans);
+        }
+
+    }
+
+    static class OutputWriter {
+        private final PrintWriter writer;
+
+        public OutputWriter(OutputStream outputStream) {
+            writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(outputStream)));
+        }
+
+        public OutputWriter(Writer writer) {
+            this.writer = new PrintWriter(writer);
+        }
+
+        public void close() {
+            writer.close();
+        }
+
+        public void println(int i) {
+            writer.println(i);
         }
 
     }
@@ -79,28 +111,6 @@ public class Main {
             return buf[curChar++];
         }
 
-        public int nextInt() {
-            int c = read();
-            while (isSpaceChar(c)) {
-                c = read();
-            }
-            int sgn = 1;
-            if (c == '-') {
-                sgn = -1;
-                c = read();
-            }
-            int res = 0;
-            do {
-                if (c < '0' || c > '9') {
-                    throw new InputMismatchException();
-                }
-                res *= 10;
-                res += c - '0';
-                c = read();
-            } while (!isSpaceChar(c));
-            return res * sgn;
-        }
-
         public String nextString() {
             int c = read();
             while (isSpaceChar(c)) {
@@ -130,27 +140,6 @@ public class Main {
         public interface SpaceCharFilter {
             public boolean isSpaceChar(int ch);
 
-        }
-
-    }
-
-    static class OutputWriter {
-        private final PrintWriter writer;
-
-        public OutputWriter(OutputStream outputStream) {
-            writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(outputStream)));
-        }
-
-        public OutputWriter(Writer writer) {
-            this.writer = new PrintWriter(writer);
-        }
-
-        public void close() {
-            writer.close();
-        }
-
-        public void println(int i) {
-            writer.println(i);
         }
 
     }

@@ -22,39 +22,31 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        ASerejaAndDima solver = new ASerejaAndDima();
+        APoliceRecruits solver = new APoliceRecruits();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class ASerejaAndDima {
+    static class APoliceRecruits {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
-            int numberOfCard = in.nextInt();
-            int[] cards = new int[numberOfCard];
-            int Sereja = 0, Dima = 0, person = 0, low = 0, high = numberOfCard - 1, max = 0;
+            int numberOfEvent = in.nextInt();
+            int[] arr = new int[numberOfEvent];
 
-            for (int i = 0; i < numberOfCard; i++) {
-                cards[i] = in.nextInt();
+            for (int i = 0; i < numberOfEvent; i++) {
+                arr[i] = in.nextInt();
             }
+            int untreated = 0, officer = 0;
 
-            while (low <= high) {
-                if (cards[high] > cards[low]) {
-                    max = cards[high];
-                    high--;
-                } else {
-                    max = cards[low];
-                    low++;
-                }
-
-                if ((person & 1) == 0)
-                    Sereja += max;
+            for (int i = 0; i < numberOfEvent; i++) {
+                if (arr[i] > 0)
+                    officer += arr[i];
+                else if (officer > 0)
+                    officer--;
                 else
-                    Dima += max;
-                person++;
+                    untreated++;
             }
 
-            out.println(Sereja + " " + Dima);
-
+            out.println(untreated);
         }
 
     }
@@ -139,22 +131,12 @@ public class Main {
             this.writer = new PrintWriter(writer);
         }
 
-        public void print(Object... objects) {
-            for (int i = 0; i < objects.length; i++) {
-                if (i != 0) {
-                    writer.print(' ');
-                }
-                writer.print(objects[i]);
-            }
-        }
-
-        public void println(Object... objects) {
-            print(objects);
-            writer.println();
-        }
-
         public void close() {
             writer.close();
+        }
+
+        public void println(int i) {
+            writer.println(i);
         }
 
     }

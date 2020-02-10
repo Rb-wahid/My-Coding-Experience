@@ -22,31 +22,30 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        APoliceRecruits solver = new APoliceRecruits();
+        ABlackSquare solver = new ABlackSquare();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class APoliceRecruits {
+    static class ABlackSquare {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
-            int numberOfEvent = in.nextInt();
-            int[] arr = new int[numberOfEvent];
+            int a1 = in.nextInt(), a2 = in.nextInt(), a3 = in.nextInt(), a4 = in.nextInt();
+            String str = in.nextString();
 
-            for (int i = 0; i < numberOfEvent; i++) {
-                arr[i] = in.nextInt();
+            int calories = 0;
+            for (int i = 0; i < str.length(); i++) {
+                char ch = str.charAt(i);
+                if (ch == '1')
+                    calories += a1;
+                if (ch == '2')
+                    calories += a2;
+                if (ch == '3')
+                    calories += a3;
+                if (ch == '4')
+                    calories += a4;
             }
-            int untreated = 0, officer = 0;
 
-            for (int i = 0; i < numberOfEvent; i++) {
-                if (arr[i] > 0)
-                    officer += arr[i];
-                else if (officer > 0)
-                    officer--;
-                else
-                    untreated++;
-            }
-
-            out.println(untreated);
+            out.println(calories);
         }
 
     }
@@ -100,6 +99,21 @@ public class Main {
                 c = read();
             } while (!isSpaceChar(c));
             return res * sgn;
+        }
+
+        public String nextString() {
+            int c = read();
+            while (isSpaceChar(c)) {
+                c = read();
+            }
+            StringBuilder res = new StringBuilder();
+            do {
+                if (Character.isValidCodePoint(c)) {
+                    res.appendCodePoint(c);
+                }
+                c = read();
+            } while (!isSpaceChar(c));
+            return res.toString();
         }
 
         public boolean isSpaceChar(int c) {

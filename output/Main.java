@@ -22,34 +22,36 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        ADieRoll solver = new ADieRoll();
+        AShaassAndOskols solver = new AShaassAndOskols();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class ADieRoll {
+    static class AShaassAndOskols {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
-            int y = in.nextInt();
-            int w = in.nextInt();
-            int D;
-            boolean flag = true;
-            if (y > w)
-                D = (6 - y) + 1;
-            else
-                D = (6 - w) + 1;
-            if (D == 6)
-                out.println(1 + "/" + 1);
-            else if (D > 0) {
-                for (int i = 2; i <= 6; i++) {
-                    if (D % i == 0 && 6 % i == 0) {
-                        out.println(D / i + "/" + (6 / i));
-                        flag = false;
-                    }
-                }
-                if (flag)
-                    out.println(D + "/" + 6);
-            } else
-                out.println(0 + "/" + 1);
+            int n = in.nextInt();
+            int[] birds = new int[n];
+
+            for (int i = 0; i < n; i++)
+                birds[i] = in.nextInt();
+            int m = in.nextInt();
+            int x, y;
+            for (int i = 0; i < m; i++) {
+                x = in.nextInt();
+                y = in.nextInt();
+
+                --x;
+
+                if (x != 0)
+                    birds[x - 1] += y - 1;
+                if (x != n - 1)
+                    birds[x + 1] += birds[x] - y;
+
+                birds[x] = 0;
+            }
+
+            for (int i = 0; i < n; i++)
+                out.println(birds[i]);
         }
 
     }
@@ -65,22 +67,12 @@ public class Main {
             this.writer = new PrintWriter(writer);
         }
 
-        public void print(Object... objects) {
-            for (int i = 0; i < objects.length; i++) {
-                if (i != 0) {
-                    writer.print(' ');
-                }
-                writer.print(objects[i]);
-            }
-        }
-
-        public void println(Object... objects) {
-            print(objects);
-            writer.println();
-        }
-
         public void close() {
             writer.close();
+        }
+
+        public void println(int i) {
+            writer.println(i);
         }
 
     }

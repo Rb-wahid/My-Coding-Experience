@@ -42,13 +42,11 @@ public class Main {
             if (d == 1)
                 result = 0;
             else
-                while (sum <= b) {
-                    for (int i = 0; i < n; i++) {
-                        sum += arr[i];
-                        if (sum > d) {
-                            result++;
-                            break;
-                        }
+                for (int i = 0; i < n; i++) {
+                    sum += arr[i];
+                    if (sum > d) {
+                        result++;
+                        sum = 0;
                     }
                 }
 

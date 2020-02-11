@@ -4,10 +4,10 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.BufferedWriter;
-import java.io.Writer;
-import java.io.OutputStreamWriter;
 import java.util.InputMismatchException;
 import java.io.IOException;
+import java.io.Writer;
+import java.io.OutputStreamWriter;
 import java.io.InputStream;
 
 /**
@@ -22,21 +22,35 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        AWayTooLongWords solver = new AWayTooLongWords();
+        AHelpfulMaths solver = new AHelpfulMaths();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class AWayTooLongWords {
+    static class AHelpfulMaths {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
-            int t = in.nextInt();
-            while (t-- > 0) {
-                String words = in.next();
-                if (words.length() < 11)
-                    out.println(words);
-                else
-                    out.println(words.substring(0, 1) + (words.length() - 2) + words.substring(words.length() - 1, words.length()));
+
+            String string = in.next();
+            string = string.replace("+", " ");
+            String[] str = string.split(" ");
+
+            int min = 0;
+            String temp = "";
+            for (int i = 0; i < str.length - 1; i++) {
+                min = i;
+                for (int j = i + 1; j < str.length; j++) {
+                    if (Integer.valueOf(str[i]) > Integer.valueOf(str[j])) {
+                        min = j;
+                    }
+                }
+                temp = str[i];
+                str[i] = str[min];
+                str[min] = temp;
             }
+            for (int i = 0; i < str.length - 1; i++) {
+                out.print(str[i] + "+");
+            }
+            out.print(str[str.length - 1]);
         }
 
     }
@@ -59,11 +73,6 @@ public class Main {
                 }
                 writer.print(objects[i]);
             }
-        }
-
-        public void println(Object... objects) {
-            print(objects);
-            writer.println();
         }
 
         public void close() {
@@ -99,28 +108,6 @@ public class Main {
                 }
             }
             return buf[curChar++];
-        }
-
-        public int nextInt() {
-            int c = read();
-            while (isSpaceChar(c)) {
-                c = read();
-            }
-            int sgn = 1;
-            if (c == '-') {
-                sgn = -1;
-                c = read();
-            }
-            int res = 0;
-            do {
-                if (c < '0' || c > '9') {
-                    throw new InputMismatchException();
-                }
-                res *= 10;
-                res += c - '0';
-                c = read();
-            } while (!isSpaceChar(c));
-            return res * sgn;
         }
 
         public String nextString() {

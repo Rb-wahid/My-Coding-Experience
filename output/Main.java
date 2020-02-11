@@ -22,23 +22,30 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        ABuyAShovel solver = new ABuyAShovel();
+        AGames solver = new AGames();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class ABuyAShovel {
+    static class AGames {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
-            int k = in.nextInt();
-            int r = in.nextInt();
+            int n = in.nextInt();
+            int[] home = new int[n];
+            int[] guest = new int[n];
+            int ans = 0;
+            for (int i = 0; i < n; i++) {
+                home[i] = in.nextInt();
+                guest[i] = in.nextInt();
+            }
 
-            for (int i = 1; i < 10; i++) {
-
-                if ((k * i) % 10 == r || (k * i) % 10 == 0) {
-                    out.println(i);
-                    break;
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < n; j++) {
+                    if (home[i] == guest[j])
+                        ans++;
                 }
             }
+
+            out.println(ans);
         }
 
     }

@@ -22,36 +22,37 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        AShaassAndOskols solver = new AShaassAndOskols();
+        AJuicer solver = new AJuicer();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class AShaassAndOskols {
+    static class AJuicer {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
+
             int n = in.nextInt();
-            int[] birds = new int[n];
-
-            for (int i = 0; i < n; i++)
-                birds[i] = in.nextInt();
-            int m = in.nextInt();
-            int x, y;
-            for (int i = 0; i < m; i++) {
-                x = in.nextInt();
-                y = in.nextInt();
-
-                --x;
-
-                if (x != 0)
-                    birds[x - 1] += y - 1;
-                if (x != n - 1)
-                    birds[x + 1] += birds[x] - y;
-
-                birds[x] = 0;
+            int b = in.nextInt();
+            int d = in.nextInt();
+            int[] arr = new int[n];
+            int result = 0;
+            int sum = 0;
+            for (int i = 0; i < n; i++) {
+                arr[i] = in.nextInt();
             }
+            if (d == 1)
+                result = 0;
+            else
+                while (sum <= b) {
+                    for (int i = 0; i < n; i++) {
+                        sum += arr[i];
+                        if (sum > d) {
+                            result++;
+                            break;
+                        }
+                    }
+                }
 
-            for (int i = 0; i < n; i++)
-                out.println(birds[i]);
+            out.println(result);
         }
 
     }

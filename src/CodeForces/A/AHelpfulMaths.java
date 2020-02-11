@@ -23,7 +23,7 @@ public class AHelpfulMaths {
         for (int i = 0; i < str.length - 1; i++) {
             min = i;
             for (int j = i + 1; j < str.length; j++) {
-                if (Integer.valueOf(str[i]) > Integer.valueOf(str[j])) {
+                if (Integer.valueOf(str[min]) > Integer.valueOf(str[j])) {
                     min = j;
                 }
             }

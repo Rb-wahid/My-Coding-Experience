@@ -4,10 +4,12 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.BufferedWriter;
-import java.io.Writer;
-import java.io.OutputStreamWriter;
+import java.util.Set;
 import java.util.InputMismatchException;
 import java.io.IOException;
+import java.util.HashSet;
+import java.io.Writer;
+import java.io.OutputStreamWriter;
 import java.io.InputStream;
 
 /**
@@ -22,37 +24,23 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        AJuicer solver = new AJuicer();
+        AAntonAndLetters solver = new AAntonAndLetters();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class AJuicer {
+    static class AAntonAndLetters {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
+            Set<Character> set = new HashSet<>();
+            ;
+            String str = in.readLine();
+            str = str.replaceAll("[{}, ]", "");
+            char[] ch = str.toCharArray();
 
-            int n = in.nextInt();
-            int b = in.nextInt();
-            int d = in.nextInt();
-            int[] arr = new int[n];
-            int result = 0;
-            int sum = 0;
-            for (int i = 0; i < n; i++) {
-                arr[i] = in.nextInt();
+            for (int i = 0; i < ch.length; i++) {
+                set.add(ch[i]);
             }
-
-            for (int i = 0; i < n; i++) {
-                if (arr[i] > b)
-                    continue;
-                else {
-                    sum += arr[i];
-                    if (sum > d) {
-                        result++;
-                        sum = 0;
-                    }
-                }
-            }
-
-            out.println(result);
+            out.println(set.size());
         }
 
     }
@@ -83,7 +71,6 @@ public class Main {
         private byte[] buf = new byte[1024];
         private int curChar;
         private int numChars;
-        private InputReader.SpaceCharFilter filter;
 
         public InputReader(InputStream stream) {
             this.stream = stream;
@@ -107,42 +94,24 @@ public class Main {
             return buf[curChar++];
         }
 
-        public int nextInt() {
+        private String readLine0() {
+            StringBuilder buf = new StringBuilder();
             int c = read();
-            while (isSpaceChar(c)) {
-                c = read();
-            }
-            int sgn = 1;
-            if (c == '-') {
-                sgn = -1;
-                c = read();
-            }
-            int res = 0;
-            do {
-                if (c < '0' || c > '9') {
-                    throw new InputMismatchException();
+            while (c != '\n' && c != -1) {
+                if (c != '\r') {
+                    buf.appendCodePoint(c);
                 }
-                res *= 10;
-                res += c - '0';
                 c = read();
-            } while (!isSpaceChar(c));
-            return res * sgn;
-        }
-
-        public boolean isSpaceChar(int c) {
-            if (filter != null) {
-                return filter.isSpaceChar(c);
             }
-            return isWhitespace(c);
+            return buf.toString();
         }
 
-        public static boolean isWhitespace(int c) {
-            return c == ' ' || c == '\n' || c == '\r' || c == '\t' || c == -1;
-        }
-
-        public interface SpaceCharFilter {
-            public boolean isSpaceChar(int ch);
-
+        public String readLine() {
+            String s = readLine0();
+            while (s.trim().length() == 0) {
+                s = readLine0();
+            }
+            return s;
         }
 
     }

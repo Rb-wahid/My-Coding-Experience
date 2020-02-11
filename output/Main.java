@@ -4,12 +4,10 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.BufferedWriter;
-import java.util.Set;
-import java.util.InputMismatchException;
-import java.io.IOException;
-import java.util.HashSet;
 import java.io.Writer;
 import java.io.OutputStreamWriter;
+import java.util.InputMismatchException;
+import java.io.IOException;
 import java.io.InputStream;
 
 /**
@@ -24,23 +22,21 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        AAntonAndLetters solver = new AAntonAndLetters();
+        AWayTooLongWords solver = new AWayTooLongWords();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class AAntonAndLetters {
+    static class AWayTooLongWords {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
-            Set<Character> set = new HashSet<>();
-            ;
-            String str = in.readLine();
-            str = str.replaceAll("[{}, ]", "");
-            char[] ch = str.toCharArray();
-
-            for (int i = 0; i < ch.length; i++) {
-                set.add(ch[i]);
+            int t = in.nextInt();
+            while (t-- > 0) {
+                String words = in.next();
+                if (words.length() < 11)
+                    out.println(words);
+                else
+                    out.println(words.substring(0, 1) + (words.length() - 2) + words.substring(words.length() - 1, words.length()));
             }
-            out.println(set.size());
         }
 
     }
@@ -56,12 +52,22 @@ public class Main {
             this.writer = new PrintWriter(writer);
         }
 
-        public void close() {
-            writer.close();
+        public void print(Object... objects) {
+            for (int i = 0; i < objects.length; i++) {
+                if (i != 0) {
+                    writer.print(' ');
+                }
+                writer.print(objects[i]);
+            }
         }
 
-        public void println(int i) {
-            writer.println(i);
+        public void println(Object... objects) {
+            print(objects);
+            writer.println();
+        }
+
+        public void close() {
+            writer.close();
         }
 
     }
@@ -71,6 +77,7 @@ public class Main {
         private byte[] buf = new byte[1024];
         private int curChar;
         private int numChars;
+        private InputReader.SpaceCharFilter filter;
 
         public InputReader(InputStream stream) {
             this.stream = stream;
@@ -94,24 +101,61 @@ public class Main {
             return buf[curChar++];
         }
 
-        private String readLine0() {
-            StringBuilder buf = new StringBuilder();
+        public int nextInt() {
             int c = read();
-            while (c != '\n' && c != -1) {
-                if (c != '\r') {
-                    buf.appendCodePoint(c);
-                }
+            while (isSpaceChar(c)) {
                 c = read();
             }
-            return buf.toString();
+            int sgn = 1;
+            if (c == '-') {
+                sgn = -1;
+                c = read();
+            }
+            int res = 0;
+            do {
+                if (c < '0' || c > '9') {
+                    throw new InputMismatchException();
+                }
+                res *= 10;
+                res += c - '0';
+                c = read();
+            } while (!isSpaceChar(c));
+            return res * sgn;
         }
 
-        public String readLine() {
-            String s = readLine0();
-            while (s.trim().length() == 0) {
-                s = readLine0();
+        public String nextString() {
+            int c = read();
+            while (isSpaceChar(c)) {
+                c = read();
             }
-            return s;
+            StringBuilder res = new StringBuilder();
+            do {
+                if (Character.isValidCodePoint(c)) {
+                    res.appendCodePoint(c);
+                }
+                c = read();
+            } while (!isSpaceChar(c));
+            return res.toString();
+        }
+
+        public boolean isSpaceChar(int c) {
+            if (filter != null) {
+                return filter.isSpaceChar(c);
+            }
+            return isWhitespace(c);
+        }
+
+        public static boolean isWhitespace(int c) {
+            return c == ' ' || c == '\n' || c == '\r' || c == '\t' || c == -1;
+        }
+
+        public String next() {
+            return nextString();
+        }
+
+        public interface SpaceCharFilter {
+            public boolean isSpaceChar(int ch);
+
         }
 
     }

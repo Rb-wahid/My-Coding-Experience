@@ -32,6 +32,7 @@ public class Main {
             int y = in.nextInt();
             int w = in.nextInt();
             int D;
+            boolean flag = true;
             if (y > w)
                 D = (6 - y) + 1;
             else
@@ -40,9 +41,13 @@ public class Main {
                 out.println(1 + "/" + 1);
             else if (D > 0) {
                 for (int i = 2; i <= 6; i++) {
-                    if (D % i == 0 && 6 % i == 0)
+                    if (D % i == 0 && 6 % i == 0) {
                         out.println(D / i + "/" + (6 / i));
+                        flag = false;
+                    }
                 }
+                if (flag)
+                    out.println(D + "/" + 6);
             } else
                 out.println(0 + "/" + 1);
         }

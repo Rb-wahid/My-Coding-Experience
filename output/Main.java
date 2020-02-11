@@ -1,10 +1,12 @@
 import java.io.OutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashSet;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.BufferedWriter;
 import java.io.Writer;
+import java.util.Set;
 import java.io.OutputStreamWriter;
 import java.util.InputMismatchException;
 import java.io.IOException;
@@ -22,30 +24,21 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        AGames solver = new AGames();
+        AIsYourHorseshoeOnTheOtherHoof solver = new AIsYourHorseshoeOnTheOtherHoof();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class AGames {
+    static class AIsYourHorseshoeOnTheOtherHoof {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
-            int n = in.nextInt();
-            int[] home = new int[n];
-            int[] guest = new int[n];
-            int ans = 0;
-            for (int i = 0; i < n; i++) {
-                home[i] = in.nextInt();
-                guest[i] = in.nextInt();
+            Set<Integer> set = new HashSet<>();
+            int n;
+            for (int i = 0; i < 4; i++) {
+                n = in.nextInt();
+                set.add(n);
             }
 
-            for (int i = 0; i < n; i++) {
-                for (int j = 0; j < n; j++) {
-                    if (home[i] == guest[j])
-                        ans++;
-                }
-            }
-
-            out.println(ans);
+            out.println(4 - set.size());
         }
 
     }

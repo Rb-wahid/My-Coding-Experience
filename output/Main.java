@@ -39,16 +39,18 @@ public class Main {
             for (int i = 0; i < n; i++) {
                 arr[i] = in.nextInt();
             }
-            if (d == 1)
-                result = 0;
-            else
-                for (int i = 0; i < n; i++) {
+
+            for (int i = 0; i < n; i++) {
+                if (arr[i] > b)
+                    continue;
+                else {
                     sum += arr[i];
                     if (sum > d) {
                         result++;
                         sum = 0;
                     }
                 }
+            }
 
             out.println(result);
         }

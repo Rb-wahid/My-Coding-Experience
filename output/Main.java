@@ -4,12 +4,10 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.BufferedWriter;
-import java.util.Set;
-import java.util.InputMismatchException;
-import java.io.IOException;
-import java.util.HashSet;
 import java.io.Writer;
 import java.io.OutputStreamWriter;
+import java.util.InputMismatchException;
+import java.io.IOException;
 import java.io.InputStream;
 
 /**
@@ -24,26 +22,36 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        APangram solver = new APangram();
+        ALinelandMail solver = new ALinelandMail();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class APangram {
+    static class ALinelandMail {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
-            int length = in.nextInt();
-            String str = in.readLine().toLowerCase();
-
-            if (length < 26)
-                out.println("NO");
-            else {
-                Set<Character> set = new HashSet<>();
-                char[] ch = str.toCharArray();
-                for (int i = 0; i < ch.length; i++) {
-                    set.add(ch[i]);
-                }
-                out.println(set.size() < 26 ? "NO" : "YES");
+            int n = in.nextInt();
+            int[] arr = new int[n];
+            for (int i = 0; i < n; i++) {
+                arr[i] = in.nextInt();
             }
+            int min, max, value;
+            for (int i = 0; i < n; i++) {
+                min = Integer.MAX_VALUE;
+                max = Integer.MIN_VALUE;
+                for (int j = 0; j < n; j++) {
+                    if (i == j)
+                        continue;
+                    value = Math.abs(arr[i] - arr[j]);
+
+                    if (value > max)
+                        max = value;
+                    if (value < min)
+                        min = value;
+
+                }
+                out.println(min + " " + max);
+            }
+
         }
 
     }
@@ -108,26 +116,6 @@ public class Main {
 
         public static boolean isWhitespace(int c) {
             return c == ' ' || c == '\n' || c == '\r' || c == '\t' || c == -1;
-        }
-
-        private String readLine0() {
-            StringBuilder buf = new StringBuilder();
-            int c = read();
-            while (c != '\n' && c != -1) {
-                if (c != '\r') {
-                    buf.appendCodePoint(c);
-                }
-                c = read();
-            }
-            return buf.toString();
-        }
-
-        public String readLine() {
-            String s = readLine0();
-            while (s.trim().length() == 0) {
-                s = readLine0();
-            }
-            return s;
         }
 
         public interface SpaceCharFilter {

@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.util.Arrays;
 import java.io.BufferedWriter;
 import java.io.Writer;
 import java.io.OutputStreamWriter;
@@ -22,27 +23,34 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        APresents solver = new APresents();
+        ATwins solver = new ATwins();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class APresents {
+    static class ATwins {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
-            int numberOfFriend = in.nextInt();
-            int[] arr = new int[numberOfFriend];
-            int length = arr.length;
-            for (int i = 0; i < length; i++)
-                arr[i] = in.nextInt();
+            int coins = in.nextInt();
+            int total = 0;
+            int[] coin = new int[coins];
 
-            for (int i = 0; i < length; i++) {
-                for (int j = 0; j < length; j++) {
-                    if (arr[j] - 1 == i) {
-                        out.print(j + 1 + " ");
-                        break;
-                    }
+            for (int i = 0; i < coins; i++) {
+                coin[i] = in.nextInt();
+                total += coin[i];
+            }
+
+            total /= 2;
+            Arrays.sort(coin);
+            int p1 = 0, numberOfCoin = 0;
+            for (int i = coins - 1; i > 0; i--) {
+                p1 += coin[i];
+                if (p1 > total) {
+                    break;
+                } else {
+                    numberOfCoin++;
                 }
             }
+            out.println(numberOfCoin + 1);
         }
 
     }
@@ -58,17 +66,12 @@ public class Main {
             this.writer = new PrintWriter(writer);
         }
 
-        public void print(Object... objects) {
-            for (int i = 0; i < objects.length; i++) {
-                if (i != 0) {
-                    writer.print(' ');
-                }
-                writer.print(objects[i]);
-            }
-        }
-
         public void close() {
             writer.close();
+        }
+
+        public void println(int i) {
+            writer.println(i);
         }
 
     }

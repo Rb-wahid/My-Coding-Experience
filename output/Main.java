@@ -31,10 +31,10 @@ public class Main {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
 
             while (true) {
-                int n = in.nextInt();
+                long n = in.nextLong();
                 if (n == 0)
                     break;
-                int value = (int) Math.sqrt(n);
+                long value = (long) Math.sqrt(n);
                 String str = value * value == n ? "yes" : "no";
                 out.println(str);
             }
@@ -102,7 +102,7 @@ public class Main {
             return buf[curChar++];
         }
 
-        public int nextInt() {
+        public long nextLong() {
             int c = read();
             while (isSpaceChar(c)) {
                 c = read();
@@ -112,7 +112,7 @@ public class Main {
                 sgn = -1;
                 c = read();
             }
-            int res = 0;
+            long res = 0;
             do {
                 if (c < '0' || c > '9') {
                     throw new InputMismatchException();

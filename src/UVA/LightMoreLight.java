@@ -17,10 +17,10 @@ public class LightMoreLight {
     public void solve(int testNumber, InputReader in, OutputWriter out) {
 
         while (true) {
-            int n = in.nextInt();
+            long n = in.nextLong();
             if (n == 0)
                 break;
-            int value = (int) Math.sqrt(n);
+            long value = (long) Math.sqrt(n);
            String str = value*value == n ? "yes" : "no";
            out.println(str);
         }

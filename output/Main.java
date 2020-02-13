@@ -3,7 +3,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.util.Arrays;
 import java.io.BufferedWriter;
 import java.io.Writer;
 import java.io.OutputStreamWriter;
@@ -23,55 +22,25 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        ATwins solver = new ATwins();
+        APangram solver = new APangram();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class ATwins {
+    static class APangram {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
-            int coins = in.nextInt();
-            int total = 0;
-            int[] coin = new int[coins];
+            int length = in.nextInt();
+            String str = in.readLine();
 
-            for (int i = 0; i < coins; i++) {
-                coin[i] = in.nextInt();
-                total += coin[i];
+            if (length < 26)
+                out.println("NO");
+            else {
+                str = str.replaceAll("[^a-z,A-Z]", "");
+                if (str.length() < 26)
+                    out.println("NO");
+                else
+                    out.println("YES");
             }
-
-            total /= 2;
-            Arrays.sort(coin);
-            int p1 = 0, numberOfCoin = 0;
-            for (int i = coins - 1; i > 0; i--) {
-                p1 += coin[i];
-                if (p1 > total) {
-                    break;
-                } else {
-                    numberOfCoin++;
-                }
-            }
-            out.println(numberOfCoin + 1);
-        }
-
-    }
-
-    static class OutputWriter {
-        private final PrintWriter writer;
-
-        public OutputWriter(OutputStream outputStream) {
-            writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(outputStream)));
-        }
-
-        public OutputWriter(Writer writer) {
-            this.writer = new PrintWriter(writer);
-        }
-
-        public void close() {
-            writer.close();
-        }
-
-        public void println(int i) {
-            writer.println(i);
         }
 
     }
@@ -138,9 +107,60 @@ public class Main {
             return c == ' ' || c == '\n' || c == '\r' || c == '\t' || c == -1;
         }
 
+        private String readLine0() {
+            StringBuilder buf = new StringBuilder();
+            int c = read();
+            while (c != '\n' && c != -1) {
+                if (c != '\r') {
+                    buf.appendCodePoint(c);
+                }
+                c = read();
+            }
+            return buf.toString();
+        }
+
+        public String readLine() {
+            String s = readLine0();
+            while (s.trim().length() == 0) {
+                s = readLine0();
+            }
+            return s;
+        }
+
         public interface SpaceCharFilter {
             public boolean isSpaceChar(int ch);
 
+        }
+
+    }
+
+    static class OutputWriter {
+        private final PrintWriter writer;
+
+        public OutputWriter(OutputStream outputStream) {
+            writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(outputStream)));
+        }
+
+        public OutputWriter(Writer writer) {
+            this.writer = new PrintWriter(writer);
+        }
+
+        public void print(Object... objects) {
+            for (int i = 0; i < objects.length; i++) {
+                if (i != 0) {
+                    writer.print(' ');
+                }
+                writer.print(objects[i]);
+            }
+        }
+
+        public void println(Object... objects) {
+            print(objects);
+            writer.println();
+        }
+
+        public void close() {
+            writer.close();
         }
 
     }

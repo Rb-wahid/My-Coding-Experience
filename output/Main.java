@@ -22,21 +22,26 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        LightMoreLight solver = new LightMoreLight();
+        APresents solver = new APresents();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class LightMoreLight {
+    static class APresents {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
+            int numberOfFriend = in.nextInt();
+            int[] arr = new int[numberOfFriend];
+            int length = arr.length;
+            for (int i = 0; i < length; i++)
+                arr[i] = in.nextInt();
 
-            while (true) {
-                long n = in.nextLong();
-                if (n == 0)
-                    break;
-                long value = (long) Math.sqrt(n);
-                String str = value * value == n ? "yes" : "no";
-                out.println(str);
+            for (int i = 0; i < length; i++) {
+                for (int j = 0; j < length; j++) {
+                    if (arr[j] - 1 == i) {
+                        out.print(j + 1 + " ");
+                        break;
+                    }
+                }
             }
         }
 
@@ -60,11 +65,6 @@ public class Main {
                 }
                 writer.print(objects[i]);
             }
-        }
-
-        public void println(Object... objects) {
-            print(objects);
-            writer.println();
         }
 
         public void close() {
@@ -102,7 +102,7 @@ public class Main {
             return buf[curChar++];
         }
 
-        public long nextLong() {
+        public int nextInt() {
             int c = read();
             while (isSpaceChar(c)) {
                 c = read();
@@ -112,7 +112,7 @@ public class Main {
                 sgn = -1;
                 c = read();
             }
-            long res = 0;
+            int res = 0;
             do {
                 if (c < '0' || c > '9') {
                     throw new InputMismatchException();

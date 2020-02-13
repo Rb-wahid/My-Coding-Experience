@@ -12,6 +12,9 @@ package CodeForces.A;
 import FastIO.InputReader;
 import FastIO.OutputWriter;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class APangram {
     public void solve(int testNumber, InputReader in, OutputWriter out) {
         int length = in.nextInt();
@@ -20,11 +23,12 @@ public class APangram {
         if (length < 26)
             out.println("NO");
         else {
-            str = str.replaceAll("[^a-z,A-Z]", "");
-            if (str.length() < 26)
-                out.println("NO");
-            else
-                out.println("YES");
+            Set<Character> set = new HashSet<>();
+            char[] ch = str.toCharArray();
+            for (int i = 0; i < ch.length; i++) {
+                set.add(ch[i]);
+            }
+                out.println(set.size() < 26? "NO" : "YES");
         }
     }
 }

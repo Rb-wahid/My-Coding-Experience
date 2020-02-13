@@ -4,10 +4,12 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.BufferedWriter;
-import java.io.Writer;
-import java.io.OutputStreamWriter;
+import java.util.Set;
 import java.util.InputMismatchException;
 import java.io.IOException;
+import java.util.HashSet;
+import java.io.Writer;
+import java.io.OutputStreamWriter;
 import java.io.InputStream;
 
 /**
@@ -35,11 +37,12 @@ public class Main {
             if (length < 26)
                 out.println("NO");
             else {
-                str = str.replaceAll("[^a-z,A-Z]", "");
-                if (str.length() < 26)
-                    out.println("NO");
-                else
-                    out.println("YES");
+                Set<Character> set = new HashSet<>();
+                char[] ch = str.toCharArray();
+                for (int i = 0; i < ch.length; i++) {
+                    set.add(ch[i]);
+                }
+                out.println(set.size() < 26 ? "NO" : "YES");
             }
         }
 

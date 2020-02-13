@@ -19,23 +19,23 @@ public class ALinelandMail {
         for (int i = 0; i < n; i++) {
             arr[i] = in.nextInt();
         }
-        int min , max , value ;
-        for (int i = 0; i < n ; i++) {
-            min = Integer.MAX_VALUE;
-            max = Integer.MIN_VALUE;
-            for (int j = 0; j < n; j++) {
-                if (i == j)
-                    continue;
-                value = Math.abs(arr[i] - arr[j]);
+        int min , max  ;
 
-                if (value > max)
-                    max = value;
-                if (value < min)
-                    min = value;
+        min = Math.abs(arr[1] - arr[0]);
+        max = Math.abs(arr[n-1] - arr[0]);
 
-            }
+        out.println(min + " " + max);
+
+        for (int i = 1; i < n-1; i++) {
+            min = Math.min(Math.abs(arr[i] - arr[i-1]), Math.abs(arr[i] - arr[i+1]));
+            max = Math.max(Math.abs(arr[i] - arr[0]), Math.abs(arr[i] - arr[n-1]));
+
             out.println(min + " " + max);
         }
+        min = Math.abs(arr[n-1] - arr[n-2]);
+        max = Math.abs(arr[n-1] - arr[0]);
+
+        out.println(min + " " + max);
 
     }
 }

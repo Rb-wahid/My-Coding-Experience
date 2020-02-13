@@ -32,7 +32,7 @@ public class Main {
     static class APangram {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
             int length = in.nextInt();
-            String str = in.readLine();
+            String str = in.readLine().toLowerCase();
 
             if (length < 26)
                 out.println("NO");

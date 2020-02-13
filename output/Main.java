@@ -4,10 +4,10 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.BufferedWriter;
-import java.util.InputMismatchException;
-import java.io.IOException;
 import java.io.Writer;
 import java.io.OutputStreamWriter;
+import java.util.InputMismatchException;
+import java.io.IOException;
 import java.io.InputStream;
 
 /**
@@ -22,35 +22,22 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        AHelpfulMaths solver = new AHelpfulMaths();
+        LightMoreLight solver = new LightMoreLight();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class AHelpfulMaths {
+    static class LightMoreLight {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
 
-            String string = in.next();
-            string = string.replace("+", " ");
-            String[] str = string.split(" ");
-
-            int min = 0;
-            String temp = "";
-            for (int i = 0; i < str.length - 1; i++) {
-                min = i;
-                for (int j = i + 1; j < str.length; j++) {
-                    if (Integer.valueOf(str[i]) > Integer.valueOf(str[j])) {
-                        min = j;
-                    }
-                }
-                temp = str[i];
-                str[i] = str[min];
-                str[min] = temp;
+            while (true) {
+                int n = in.nextInt();
+                if (n == 0)
+                    break;
+                int value = (int) Math.sqrt(n);
+                String str = value * value == n ? "yes" : "no";
+                out.println(str);
             }
-            for (int i = 0; i < str.length - 1; i++) {
-                out.print(str[i] + "+");
-            }
-            out.print(str[str.length - 1]);
         }
 
     }
@@ -73,6 +60,11 @@ public class Main {
                 }
                 writer.print(objects[i]);
             }
+        }
+
+        public void println(Object... objects) {
+            print(objects);
+            writer.println();
         }
 
         public void close() {
@@ -110,19 +102,26 @@ public class Main {
             return buf[curChar++];
         }
 
-        public String nextString() {
+        public int nextInt() {
             int c = read();
             while (isSpaceChar(c)) {
                 c = read();
             }
-            StringBuilder res = new StringBuilder();
+            int sgn = 1;
+            if (c == '-') {
+                sgn = -1;
+                c = read();
+            }
+            int res = 0;
             do {
-                if (Character.isValidCodePoint(c)) {
-                    res.appendCodePoint(c);
+                if (c < '0' || c > '9') {
+                    throw new InputMismatchException();
                 }
+                res *= 10;
+                res += c - '0';
                 c = read();
             } while (!isSpaceChar(c));
-            return res.toString();
+            return res * sgn;
         }
 
         public boolean isSpaceChar(int c) {
@@ -134,10 +133,6 @@ public class Main {
 
         public static boolean isWhitespace(int c) {
             return c == ' ' || c == '\n' || c == '\r' || c == '\t' || c == -1;
-        }
-
-        public String next() {
-            return nextString();
         }
 
         public interface SpaceCharFilter {

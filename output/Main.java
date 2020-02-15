@@ -1,10 +1,12 @@
 import java.io.OutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashSet;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.BufferedWriter;
 import java.io.Writer;
+import java.util.Set;
 import java.io.OutputStreamWriter;
 import java.util.InputMismatchException;
 import java.io.IOException;
@@ -22,47 +24,28 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        AEvenOdds solver = new AEvenOdds();
+        AIWannaBeTheGuy solver = new AIWannaBeTheGuy();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class AEvenOdds {
+    static class AIWannaBeTheGuy {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
-            long n = in.nextLong();
-            long k = in.nextLong();
-            long mid = (n & 1) == 0 ? n >> 1 : (n >> 1) + 1;
-            long ans;
+            Set<Integer> set = new HashSet<>();
+            int n = in.nextInt();
+            int p = in.nextInt();
 
-            if (k <= mid)
-                ans = (2 * k) - 1;
-            else {
-                k -= mid;
-                ans = 2 * k;
-            }
+            for (int i = 0; i < p; i++)
+                set.add(in.nextInt());
 
-            out.println(ans);
-        }
+            int q = in.nextInt();
+            for (int i = 0; i < q; i++)
+                set.add(in.nextInt());
 
-    }
-
-    static class OutputWriter {
-        private final PrintWriter writer;
-
-        public OutputWriter(OutputStream outputStream) {
-            writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(outputStream)));
-        }
-
-        public OutputWriter(Writer writer) {
-            this.writer = new PrintWriter(writer);
-        }
-
-        public void close() {
-            writer.close();
-        }
-
-        public void println(long i) {
-            writer.println(i);
+            if (set.size() == n)
+                out.println("I become the guy.");
+            else
+                out.println("Oh, my keyboard!");
         }
 
     }
@@ -96,7 +79,7 @@ public class Main {
             return buf[curChar++];
         }
 
-        public long nextLong() {
+        public int nextInt() {
             int c = read();
             while (isSpaceChar(c)) {
                 c = read();
@@ -106,7 +89,7 @@ public class Main {
                 sgn = -1;
                 c = read();
             }
-            long res = 0;
+            int res = 0;
             do {
                 if (c < '0' || c > '9') {
                     throw new InputMismatchException();
@@ -132,6 +115,37 @@ public class Main {
         public interface SpaceCharFilter {
             public boolean isSpaceChar(int ch);
 
+        }
+
+    }
+
+    static class OutputWriter {
+        private final PrintWriter writer;
+
+        public OutputWriter(OutputStream outputStream) {
+            writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(outputStream)));
+        }
+
+        public OutputWriter(Writer writer) {
+            this.writer = new PrintWriter(writer);
+        }
+
+        public void print(Object... objects) {
+            for (int i = 0; i < objects.length; i++) {
+                if (i != 0) {
+                    writer.print(' ');
+                }
+                writer.print(objects[i]);
+            }
+        }
+
+        public void println(Object... objects) {
+            print(objects);
+            writer.println();
+        }
+
+        public void close() {
+            writer.close();
         }
 
     }

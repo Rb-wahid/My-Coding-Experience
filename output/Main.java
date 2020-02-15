@@ -3,12 +3,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.util.Arrays;
 import java.io.BufferedWriter;
-import java.io.Writer;
-import java.io.OutputStreamWriter;
 import java.util.InputMismatchException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.io.Writer;
+import java.io.OutputStreamWriter;
 import java.io.InputStream;
 
 /**
@@ -23,31 +24,42 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        AOathOfTheNightsWatch solver = new AOathOfTheNightsWatch();
+        AKeyboard solver = new AKeyboard();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class AOathOfTheNightsWatch {
+    static class AKeyboard {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
-            int length = in.nextInt();
-            int[] arr = new int[length];
-            int ans = 0;
-
-            for (int i = 0; i < length; i++) {
-                arr[i] = in.nextInt();
+            List<Character> list = new ArrayList<>();
+            String characters = "qwertyuiop\n" +
+                    "asdfghjkl;\n" +
+                    "zxcvbnm,./";
+            for (char c : characters.toCharArray()) {
+                list.add(c);
             }
 
-            if (length <= 2)
-                ans = 0;
-            else {
-                Arrays.sort(arr);
-                for (int i = 1; i < length - 1; i++) {
-                    if (arr[i] > arr[0] && arr[i] < arr[length - 1])
-                        ans++;
+            char ch = in.nextCharacter();
+            String str = in.readLine();
+            char[] strChar = str.toCharArray();
+            char value;
+            int j;
+            String answer = "";
+            if (ch == 'R') {
+                for (int i = 0; i < str.length(); i++) {
+                    value = strChar[i];
+                    j = list.indexOf(value);
+                    answer += list.get(j - 1);
+                }
+            } else {
+                for (int i = 0; i < str.length(); i++) {
+                    value = strChar[i];
+                    j = list.indexOf(value);
+                    answer += list.get(j + 1);
                 }
             }
-            out.println(ans);
+
+            out.println(answer);
         }
 
     }
@@ -63,12 +75,22 @@ public class Main {
             this.writer = new PrintWriter(writer);
         }
 
-        public void close() {
-            writer.close();
+        public void print(Object... objects) {
+            for (int i = 0; i < objects.length; i++) {
+                if (i != 0) {
+                    writer.print(' ');
+                }
+                writer.print(objects[i]);
+            }
         }
 
-        public void println(int i) {
-            writer.println(i);
+        public void println(Object... objects) {
+            print(objects);
+            writer.println();
+        }
+
+        public void close() {
+            writer.close();
         }
 
     }
@@ -102,28 +124,6 @@ public class Main {
             return buf[curChar++];
         }
 
-        public int nextInt() {
-            int c = read();
-            while (isSpaceChar(c)) {
-                c = read();
-            }
-            int sgn = 1;
-            if (c == '-') {
-                sgn = -1;
-                c = read();
-            }
-            int res = 0;
-            do {
-                if (c < '0' || c > '9') {
-                    throw new InputMismatchException();
-                }
-                res *= 10;
-                res += c - '0';
-                c = read();
-            } while (!isSpaceChar(c));
-            return res * sgn;
-        }
-
         public boolean isSpaceChar(int c) {
             if (filter != null) {
                 return filter.isSpaceChar(c);
@@ -133,6 +133,34 @@ public class Main {
 
         public static boolean isWhitespace(int c) {
             return c == ' ' || c == '\n' || c == '\r' || c == '\t' || c == -1;
+        }
+
+        private String readLine0() {
+            StringBuilder buf = new StringBuilder();
+            int c = read();
+            while (c != '\n' && c != -1) {
+                if (c != '\r') {
+                    buf.appendCodePoint(c);
+                }
+                c = read();
+            }
+            return buf.toString();
+        }
+
+        public String readLine() {
+            String s = readLine0();
+            while (s.trim().length() == 0) {
+                s = readLine0();
+            }
+            return s;
+        }
+
+        public char nextCharacter() {
+            int c = read();
+            while (isSpaceChar(c)) {
+                c = read();
+            }
+            return (char) c;
         }
 
         public interface SpaceCharFilter {

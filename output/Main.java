@@ -3,13 +3,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.util.List;
 import java.io.BufferedWriter;
 import java.io.Writer;
 import java.io.OutputStreamWriter;
 import java.util.InputMismatchException;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.io.InputStream;
 
 /**
@@ -33,15 +31,17 @@ public class Main {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
             long n = in.nextLong();
             long k = in.nextLong();
-            long index;
-            List<Integer> list = new ArrayList<>();
+            long mid = (n & 1) == 0 ? n >> 1 : (n >> 1) + 1;
+            long ans;
 
-            for (int i = 1; i <= n; i += 2)
-                list.add(i);
-            for (int i = 2; i <= n; i += 2)
-                list.add(i);
+            if (k <= mid)
+                ans = (2 * k) - 1;
+            else {
+                k -= mid;
+                ans = 2 * k;
+            }
 
-            out.println(list.get((int) k - 1));
+            out.println(ans);
         }
 
     }
@@ -61,7 +61,7 @@ public class Main {
             writer.close();
         }
 
-        public void println(int i) {
+        public void println(long i) {
             writer.println(i);
         }
 

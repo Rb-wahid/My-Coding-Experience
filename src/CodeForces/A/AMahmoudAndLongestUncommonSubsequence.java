@@ -21,16 +21,22 @@ public class AMahmoudAndLongestUncommonSubsequence {
         char[] ch2 = str2.toCharArray();
         int max = Math.max(ch1.length, ch2.length);
         boolean flag = true;
-        for (int i = 0; i < ch1.length; i++) {
-            if (ch1[i] != ch2[i]) {
-                flag = false;
-                break;
-            }
-        }
 
-        if (flag)
-            out.println("-1");
-        else
+        if (ch1.length != ch2.length)
             out.println(max);
+        else
+        {
+            for (int i = 0; i < ch1.length; i++) {
+                if (ch1[i] != ch2[i]) {
+                    flag = false;
+                    break;
+                }
+            }
+
+            if (flag)
+                out.println("-1");
+            else
+                out.println(max);
+        }
     }
 }

@@ -22,36 +22,31 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        AMahmoudAndLongestUncommonSubsequence solver = new AMahmoudAndLongestUncommonSubsequence();
+        AOathOfTheNightsWatch solver = new AOathOfTheNightsWatch();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class AMahmoudAndLongestUncommonSubsequence {
+    static class AOathOfTheNightsWatch {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
-            String str1 = in.readLine();
-            String str2 = in.readLine();
+            int length = in.nextInt();
+            int[] arr = new int[length];
+            int ans = 0;
 
-            char[] ch1 = str1.toCharArray();
-            char[] ch2 = str2.toCharArray();
-            int max = Math.max(ch1.length, ch2.length);
-            boolean flag = true;
-
-            if (ch1.length != ch2.length)
-                out.println(max);
-            else {
-                for (int i = 0; i < ch1.length; i++) {
-                    if (ch1[i] != ch2[i]) {
-                        flag = false;
-                        break;
-                    }
-                }
-
-                if (flag)
-                    out.println("-1");
-                else
-                    out.println(max);
+            for (int i = 0; i < length; i++) {
+                arr[i] = in.nextInt();
             }
+
+            if (length <= 2)
+                ans = 0;
+            else {
+                for (int i = 1; i < length - 1; i++) {
+                    if (arr[i] > arr[i - 1] && arr[i + 1] > arr[i])
+                        ans++;
+                }
+            }
+
+            out.println(ans);
         }
 
     }
@@ -65,20 +60,6 @@ public class Main {
 
         public OutputWriter(Writer writer) {
             this.writer = new PrintWriter(writer);
-        }
-
-        public void print(Object... objects) {
-            for (int i = 0; i < objects.length; i++) {
-                if (i != 0) {
-                    writer.print(' ');
-                }
-                writer.print(objects[i]);
-            }
-        }
-
-        public void println(Object... objects) {
-            print(objects);
-            writer.println();
         }
 
         public void close() {
@@ -96,6 +77,7 @@ public class Main {
         private byte[] buf = new byte[1024];
         private int curChar;
         private int numChars;
+        private InputReader.SpaceCharFilter filter;
 
         public InputReader(InputStream stream) {
             this.stream = stream;
@@ -119,24 +101,42 @@ public class Main {
             return buf[curChar++];
         }
 
-        private String readLine0() {
-            StringBuilder buf = new StringBuilder();
+        public int nextInt() {
             int c = read();
-            while (c != '\n' && c != -1) {
-                if (c != '\r') {
-                    buf.appendCodePoint(c);
-                }
+            while (isSpaceChar(c)) {
                 c = read();
             }
-            return buf.toString();
+            int sgn = 1;
+            if (c == '-') {
+                sgn = -1;
+                c = read();
+            }
+            int res = 0;
+            do {
+                if (c < '0' || c > '9') {
+                    throw new InputMismatchException();
+                }
+                res *= 10;
+                res += c - '0';
+                c = read();
+            } while (!isSpaceChar(c));
+            return res * sgn;
         }
 
-        public String readLine() {
-            String s = readLine0();
-            while (s.trim().length() == 0) {
-                s = readLine0();
+        public boolean isSpaceChar(int c) {
+            if (filter != null) {
+                return filter.isSpaceChar(c);
             }
-            return s;
+            return isWhitespace(c);
+        }
+
+        public static boolean isWhitespace(int c) {
+            return c == ' ' || c == '\n' || c == '\r' || c == '\t' || c == -1;
+        }
+
+        public interface SpaceCharFilter {
+            public boolean isSpaceChar(int ch);
+
         }
 
     }

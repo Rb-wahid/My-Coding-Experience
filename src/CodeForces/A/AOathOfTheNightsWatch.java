@@ -12,6 +12,10 @@ package CodeForces.A;
 import FastIO.InputReader;
 import FastIO.OutputWriter;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
 public class AOathOfTheNightsWatch {
     public void solve(int testNumber, InputReader in, OutputWriter out) {
         int length = in.nextInt();
@@ -24,14 +28,13 @@ public class AOathOfTheNightsWatch {
 
         if (length <= 2)
             ans = 0;
-        else
-        {
+        else {
+            Arrays.sort(arr);
             for (int i = 1; i < length - 1; i++) {
-                if (arr[i] > arr[i-1] && arr[i+1] > arr[i])
+                if (arr[i] > arr[0] && arr[i] < arr[length-1])
                     ans++;
             }
         }
-
-        out.println(ans);
+            out.println(ans);
     }
 }

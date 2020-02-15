@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.util.Arrays;
 import java.io.BufferedWriter;
 import java.io.Writer;
 import java.io.OutputStreamWriter;
@@ -40,12 +41,12 @@ public class Main {
             if (length <= 2)
                 ans = 0;
             else {
+                Arrays.sort(arr);
                 for (int i = 1; i < length - 1; i++) {
-                    if (arr[i] > arr[i - 1] && arr[i + 1] > arr[i])
+                    if (arr[i] > arr[0] && arr[i] < arr[length - 1])
                         ans++;
                 }
             }
-
             out.println(ans);
         }
 

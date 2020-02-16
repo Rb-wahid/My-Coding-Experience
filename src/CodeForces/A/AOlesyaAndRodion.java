@@ -17,14 +17,6 @@ import java.util.Random;
 
 public class AOlesyaAndRodion {
 
-    private static Random rnd = new Random();
-    public static String getRandomNumber(int digCount) {
-        StringBuilder sb = new StringBuilder(digCount);
-        for(int i=0; i < digCount; i++)
-            sb.append((char)('0' + rnd.nextInt(10)));
-        return sb.toString();
-    }
-
     public void solve(int testNumber, InputReader in, OutputWriter out) {
         int n = in.nextInt();
         int t = in.nextInt();

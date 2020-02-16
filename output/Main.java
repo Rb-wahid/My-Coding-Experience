@@ -30,40 +30,20 @@ public class Main {
     }
 
     static class AOlesyaAndRodion {
-        private static Random rnd = new Random();
-
-        public static String getRandomNumber(int digCount) {
-            StringBuilder sb = new StringBuilder(digCount);
-            for (int i = 0; i < digCount; i++)
-                sb.append((char) ('0' + rnd.nextInt(10)));
-            return sb.toString();
-        }
-
         public void solve(int testNumber, InputReader in, OutputWriter out) {
             int n = in.nextInt();
             int t = in.nextInt();
 
-            if (n == 1) {
-                for (int i = 1; i < 10; i++) {
-                    if (i % t == 0) {
-                        out.println(i);
-                        return;
-                    }
-                }
+            if (n == 1 && t == 10) {
+                out.println(-1);
             } else {
-                int i = 100;
-                while (i-- > 0) {
-                    BigInteger value = new BigInteger(getRandomNumber(n));
-
-                    if (value.mod(BigInteger.valueOf(10)).equals(BigInteger.ZERO))
-                        continue;
-                    BigInteger ans = (value.mod(BigInteger.valueOf(t)));
-
-                    if (ans.equals(BigInteger.ZERO)) {
-                        out.println(value);
-                        return;
-                    }
-                }
+                out.print(t);
+                if (t == 10) {
+                    for (int i = 1; i < n - 1; i++)
+                        out.print(0);
+                } else
+                    for (int i = 1; i < n; i++)
+                        out.print(0);
             }
         }
 
@@ -80,22 +60,12 @@ public class Main {
             this.writer = new PrintWriter(writer);
         }
 
-        public void print(Object... objects) {
-            for (int i = 0; i < objects.length; i++) {
-                if (i != 0) {
-                    writer.print(' ');
-                }
-                writer.print(objects[i]);
-            }
-        }
-
-        public void println(Object... objects) {
-            print(objects);
-            writer.println();
-        }
-
         public void close() {
             writer.close();
+        }
+
+        public void print(int i) {
+            writer.print(i);
         }
 
         public void println(int i) {

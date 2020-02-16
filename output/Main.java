@@ -4,12 +4,10 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.BufferedWriter;
-import java.util.InputMismatchException;
-import java.util.Random;
-import java.io.IOException;
 import java.io.Writer;
 import java.io.OutputStreamWriter;
-import java.math.BigInteger;
+import java.util.InputMismatchException;
+import java.io.IOException;
 import java.io.InputStream;
 
 /**
@@ -24,52 +22,33 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        AOlesyaAndRodion solver = new AOlesyaAndRodion();
+        AFootball solver = new AFootball();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class AOlesyaAndRodion {
+    static class AFootball {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
             int n = in.nextInt();
-            int t = in.nextInt();
+            String str1 = "", s, str2 = "";
+            int a = 0, b = 0;
 
-            if (n == 1 && t == 10) {
-                out.println(-1);
-            } else {
-                out.print(t);
-                if (t == 10) {
-                    for (int i = 1; i < n - 1; i++)
-                        out.print(0);
-                } else
-                    for (int i = 1; i < n; i++)
-                        out.print(0);
+            if (n == 1)
+                out.println(in.readLine());
+            else {
+                str1 = in.readLine();
+                for (int i = 1; i < n; i++) {
+                    s = in.readLine();
+                    if (s.equals(str1)) {
+                        a++;
+                    } else {
+                        str2 = s;
+                        b++;
+                    }
+                }
             }
-        }
 
-    }
-
-    static class OutputWriter {
-        private final PrintWriter writer;
-
-        public OutputWriter(OutputStream outputStream) {
-            writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(outputStream)));
-        }
-
-        public OutputWriter(Writer writer) {
-            this.writer = new PrintWriter(writer);
-        }
-
-        public void close() {
-            writer.close();
-        }
-
-        public void print(int i) {
-            writer.print(i);
-        }
-
-        public void println(int i) {
-            writer.println(i);
+            out.println(Math.max(a, b) == a ? str1 : str2);
         }
 
     }
@@ -136,9 +115,60 @@ public class Main {
             return c == ' ' || c == '\n' || c == '\r' || c == '\t' || c == -1;
         }
 
+        private String readLine0() {
+            StringBuilder buf = new StringBuilder();
+            int c = read();
+            while (c != '\n' && c != -1) {
+                if (c != '\r') {
+                    buf.appendCodePoint(c);
+                }
+                c = read();
+            }
+            return buf.toString();
+        }
+
+        public String readLine() {
+            String s = readLine0();
+            while (s.trim().length() == 0) {
+                s = readLine0();
+            }
+            return s;
+        }
+
         public interface SpaceCharFilter {
             public boolean isSpaceChar(int ch);
 
+        }
+
+    }
+
+    static class OutputWriter {
+        private final PrintWriter writer;
+
+        public OutputWriter(OutputStream outputStream) {
+            writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(outputStream)));
+        }
+
+        public OutputWriter(Writer writer) {
+            this.writer = new PrintWriter(writer);
+        }
+
+        public void print(Object... objects) {
+            for (int i = 0; i < objects.length; i++) {
+                if (i != 0) {
+                    writer.print(' ');
+                }
+                writer.print(objects[i]);
+            }
+        }
+
+        public void println(Object... objects) {
+            print(objects);
+            writer.println();
+        }
+
+        public void close() {
+            writer.close();
         }
 
     }

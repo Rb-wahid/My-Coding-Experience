@@ -29,54 +29,17 @@ public class Main {
 
     static class ACards {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
-            int n = in.nextInt();
-            String s = in.readLine();
-            String one = "";
+            int x = in.nextInt();
+            char[] s = in.readLine().toCharArray();
+            String zero = "", one = "";
 
-            if (n == 3)
-                out.println(1);
-            else {
-                while (n > 4) {
+            for (int i = 0; i < x; i++) {
+                if (s[i] == 'r')
+                    zero += "0 ";
+                if (s[i] == 'n')
                     one += "1 ";
-                    n -= 3;
-                }
-                out.println(one + "0");
             }
-        }
-
-    }
-
-    static class OutputWriter {
-        private final PrintWriter writer;
-
-        public OutputWriter(OutputStream outputStream) {
-            writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(outputStream)));
-        }
-
-        public OutputWriter(Writer writer) {
-            this.writer = new PrintWriter(writer);
-        }
-
-        public void print(Object... objects) {
-            for (int i = 0; i < objects.length; i++) {
-                if (i != 0) {
-                    writer.print(' ');
-                }
-                writer.print(objects[i]);
-            }
-        }
-
-        public void println(Object... objects) {
-            print(objects);
-            writer.println();
-        }
-
-        public void close() {
-            writer.close();
-        }
-
-        public void println(int i) {
-            writer.println(i);
+            out.println(one + zero);
         }
 
     }
@@ -166,6 +129,37 @@ public class Main {
         public interface SpaceCharFilter {
             public boolean isSpaceChar(int ch);
 
+        }
+
+    }
+
+    static class OutputWriter {
+        private final PrintWriter writer;
+
+        public OutputWriter(OutputStream outputStream) {
+            writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(outputStream)));
+        }
+
+        public OutputWriter(Writer writer) {
+            this.writer = new PrintWriter(writer);
+        }
+
+        public void print(Object... objects) {
+            for (int i = 0; i < objects.length; i++) {
+                if (i != 0) {
+                    writer.print(' ');
+                }
+                writer.print(objects[i]);
+            }
+        }
+
+        public void println(Object... objects) {
+            print(objects);
+            writer.println();
+        }
+
+        public void close() {
+            writer.close();
         }
 
     }

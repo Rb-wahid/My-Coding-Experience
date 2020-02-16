@@ -14,18 +14,16 @@ import FastIO.OutputWriter;
 
 public class ACards {
     public void solve(int testNumber, InputReader in, OutputWriter out) {
-        int n = in.nextInt();
-        String s = in.readLine();
-        String one = "";
+        int x = in.nextInt();
+        char[] s = in.readLine().toCharArray();
+        String zero = "", one = "";
 
-        if (n == 3)
-            out.println(1);
-        else{
-            while ( n > 4){
+        for (int i = 0; i < x; i++){
+            if (s[i] == 'r')
+                zero += "0 ";
+            if (s[i] == 'n')
                 one += "1 ";
-                n -= 3;
-            }
-            out.println(one + "0");
         }
+        out.println(one + zero);
     }
 }

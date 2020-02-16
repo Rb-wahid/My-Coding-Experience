@@ -22,24 +22,25 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        ACards solver = new ACards();
+        AXORinacci solver = new AXORinacci();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class ACards {
+    static class AXORinacci {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
-            int x = in.nextInt();
-            char[] s = in.readLine().toCharArray();
-            String zero = "", one = "";
+            int[] arr = new int[3];
+            int t = in.nextInt();
+            int n;
+            while (t-- > 0) {
+                arr[0] = in.nextInt();
+                arr[1] = in.nextInt();
+                n = in.nextInt();
+                arr[2] = arr[0] ^ arr[1];
 
-            for (int i = 0; i < x; i++) {
-                if (s[i] == 'r')
-                    zero += "0 ";
-                if (s[i] == 'n')
-                    one += "1 ";
+                out.println(arr[n % 3]);
             }
-            out.println(one + zero);
+
         }
 
     }
@@ -106,26 +107,6 @@ public class Main {
             return c == ' ' || c == '\n' || c == '\r' || c == '\t' || c == -1;
         }
 
-        private String readLine0() {
-            StringBuilder buf = new StringBuilder();
-            int c = read();
-            while (c != '\n' && c != -1) {
-                if (c != '\r') {
-                    buf.appendCodePoint(c);
-                }
-                c = read();
-            }
-            return buf.toString();
-        }
-
-        public String readLine() {
-            String s = readLine0();
-            while (s.trim().length() == 0) {
-                s = readLine0();
-            }
-            return s;
-        }
-
         public interface SpaceCharFilter {
             public boolean isSpaceChar(int ch);
 
@@ -144,22 +125,12 @@ public class Main {
             this.writer = new PrintWriter(writer);
         }
 
-        public void print(Object... objects) {
-            for (int i = 0; i < objects.length; i++) {
-                if (i != 0) {
-                    writer.print(' ');
-                }
-                writer.print(objects[i]);
-            }
-        }
-
-        public void println(Object... objects) {
-            print(objects);
-            writer.println();
-        }
-
         public void close() {
             writer.close();
+        }
+
+        public void println(int i) {
+            writer.println(i);
         }
 
     }

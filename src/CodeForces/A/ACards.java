@@ -17,10 +17,15 @@ public class ACards {
         int n = in.nextInt();
         String s = in.readLine();
         String one = "";
-        while ( n > 4){
-            one += "1 ";
-            n -= 3;
+
+        if (n == 3)
+            out.println(1);
+        else{
+            while ( n > 4){
+                one += "1 ";
+                n -= 3;
+            }
+            out.println(one + "0");
         }
-        out.println(one + "0");
     }
 }

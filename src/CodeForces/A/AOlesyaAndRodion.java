@@ -12,36 +12,45 @@ package CodeForces.A;
 import FastIO.InputReader;
 import FastIO.OutputWriter;
 
+import java.math.BigInteger;
+import java.util.Random;
+
 public class AOlesyaAndRodion {
-    long binaryExponentiation(int x, int n){
-        long result = 1;
 
-        while (n > 0){
-            if ((n&1) == 1)
-                result = (result*x);
-
-            x = x*x;
-            n = n>>1;
-        }
-
-        return result;
+    private static Random rnd = new Random();
+    public static String getRandomNumber(int digCount) {
+        StringBuilder sb = new StringBuilder(digCount);
+        for(int i=0; i < digCount; i++)
+            sb.append((char)('0' + rnd.nextInt(10)));
+        return sb.toString();
     }
 
-    long ans(int n, int t){
-        long value;
-
-        for (int i = 1; i*i <= 2147483647 ; i ++) {
-             value = binaryExponentiation(2, i);
-            if (String.valueOf(value).length() == n && value%t == 0)
-                return value;
-        }
-
-        return -1;
-    }
     public void solve(int testNumber, InputReader in, OutputWriter out) {
         int n = in.nextInt();
         int t = in.nextInt();
 
-        out.println(ans(n, t));
-    }
+        if (n == 1){
+            for (int i = 1; i <10 ; i++) {
+                if (i%t == 0) {
+                    out.println(i);
+                    return;
+                }
+            }
+        }
+        else{
+            int i = 100;
+            while (i-->0){
+                BigInteger value =  new BigInteger(getRandomNumber(n));
+
+                if (value.mod(BigInteger.valueOf(10)).equals(BigInteger.ZERO))
+                    continue;
+                BigInteger ans = (value.mod(BigInteger.valueOf(t)));
+
+                if (ans.equals(BigInteger.ZERO)) {
+                    out.println(value);
+                    return;
+                }
+            }
+        }
+        }
 }

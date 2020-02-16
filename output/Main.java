@@ -4,10 +4,12 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.BufferedWriter;
+import java.util.InputMismatchException;
+import java.util.Random;
+import java.io.IOException;
 import java.io.Writer;
 import java.io.OutputStreamWriter;
-import java.util.InputMismatchException;
-import java.io.IOException;
+import java.math.BigInteger;
 import java.io.InputStream;
 
 /**
@@ -28,37 +30,41 @@ public class Main {
     }
 
     static class AOlesyaAndRodion {
-        long binaryExponentiation(int x, int n) {
-            long result = 1;
+        private static Random rnd = new Random();
 
-            while (n > 0) {
-                if ((n & 1) == 1)
-                    result = (result * x);
-
-                x = x * x;
-                n = n >> 1;
-            }
-
-            return result;
-        }
-
-        long ans(int n, int t) {
-            long value;
-
-            for (int i = 1; i * i <= 2147483647; i++) {
-                value = binaryExponentiation(2, i);
-                if (String.valueOf(value).length() == n && value % t == 0)
-                    return value;
-            }
-
-            return -1;
+        public static String getRandomNumber(int digCount) {
+            StringBuilder sb = new StringBuilder(digCount);
+            for (int i = 0; i < digCount; i++)
+                sb.append((char) ('0' + rnd.nextInt(10)));
+            return sb.toString();
         }
 
         public void solve(int testNumber, InputReader in, OutputWriter out) {
             int n = in.nextInt();
             int t = in.nextInt();
 
-            out.println(ans(n, t));
+            if (n == 1) {
+                for (int i = 1; i < 10; i++) {
+                    if (i % t == 0) {
+                        out.println(i);
+                        return;
+                    }
+                }
+            } else {
+                int i = 100;
+                while (i-- > 0) {
+                    BigInteger value = new BigInteger(getRandomNumber(n));
+
+                    if (value.mod(BigInteger.valueOf(10)).equals(BigInteger.ZERO))
+                        continue;
+                    BigInteger ans = (value.mod(BigInteger.valueOf(t)));
+
+                    if (ans.equals(BigInteger.ZERO)) {
+                        out.println(value);
+                        return;
+                    }
+                }
+            }
         }
 
     }
@@ -74,11 +80,25 @@ public class Main {
             this.writer = new PrintWriter(writer);
         }
 
+        public void print(Object... objects) {
+            for (int i = 0; i < objects.length; i++) {
+                if (i != 0) {
+                    writer.print(' ');
+                }
+                writer.print(objects[i]);
+            }
+        }
+
+        public void println(Object... objects) {
+            print(objects);
+            writer.println();
+        }
+
         public void close() {
             writer.close();
         }
 
-        public void println(long i) {
+        public void println(int i) {
             writer.println(i);
         }
 

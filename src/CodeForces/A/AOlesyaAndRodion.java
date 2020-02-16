@@ -21,28 +21,18 @@ public class AOlesyaAndRodion {
         int n = in.nextInt();
         int t = in.nextInt();
 
-        if (n == 1){
-            for (int i = 1; i <10 ; i++) {
-                if (i%t == 0) {
-                    out.println(i);
-                    return;
-                }
-            }
+        if (n == 1 && t == 10){
+           out.println(-1);
         }
         else{
-            int i = 100;
-            while (i-->0){
-                BigInteger value =  new BigInteger(getRandomNumber(n));
-
-                if (value.mod(BigInteger.valueOf(10)).equals(BigInteger.ZERO))
-                    continue;
-                BigInteger ans = (value.mod(BigInteger.valueOf(t)));
-
-                if (ans.equals(BigInteger.ZERO)) {
-                    out.println(value);
-                    return;
-                }
+            out.print(t);
+            if (t == 10) {
+                for (int i = 1; i < n-1; i++)
+                    out.print(0);
             }
+            else
+                for (int i = 1; i < n; i++)
+                    out.print(0);
         }
         }
 }

@@ -22,36 +22,43 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        AIsItRated solver = new AIsItRated();
+        AOlesyaAndRodion solver = new AOlesyaAndRodion();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class AIsItRated {
+    static class AOlesyaAndRodion {
+        long binaryExponentiation(int x, int n) {
+            long result = 1;
+
+            while (n > 0) {
+                if ((n & 1) == 1)
+                    result = (result * x);
+
+                x = x * x;
+                n = n >> 1;
+            }
+
+            return result;
+        }
+
+        long ans(int n, int t) {
+            long value;
+
+            for (int i = 1; i * i <= 2147483647; i++) {
+                value = binaryExponentiation(2, i);
+                if (String.valueOf(value).length() == n && value % t == 0)
+                    return value;
+            }
+
+            return -1;
+        }
+
         public void solve(int testNumber, InputReader in, OutputWriter out) {
-
             int n = in.nextInt();
+            int t = in.nextInt();
 
-            int[][] arr = new int[n][2];
-            for (int i = 0; i < n; i++) {
-                arr[i][0] = in.nextInt();
-                arr[i][1] = in.nextInt();
-
-                if (arr[i][0] != arr[i][1]) {
-                    out.println("rated");
-                    return;
-                }
-            }
-
-            for (int i = 1; i < n; i++) {
-                if (arr[i][0] > arr[i - 1][0]) {
-                    out.println("unrated");
-                    return;
-                }
-            }
-
-            out.println("maybe");
-
+            out.println(ans(n, t));
         }
 
     }
@@ -67,22 +74,12 @@ public class Main {
             this.writer = new PrintWriter(writer);
         }
 
-        public void print(Object... objects) {
-            for (int i = 0; i < objects.length; i++) {
-                if (i != 0) {
-                    writer.print(' ');
-                }
-                writer.print(objects[i]);
-            }
-        }
-
-        public void println(Object... objects) {
-            print(objects);
-            writer.println();
-        }
-
         public void close() {
             writer.close();
+        }
+
+        public void println(long i) {
+            writer.println(i);
         }
 
     }

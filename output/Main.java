@@ -4,12 +4,10 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.BufferedWriter;
-import java.util.Set;
-import java.util.InputMismatchException;
-import java.io.IOException;
-import java.util.HashSet;
 import java.io.Writer;
 import java.io.OutputStreamWriter;
+import java.util.InputMismatchException;
+import java.io.IOException;
 import java.io.InputStream;
 
 /**
@@ -31,29 +29,60 @@ public class Main {
 
     static class AIsItRated {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
-            Set<Integer> set = new HashSet<>();
+
             int n = in.nextInt();
-            String ans = "maybe";
+
             int[][] arr = new int[n][2];
             for (int i = 0; i < n; i++) {
                 arr[i][0] = in.nextInt();
                 arr[i][1] = in.nextInt();
-            }
 
-            for (int i = 0; i < n; i++) {
                 if (arr[i][0] != arr[i][1]) {
-                    ans = "rated";
-                    break;
-                } else if (arr[i][0] == arr[i][1]) {
-                    set.add(arr[i][0]);
+                    out.println("rated");
+                    return;
                 }
             }
 
-            if (set.size() == n)
-                ans = "unrated";
+            for (int i = 0; i < n; i++) {
+                if (arr[i][0] < arr[i][1]) {
+                    out.println("unrated");
+                    return;
+                }
+            }
 
-            out.println(ans);
+            out.println("maybe");
 
+        }
+
+    }
+
+    static class OutputWriter {
+        private final PrintWriter writer;
+
+        public OutputWriter(OutputStream outputStream) {
+            writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(outputStream)));
+        }
+
+        public OutputWriter(Writer writer) {
+            this.writer = new PrintWriter(writer);
+        }
+
+        public void print(Object... objects) {
+            for (int i = 0; i < objects.length; i++) {
+                if (i != 0) {
+                    writer.print(' ');
+                }
+                writer.print(objects[i]);
+            }
+        }
+
+        public void println(Object... objects) {
+            print(objects);
+            writer.println();
+        }
+
+        public void close() {
+            writer.close();
         }
 
     }
@@ -123,37 +152,6 @@ public class Main {
         public interface SpaceCharFilter {
             public boolean isSpaceChar(int ch);
 
-        }
-
-    }
-
-    static class OutputWriter {
-        private final PrintWriter writer;
-
-        public OutputWriter(OutputStream outputStream) {
-            writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(outputStream)));
-        }
-
-        public OutputWriter(Writer writer) {
-            this.writer = new PrintWriter(writer);
-        }
-
-        public void print(Object... objects) {
-            for (int i = 0; i < objects.length; i++) {
-                if (i != 0) {
-                    writer.print(' ');
-                }
-                writer.print(objects[i]);
-            }
-        }
-
-        public void println(Object... objects) {
-            print(objects);
-            writer.println();
-        }
-
-        public void close() {
-            writer.close();
         }
 
     }

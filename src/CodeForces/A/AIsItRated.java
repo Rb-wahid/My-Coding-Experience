@@ -17,29 +17,28 @@ import java.util.Set;
 
 public class AIsItRated {
     public void solve(int testNumber, InputReader in, OutputWriter out) {
-        Set<Integer> set = new HashSet<>();
+
         int n = in.nextInt();
-        String ans = "maybe";
+
         int[][] arr = new int[n][2];
         for (int i = 0; i < n; i++) {
             arr[i][0] = in.nextInt();
             arr[i][1] = in.nextInt();
+
+            if (arr[i][0] != arr[i][1]) {
+                out.println("rated");
+                return;
+            }
         }
 
         for (int i = 0; i < n; i++) {
-            if (arr[i][0] != arr[i][1]) {
-                ans = "rated";
-                break;
-            }
-            else if (arr[i][0] == arr[i][1]){
-                set.add(arr[i][0]);
+            if (arr[i][0] < arr[i][1]) {
+                out.println("unrated");
+                return;
             }
         }
 
-        if (set.size() == n)
-            ans = "unrated";
-
-        out.println(ans);
+        out.println("maybe");
 
     }
 }

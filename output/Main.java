@@ -3,11 +3,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.util.List;
 import java.io.BufferedWriter;
 import java.io.Writer;
 import java.io.OutputStreamWriter;
 import java.util.InputMismatchException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.io.InputStream;
 
 /**
@@ -22,33 +24,31 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        AFootball solver = new AFootball();
+        ABrainsPhotos solver = new ABrainsPhotos();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class AFootball {
+    static class ABrainsPhotos {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
             int n = in.nextInt();
-            String str1 = "", s, str2 = "";
-            int a = 0, b = 0;
+            int m = in.nextInt();
+            List<Character> list = new ArrayList<>();
 
-            if (n == 1)
-                out.println(in.readLine());
-            else {
-                str1 = in.readLine();
-                for (int i = 1; i < n; i++) {
-                    s = in.readLine();
-                    if (s.equals(str1)) {
-                        a++;
-                    } else {
-                        str2 = s;
-                        b++;
-                    }
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < m; j++) {
+                    list.add(in.nextCharacter());
                 }
             }
 
-            out.println(Math.max(a, b) == a ? str1 : str2);
+            for (char i : list) {
+                if (i == 'C' || i == 'M' || i == 'Y') {
+                    out.println("#Color");
+                    return;
+                }
+            }
+
+            out.println("#Black&White");
         }
 
     }
@@ -115,24 +115,12 @@ public class Main {
             return c == ' ' || c == '\n' || c == '\r' || c == '\t' || c == -1;
         }
 
-        private String readLine0() {
-            StringBuilder buf = new StringBuilder();
+        public char nextCharacter() {
             int c = read();
-            while (c != '\n' && c != -1) {
-                if (c != '\r') {
-                    buf.appendCodePoint(c);
-                }
+            while (isSpaceChar(c)) {
                 c = read();
             }
-            return buf.toString();
-        }
-
-        public String readLine() {
-            String s = readLine0();
-            while (s.trim().length() == 0) {
-                s = readLine0();
-            }
-            return s;
+            return (char) c;
         }
 
         public interface SpaceCharFilter {

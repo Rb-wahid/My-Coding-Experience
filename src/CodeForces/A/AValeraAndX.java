@@ -29,22 +29,23 @@ public class AValeraAndX {
             }
         }
 
-        if (list.size() != 2) {
+        if (list.size() == 1 || list.size() > 2) {
             out.println("NO");
-            return;
         }else {
             for (int i = 0; i < size; i++) {
-                if (arr[i][i] != arr[size-1-i][size-1-i]){
-                    out.println("NO");
-                    return;
-                }else {
-                    for (int j = 0; j < size; j++) {
-                            if (arr[j][size-1-j] != arr[size-1-j][j]){
+                for (int j = 1; j < size; j++) {
+                    if (arr[i][i] != arr[size-1-i][size-1-i] && arr[i][i] != arr[i][j]){
+                        out.println("NO");
+                        return;
+                    }
+                    else {
+                            if (arr[i][size-1-i] != arr[size-1-i][i] && arr[i][i] != arr[i][j]){
                                 out.println("NO");
+                                return;
                             }else {
                                 out.println("YES");
+                                return;
                             }
-                        return;
                     }
                 }
 

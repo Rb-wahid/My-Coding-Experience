@@ -35,12 +35,12 @@ public class Main {
             int size = in.nextInt();
             String ans = "";
             boolean flag = false;
+            boolean f = true;
             char[][] arr = new char[size][size];
 
             for (int i = 0; i < size; i++) {
                 for (int j = 0; j < size; j++) {
                     arr[i][j] = in.nextCharacter();
-                    list.add(arr[i][j]);
                 }
             }
 
@@ -57,7 +57,17 @@ public class Main {
                     }
                 }
             }
-            out.println(flag && list.size() == 2 ? "YES" : "NO");
+
+            for (int i = 0; i < size; i++) {
+                for (int j = 0; j < size; j++) {
+                    list.add(arr[i][j]);
+                }
+                if (list.size() != 2) {
+                    f = false;
+                    break;
+                }
+            }
+            out.println(flag && f ? "YES" : "NO");
         }
 
     }

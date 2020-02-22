@@ -19,7 +19,8 @@ public class AValeraAndX {
     public void solve(int testNumber, InputReader in, OutputWriter out) {
         Set<Character> list = new HashSet<>();
         int size =in.nextInt();
-
+        String ans = "";
+        boolean flag = false;
         char[][] arr = new char[size][size];
 
         for (int i = 0; i < size; i++) {
@@ -29,27 +30,20 @@ public class AValeraAndX {
             }
         }
 
-        if (list.size() == 1 || list.size() > 2) {
-            out.println("NO");
-        }else {
             for (int i = 0; i < size; i++) {
                 for (int j = 1; j < size; j++) {
                     if (arr[i][i] != arr[size-1-i][size-1-i] && arr[i][i] != arr[i][j]){
-                        out.println("NO");
-                        return;
+                        flag = false;
                     }
                     else {
-                            if (arr[i][size-1-i] != arr[size-1-i][i] && arr[i][i] != arr[i][j]){
-                                out.println("NO");
-                                return;
-                            }else {
-                                out.println("YES");
-                                return;
-                            }
+                            if (arr[i][size-1-i] != arr[size-1-i][i] && arr[i][i] != arr[i][j])
+                                flag = false;
+
+                            else
+                                flag = true;
                     }
                 }
-
             }
-        }
+        out.println(flag && list.size() == 2 ? "YES" : "NO");
     }
 }

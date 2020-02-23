@@ -14,8 +14,8 @@ import FastIO.OutputWriter;
 
 public class ACalculatingFunction {
     public void solve(int testNumber, InputReader in, OutputWriter out) {
-        int n = in.nextInt();
-        int ans = 0;
+        long n = in.nextLong();
+        long ans = 0;
 
         for (int i = 0; i <= n ; i += 2)
             ans += i;

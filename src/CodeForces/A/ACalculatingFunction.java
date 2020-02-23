@@ -12,17 +12,13 @@ package CodeForces.A;
 import FastIO.InputReader;
 import FastIO.OutputWriter;
 
+import java.math.BigInteger;
+
 public class ACalculatingFunction {
+
     public void solve(int testNumber, InputReader in, OutputWriter out) {
         long n = in.nextLong();
-        long ans = 0;
 
-        for (int i = 0; i <= n ; i += 2)
-            ans += i;
-
-        for (int i = 1; i <= n ; i += 2)
-            ans -= i;
-
-        out.println(ans);
+            out.println((n&1) == 0 ? n/2 : -(n+1)/2);
     }
 }

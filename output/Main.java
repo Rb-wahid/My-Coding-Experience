@@ -4,12 +4,10 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.BufferedWriter;
-import java.util.Set;
-import java.util.InputMismatchException;
-import java.io.IOException;
-import java.util.HashSet;
 import java.io.Writer;
 import java.io.OutputStreamWriter;
+import java.util.InputMismatchException;
+import java.io.IOException;
 import java.io.InputStream;
 
 /**
@@ -24,50 +22,51 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        AValeraAndX solver = new AValeraAndX();
+        AArpasHardExamAndMehrdadsNaiveCheat solver = new AArpasHardExamAndMehrdadsNaiveCheat();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class AValeraAndX {
+    static class AArpasHardExamAndMehrdadsNaiveCheat {
+        int modularExponentiation(int x, int n, int m) {
+            long result = 1;
+
+            while (n > 0) {
+                if ((n & 1) == 1)
+                    result = (result * x) % m;
+                x = (x * x) % m;
+                n >>= 1;
+            }
+            return (int) result;
+        }
+
         public void solve(int testNumber, InputReader in, OutputWriter out) {
-            Set<Character> list = new HashSet<>();
-            int size = in.nextInt();
-            String ans = "";
-            boolean flag = false;
-            boolean f = true;
-            char[][] arr = new char[size][size];
+            int n = in.nextInt();
+            int x = 1378;
+            int m = 10;
 
-            for (int i = 0; i < size; i++) {
-                for (int j = 0; j < size; j++) {
-                    arr[i][j] = in.nextCharacter();
-                }
-            }
+            out.println(modularExponentiation(x, n, m));
+        }
 
-            for (int i = 0; i < size; i++) {
-                for (int j = 1; j < size; j++) {
-                    if (arr[i][i] != arr[size - 1 - i][size - 1 - i] && arr[i][i] != arr[i][j]) {
-                        flag = false;
-                    } else {
-                        if (arr[i][size - 1 - i] != arr[size - 1 - i][i] && arr[i][i] != arr[i][j])
-                            flag = false;
+    }
 
-                        else
-                            flag = true;
-                    }
-                }
-            }
+    static class OutputWriter {
+        private final PrintWriter writer;
 
-            for (int i = 0; i < size; i++) {
-                for (int j = 0; j < size; j++) {
-                    list.add(arr[i][j]);
-                }
-                if (list.size() != 2) {
-                    f = false;
-                    break;
-                }
-            }
-            out.println(flag && f ? "YES" : "NO");
+        public OutputWriter(OutputStream outputStream) {
+            writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(outputStream)));
+        }
+
+        public OutputWriter(Writer writer) {
+            this.writer = new PrintWriter(writer);
+        }
+
+        public void close() {
+            writer.close();
+        }
+
+        public void println(int i) {
+            writer.println(i);
         }
 
     }
@@ -134,48 +133,9 @@ public class Main {
             return c == ' ' || c == '\n' || c == '\r' || c == '\t' || c == -1;
         }
 
-        public char nextCharacter() {
-            int c = read();
-            while (isSpaceChar(c)) {
-                c = read();
-            }
-            return (char) c;
-        }
-
         public interface SpaceCharFilter {
             public boolean isSpaceChar(int ch);
 
-        }
-
-    }
-
-    static class OutputWriter {
-        private final PrintWriter writer;
-
-        public OutputWriter(OutputStream outputStream) {
-            writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(outputStream)));
-        }
-
-        public OutputWriter(Writer writer) {
-            this.writer = new PrintWriter(writer);
-        }
-
-        public void print(Object... objects) {
-            for (int i = 0; i < objects.length; i++) {
-                if (i != 0) {
-                    writer.print(' ');
-                }
-                writer.print(objects[i]);
-            }
-        }
-
-        public void println(Object... objects) {
-            print(objects);
-            writer.println();
-        }
-
-        public void close() {
-            writer.close();
         }
 
     }

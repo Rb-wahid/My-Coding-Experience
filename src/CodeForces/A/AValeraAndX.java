@@ -12,48 +12,36 @@ package CodeForces.A;
 import FastIO.InputReader;
 import FastIO.OutputWriter;
 
-import java.util.HashSet;
-import java.util.Set;
-
 public class AValeraAndX {
     public void solve(int testNumber, InputReader in, OutputWriter out) {
-        Set<Character> list = new HashSet<>();
-        int size =in.nextInt();
-        String ans = "";
-        boolean flag = false;
-        boolean f = true;
-        char[][] arr = new char[size][size];
+        int length = in.nextInt();
+        char[][] ch = new char[length][length];
+        boolean flag = true;
+        char first, second;
+        String str = "";
+        for (int i = 0; i < length; i++) {
+            str = in.readLine();
 
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
-                arr[i][j] = in.nextCharacter();
-            }
-        }
+            for (int j = 0; j < length; j++) {
+                ch[i][j] = str.charAt(j);
+                first = ch[0][0];
+                second = ch[0][1];
 
-            for (int i = 0; i < size; i++) {
-                for (int j = 1; j < size; j++) {
-                    if (arr[i][i] != arr[size-1-i][size-1-i] && arr[i][i] != arr[i][j]){
+                if (i == j){
+                    if (first != ch[i][j])
                         flag = false;
-                    }
-                    else {
-                            if (arr[i][size-1-i] != arr[size-1-i][i] && arr[i][i] != arr[i][j])
-                                flag = false;
-
-                            else
-                                flag = true;
-                    }
+                }else if (i == length-1-j){
+                    if (first != ch[i][j])
+                        flag = false;
+                }else {
+                    if (first == ch[i][j] || second != ch[i][j])
+                        flag = false;
                 }
             }
-
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
-                list.add(arr[i][j]);
-            }
-            if (list.size() != 2){
-                f = false;
+            if (!flag)
                 break;
-            }
         }
-        out.println(flag && f ? "YES" : "NO");
+
+        out.println(flag ? "YES" : "NO");
     }
 }

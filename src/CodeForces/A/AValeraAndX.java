@@ -18,7 +18,7 @@ public class AValeraAndX {
         char[][] ch = new char[length][length];
         boolean flag = true;
         char first, second;
-        String str = "";
+        String str ;
         for (int i = 0; i < length; i++) {
             str = in.readLine();
 

@@ -22,16 +22,24 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        ACalculatingFunction solver = new ACalculatingFunction();
+        ATheatreSquare solver = new ATheatreSquare();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class ACalculatingFunction {
+    static class ATheatreSquare {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
             long n = in.nextLong();
+            long m = in.nextLong();
+            long a = in.nextLong();
+            long x = n / a;
+            long y = m / a;
 
-            out.println((n & 1) == 0 ? n / 2 : -(n + 1) / 2);
+            if (n % a != 0)
+                x++;
+            if (m % a != 0)
+                y++;
+            out.println(x * y);
         }
 
     }

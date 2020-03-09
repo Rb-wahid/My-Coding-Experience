@@ -22,45 +22,43 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        ATheatreSquare solver = new ATheatreSquare();
+        AAntonAndPolyhedrons solver = new AAntonAndPolyhedrons();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class ATheatreSquare {
+    static class AAntonAndPolyhedrons {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
-            long n = in.nextLong();
-            long m = in.nextLong();
-            long a = in.nextLong();
-            long x = n / a;
-            long y = m / a;
+            int polyhedrons = in.nextInt();
+            int totalFaces = 0;
+            String str;
 
-            if (n % a != 0)
-                x++;
-            if (m % a != 0)
-                y++;
-            out.println(x * y);
-        }
+            while (polyhedrons-- > 0) {
+                str = in.nextString();
 
-    }
+                switch (str) {
+                    case "Tetrahedron":
+                        totalFaces += 4;
+                        break;
 
-    static class OutputWriter {
-        private final PrintWriter writer;
+                    case "Cube":
+                        totalFaces += 6;
+                        break;
 
-        public OutputWriter(OutputStream outputStream) {
-            writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(outputStream)));
-        }
+                    case "Octahedron":
+                        totalFaces += 8;
+                        break;
 
-        public OutputWriter(Writer writer) {
-            this.writer = new PrintWriter(writer);
-        }
+                    case "Dodecahedron":
+                        totalFaces += 12;
+                        break;
 
-        public void close() {
-            writer.close();
-        }
-
-        public void println(long i) {
-            writer.println(i);
+                    case "Icosahedron":
+                        totalFaces += 20;
+                        break;
+                }
+            }
+            out.println(totalFaces);
         }
 
     }
@@ -94,7 +92,7 @@ public class Main {
             return buf[curChar++];
         }
 
-        public long nextLong() {
+        public int nextInt() {
             int c = read();
             while (isSpaceChar(c)) {
                 c = read();
@@ -104,7 +102,7 @@ public class Main {
                 sgn = -1;
                 c = read();
             }
-            long res = 0;
+            int res = 0;
             do {
                 if (c < '0' || c > '9') {
                     throw new InputMismatchException();
@@ -114,6 +112,21 @@ public class Main {
                 c = read();
             } while (!isSpaceChar(c));
             return res * sgn;
+        }
+
+        public String nextString() {
+            int c = read();
+            while (isSpaceChar(c)) {
+                c = read();
+            }
+            StringBuilder res = new StringBuilder();
+            do {
+                if (Character.isValidCodePoint(c)) {
+                    res.appendCodePoint(c);
+                }
+                c = read();
+            } while (!isSpaceChar(c));
+            return res.toString();
         }
 
         public boolean isSpaceChar(int c) {
@@ -130,6 +143,27 @@ public class Main {
         public interface SpaceCharFilter {
             public boolean isSpaceChar(int ch);
 
+        }
+
+    }
+
+    static class OutputWriter {
+        private final PrintWriter writer;
+
+        public OutputWriter(OutputStream outputStream) {
+            writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(outputStream)));
+        }
+
+        public OutputWriter(Writer writer) {
+            this.writer = new PrintWriter(writer);
+        }
+
+        public void close() {
+            writer.close();
+        }
+
+        public void println(int i) {
+            writer.println(i);
         }
 
     }

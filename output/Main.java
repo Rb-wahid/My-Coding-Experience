@@ -22,43 +22,24 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        AAntonAndPolyhedrons solver = new AAntonAndPolyhedrons();
+        APanoramixsPrediction solver = new APanoramixsPrediction();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class AAntonAndPolyhedrons {
+    static class APanoramixsPrediction {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
-            int polyhedrons = in.nextInt();
-            int totalFaces = 0;
-            String str;
+            int n = in.nextInt();
+            int m = in.nextInt();
 
-            while (polyhedrons-- > 0) {
-                str = in.nextString();
-
-                switch (str) {
-                    case "Tetrahedron":
-                        totalFaces += 4;
-                        break;
-
-                    case "Cube":
-                        totalFaces += 6;
-                        break;
-
-                    case "Octahedron":
-                        totalFaces += 8;
-                        break;
-
-                    case "Dodecahedron":
-                        totalFaces += 12;
-                        break;
-
-                    case "Icosahedron":
-                        totalFaces += 20;
-                        break;
+            for (int i = 2; i * i <= m; i++) {
+                if (m % i == 0) {
+                    out.println("NO");
+                    return;
                 }
             }
-            out.println(totalFaces);
+
+            out.println("YES");
         }
 
     }
@@ -114,21 +95,6 @@ public class Main {
             return res * sgn;
         }
 
-        public String nextString() {
-            int c = read();
-            while (isSpaceChar(c)) {
-                c = read();
-            }
-            StringBuilder res = new StringBuilder();
-            do {
-                if (Character.isValidCodePoint(c)) {
-                    res.appendCodePoint(c);
-                }
-                c = read();
-            } while (!isSpaceChar(c));
-            return res.toString();
-        }
-
         public boolean isSpaceChar(int c) {
             if (filter != null) {
                 return filter.isSpaceChar(c);
@@ -158,12 +124,22 @@ public class Main {
             this.writer = new PrintWriter(writer);
         }
 
-        public void close() {
-            writer.close();
+        public void print(Object... objects) {
+            for (int i = 0; i < objects.length; i++) {
+                if (i != 0) {
+                    writer.print(' ');
+                }
+                writer.print(objects[i]);
+            }
         }
 
-        public void println(int i) {
-            writer.println(i);
+        public void println(Object... objects) {
+            print(objects);
+            writer.println();
+        }
+
+        public void close() {
+            writer.close();
         }
 
     }

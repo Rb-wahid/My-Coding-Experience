@@ -43,7 +43,7 @@ public class APanoramixsPrediction {
         List<Integer> primes;
         String ans ;
 
-        primes = sieve(50);
+        primes = sieve(70);
 
         int nextPrime = primes.get(primes.indexOf(n) +1);
 

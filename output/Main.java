@@ -3,14 +3,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.util.Arrays;
 import java.io.BufferedWriter;
-import java.util.InputMismatchException;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.io.Writer;
 import java.io.OutputStreamWriter;
+import java.util.InputMismatchException;
+import java.io.IOException;
 import java.io.InputStream;
 
 /**
@@ -25,44 +22,22 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        APanoramixsPrediction solver = new APanoramixsPrediction();
+        ACounterexample solver = new ACounterexample();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class APanoramixsPrediction {
-        List sieve(int num) {
-            boolean[] primes = new boolean[num + 1];
-            Arrays.fill(primes, true);
-            primes[0] = primes[1] = false;
-            List<Integer> list = new ArrayList<>();
-
-            for (int i = 2; i * i <= num; i++) {
-                if (primes[i]) {
-                    for (int j = i * i; j <= num; j += i) {
-                        primes[j] = false;
-                    }
-                }
-            }
-            for (int j = 2; j <= num; j++) {
-                if (primes[j])
-                    list.add(j);
-            }
-            return list;
-        }
-
+    static class ACounterexample {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
-            int n = in.nextInt();
-            int m = in.nextInt();
-            List<Integer> primes;
-            String ans;
+            long l = in.nextLong();
+            long r = in.nextLong();
 
-            primes = sieve(70);
-
-            int nextPrime = primes.get(primes.indexOf(n) + 1);
-
-            ans = nextPrime == m ? "YES" : "NO";
-            out.println(ans);
+            if ((l & 1) == 1)
+                l++;
+            if (Math.abs(l - r) < 2)
+                out.println(-1);
+            else
+                out.println(l + " " + (l + 1) + " " + (l + 2));
         }
 
     }
@@ -96,7 +71,7 @@ public class Main {
             return buf[curChar++];
         }
 
-        public int nextInt() {
+        public long nextLong() {
             int c = read();
             while (isSpaceChar(c)) {
                 c = read();
@@ -106,7 +81,7 @@ public class Main {
                 sgn = -1;
                 c = read();
             }
-            int res = 0;
+            long res = 0;
             do {
                 if (c < '0' || c > '9') {
                     throw new InputMismatchException();
@@ -163,6 +138,10 @@ public class Main {
 
         public void close() {
             writer.close();
+        }
+
+        public void println(int i) {
+            writer.println(i);
         }
 
     }

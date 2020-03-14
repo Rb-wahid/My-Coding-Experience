@@ -4,10 +4,10 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.BufferedWriter;
-import java.io.Writer;
-import java.io.OutputStreamWriter;
 import java.util.InputMismatchException;
 import java.io.IOException;
+import java.io.Writer;
+import java.io.OutputStreamWriter;
 import java.io.InputStream;
 
 /**
@@ -22,22 +22,50 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        ACounterexample solver = new ACounterexample();
+        JavaDatatypes solver = new JavaDatatypes();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class ACounterexample {
+    static class JavaDatatypes {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
-            long l = in.nextLong();
-            long r = in.nextLong();
+            byte byteMinValue = Byte.MIN_VALUE;
+            byte byteMaxValue = Byte.MAX_VALUE;
+            short shortMinValue = Short.MIN_VALUE;
+            short shortMaxValue = Short.MAX_VALUE;
+            int intMinValue = Integer.MIN_VALUE;
+            int intMaxValue = Integer.MAX_VALUE;
+            long longMinValue = Long.MIN_VALUE;
+            long longMaxValue = Long.MAX_VALUE;
 
-            if ((l & 1) == 1)
-                l++;
-            if (Math.abs(l - r) < 2)
-                out.println(-1);
-            else
-                out.println(l + " " + (l + 1) + " " + (l + 2));
+            int t = in.nextInt();
+            long n;
+            String str, input;
+
+            while (t-- > 0) {
+                str = "";
+                input = in.nextString();
+
+                try {
+                    n = Long.parseLong(input);
+                    if (byteMinValue <= n && byteMaxValue >= n)
+                        str += "* byte" + "\n";
+
+                    if (shortMinValue <= n && shortMaxValue >= n)
+                        str += "* short" + "\n";
+
+                    if (intMinValue <= n && intMaxValue >= n)
+                        str += "* int" + "\n";
+
+                    if (longMinValue <= n && longMaxValue >= n)
+                        str += "* long";
+
+                    out.println(n + " can be fitted in:\n" + str);
+                } catch (NumberFormatException e) {
+                    out.println(input + " can't be fitted anywhere.");
+                }
+
+            }
         }
 
     }
@@ -71,7 +99,7 @@ public class Main {
             return buf[curChar++];
         }
 
-        public long nextLong() {
+        public int nextInt() {
             int c = read();
             while (isSpaceChar(c)) {
                 c = read();
@@ -81,7 +109,7 @@ public class Main {
                 sgn = -1;
                 c = read();
             }
-            long res = 0;
+            int res = 0;
             do {
                 if (c < '0' || c > '9') {
                     throw new InputMismatchException();
@@ -91,6 +119,21 @@ public class Main {
                 c = read();
             } while (!isSpaceChar(c));
             return res * sgn;
+        }
+
+        public String nextString() {
+            int c = read();
+            while (isSpaceChar(c)) {
+                c = read();
+            }
+            StringBuilder res = new StringBuilder();
+            do {
+                if (Character.isValidCodePoint(c)) {
+                    res.appendCodePoint(c);
+                }
+                c = read();
+            } while (!isSpaceChar(c));
+            return res.toString();
         }
 
         public boolean isSpaceChar(int c) {
@@ -138,10 +181,6 @@ public class Main {
 
         public void close() {
             writer.close();
-        }
-
-        public void println(int i) {
-            writer.println(i);
         }
 
     }

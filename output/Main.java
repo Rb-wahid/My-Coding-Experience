@@ -3,11 +3,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.util.Locale;
 import java.io.BufferedWriter;
-import java.util.InputMismatchException;
-import java.io.IOException;
 import java.io.Writer;
 import java.io.OutputStreamWriter;
+import java.util.InputMismatchException;
+import java.io.IOException;
+import java.text.NumberFormat;
 import java.io.InputStream;
 
 /**
@@ -22,50 +24,61 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        JavaDatatypes solver = new JavaDatatypes();
+        JavaCurrencyFormatter solver = new JavaCurrencyFormatter();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class JavaDatatypes {
+    static class JavaCurrencyFormatter {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
-            byte byteMinValue = Byte.MIN_VALUE;
-            byte byteMaxValue = Byte.MAX_VALUE;
-            short shortMinValue = Short.MIN_VALUE;
-            short shortMaxValue = Short.MAX_VALUE;
-            int intMinValue = Integer.MIN_VALUE;
-            int intMaxValue = Integer.MAX_VALUE;
-            long longMinValue = Long.MIN_VALUE;
-            long longMaxValue = Long.MAX_VALUE;
 
-            int t = in.nextInt();
-            long n;
-            String str, input;
+            double payment = in.nextDouble();
 
-            while (t-- > 0) {
-                str = "";
-                input = in.nextString();
 
-                try {
-                    n = Long.parseLong(input);
-                    if (byteMinValue <= n && byteMaxValue >= n)
-                        str += "* byte" + "\n";
+            Locale indiaLocale = new Locale("en", "IN");
 
-                    if (shortMinValue <= n && shortMaxValue >= n)
-                        str += "* short" + "\n";
+            NumberFormat us = NumberFormat.getCurrencyInstance(Locale.US);
+            NumberFormat india = NumberFormat.getCurrencyInstance(indiaLocale);
+            NumberFormat china = NumberFormat.getCurrencyInstance(Locale.CHINA);
+            NumberFormat france = NumberFormat.getCurrencyInstance(Locale.FRANCE);
 
-                    if (intMinValue <= n && intMaxValue >= n)
-                        str += "* int" + "\n";
+            out.println("US: " + us.format(payment));
+            out.println("India: " + india.format(payment));
+            out.println("China: " + china.format(payment));
+            out.println("France: " + france.format(payment));
 
-                    if (longMinValue <= n && longMaxValue >= n)
-                        str += "* long";
 
-                    out.println(n + " can be fitted in:\n" + str);
-                } catch (NumberFormatException e) {
-                    out.println(input + " can't be fitted anywhere.");
+        }
+
+    }
+
+    static class OutputWriter {
+        private final PrintWriter writer;
+
+        public OutputWriter(OutputStream outputStream) {
+            writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(outputStream)));
+        }
+
+        public OutputWriter(Writer writer) {
+            this.writer = new PrintWriter(writer);
+        }
+
+        public void print(Object... objects) {
+            for (int i = 0; i < objects.length; i++) {
+                if (i != 0) {
+                    writer.print(' ');
                 }
-
+                writer.print(objects[i]);
             }
+        }
+
+        public void println(Object... objects) {
+            print(objects);
+            writer.println();
+        }
+
+        public void close() {
+            writer.close();
         }
 
     }
@@ -121,21 +134,6 @@ public class Main {
             return res * sgn;
         }
 
-        public String nextString() {
-            int c = read();
-            while (isSpaceChar(c)) {
-                c = read();
-            }
-            StringBuilder res = new StringBuilder();
-            do {
-                if (Character.isValidCodePoint(c)) {
-                    res.appendCodePoint(c);
-                }
-                c = read();
-            } while (!isSpaceChar(c));
-            return res.toString();
-        }
-
         public boolean isSpaceChar(int c) {
             if (filter != null) {
                 return filter.isSpaceChar(c);
@@ -147,40 +145,49 @@ public class Main {
             return c == ' ' || c == '\n' || c == '\r' || c == '\t' || c == -1;
         }
 
+        public double nextDouble() {
+            int c = read();
+            while (isSpaceChar(c)) {
+                c = read();
+            }
+            int sgn = 1;
+            if (c == '-') {
+                sgn = -1;
+                c = read();
+            }
+            double res = 0;
+            while (!isSpaceChar(c) && c != '.') {
+                if (c == 'e' || c == 'E') {
+                    return res * Math.pow(10, nextInt());
+                }
+                if (c < '0' || c > '9') {
+                    throw new InputMismatchException();
+                }
+                res *= 10;
+                res += c - '0';
+                c = read();
+            }
+            if (c == '.') {
+                c = read();
+                double m = 1;
+                while (!isSpaceChar(c)) {
+                    if (c == 'e' || c == 'E') {
+                        return res * Math.pow(10, nextInt());
+                    }
+                    if (c < '0' || c > '9') {
+                        throw new InputMismatchException();
+                    }
+                    m /= 10;
+                    res += (c - '0') * m;
+                    c = read();
+                }
+            }
+            return res * sgn;
+        }
+
         public interface SpaceCharFilter {
             public boolean isSpaceChar(int ch);
 
-        }
-
-    }
-
-    static class OutputWriter {
-        private final PrintWriter writer;
-
-        public OutputWriter(OutputStream outputStream) {
-            writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(outputStream)));
-        }
-
-        public OutputWriter(Writer writer) {
-            this.writer = new PrintWriter(writer);
-        }
-
-        public void print(Object... objects) {
-            for (int i = 0; i < objects.length; i++) {
-                if (i != 0) {
-                    writer.print(' ');
-                }
-                writer.print(objects[i]);
-            }
-        }
-
-        public void println(Object... objects) {
-            print(objects);
-            writer.println();
-        }
-
-        public void close() {
-            writer.close();
         }
 
     }

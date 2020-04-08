@@ -1,4 +1,13 @@
 package HackerEarth.DataStructures.arrays;
+/**
+ * Built using CHelper plug-in
+ *
+ * @author Rb_wahid
+ *
+ * Problem Title: Micro and Array Update
+ *
+ * link : https://www.hackerearth.com/practice/data-structures/arrays/1-d/practice-problems/algorithm/micro-and-array-update/
+ */
 
 import FastIO.InputReader;
 import FastIO.OutputWriter;

@@ -1,13 +1,13 @@
 import java.io.OutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.PrintStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.BufferedWriter;
 import java.io.Writer;
-import java.util.Scanner;
 import java.io.OutputStreamWriter;
+import java.util.InputMismatchException;
+import java.io.IOException;
 import java.io.InputStream;
 
 /**
@@ -22,43 +22,94 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        MicroAndArrayUpdate solver = new MicroAndArrayUpdate();
+        ANewYearAndHurry solver = new ANewYearAndHurry();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class MicroAndArrayUpdate {
+    static class ANewYearAndHurry {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
-            Scanner scanner = new Scanner(System.in);
-            int testCase = scanner.nextInt();
-
-            while (testCase-- > 0) {
-                int N = scanner.nextInt();
-                int K = scanner.nextInt();
-                int[] arr = new int[N];
-                int minimum = Integer.MAX_VALUE;
-
-                for (int i = 0; i < N; i++) {
-                    arr[i] = scanner.nextInt();
-                    if (minimum > arr[i])
-                        minimum = arr[i];
-
-                }
-
-                if (minimum < K)
-                    System.out.println(K - minimum);
-                else
-                    System.out.println(0);
+            final int contestTime = 240; // 4 hours = 240 minutes
+            int problem = in.nextInt();
+            int time = in.nextInt();
+            int solveProblem = 0;
+            int solvingTime = 0;
+            for (int i = 1; i <= problem; i++) {
+                solvingTime += i * 5;
+                if (solvingTime + time <= contestTime)
+                    solveProblem++;
             }
+            out.println(solveProblem);
+
         }
 
     }
 
     static class InputReader {
         private InputStream stream;
+        private byte[] buf = new byte[1024];
+        private int curChar;
+        private int numChars;
+        private InputReader.SpaceCharFilter filter;
 
         public InputReader(InputStream stream) {
             this.stream = stream;
+        }
+
+        public int read() {
+            if (numChars == -1) {
+                throw new InputMismatchException();
+            }
+            if (curChar >= numChars) {
+                curChar = 0;
+                try {
+                    numChars = stream.read(buf);
+                } catch (IOException e) {
+                    throw new InputMismatchException();
+                }
+                if (numChars <= 0) {
+                    return -1;
+                }
+            }
+            return buf[curChar++];
+        }
+
+        public int nextInt() {
+            int c = read();
+            while (isSpaceChar(c)) {
+                c = read();
+            }
+            int sgn = 1;
+            if (c == '-') {
+                sgn = -1;
+                c = read();
+            }
+            int res = 0;
+            do {
+                if (c < '0' || c > '9') {
+                    throw new InputMismatchException();
+                }
+                res *= 10;
+                res += c - '0';
+                c = read();
+            } while (!isSpaceChar(c));
+            return res * sgn;
+        }
+
+        public boolean isSpaceChar(int c) {
+            if (filter != null) {
+                return filter.isSpaceChar(c);
+            }
+            return isWhitespace(c);
+        }
+
+        public static boolean isWhitespace(int c) {
+            return c == ' ' || c == '\n' || c == '\r' || c == '\t' || c == -1;
+        }
+
+        public interface SpaceCharFilter {
+            public boolean isSpaceChar(int ch);
+
         }
 
     }
@@ -76,6 +127,10 @@ public class Main {
 
         public void close() {
             writer.close();
+        }
+
+        public void println(int i) {
+            writer.println(i);
         }
 
     }

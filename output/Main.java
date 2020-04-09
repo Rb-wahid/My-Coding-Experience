@@ -22,25 +22,39 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        ANewYearAndHurry solver = new ANewYearAndHurry();
+        ASushiForTwo solver = new ASushiForTwo();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class ANewYearAndHurry {
+    static class ASushiForTwo {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
-            final int contestTime = 240; // 4 hours = 240 minutes
-            int problem = in.nextInt();
-            int time = in.nextInt();
-            int solveProblem = 0;
-            int solvingTime = 0;
-            for (int i = 1; i <= problem; i++) {
-                solvingTime += i * 5;
-                if (solvingTime + time <= contestTime)
-                    solveProblem++;
-            }
-            out.println(solveProblem);
+            int piecesOfSushi = in.nextInt();
+            int[] arr = new int[piecesOfSushi + 1];
 
+            for (int i = 0; i < piecesOfSushi; i++) {
+                arr[i] = in.nextInt();
+            }
+            int ans = 0, one = 0, two = 0;
+            for (int i = 0; i < piecesOfSushi; ) {
+                while (arr[i] == 1) {
+                    one++;
+                    i++;
+                }
+                ans = Math.max(ans, Math.min(one, two));
+
+                two = 0;
+
+                while (arr[i] == 2) {
+                    two++;
+                    i++;
+                }
+                ans = Math.max(ans, Math.min(one, two));
+
+                one = 0;
+            }
+
+            out.println(2 * ans);
         }
 
     }

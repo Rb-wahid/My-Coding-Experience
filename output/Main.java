@@ -22,39 +22,25 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        ASushiForTwo solver = new ASushiForTwo();
+        ADeadline solver = new ADeadline();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class ASushiForTwo {
+    static class ADeadline {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
-            int piecesOfSushi = in.nextInt();
-            int[] arr = new int[piecesOfSushi + 1];
+            int testCase = in.nextInt();
+            int deadline, dayForRun;
+            double ans;
 
-            for (int i = 0; i < piecesOfSushi; i++) {
-                arr[i] = in.nextInt();
+            while (testCase-- > 0) {
+                deadline = in.nextInt();
+                dayForRun = in.nextInt();
+
+                ans = 2 * Math.sqrt(dayForRun) - 1;
+
+                out.println(ans <= deadline ? "YES" : "NO");
             }
-            int ans = 0, one = 0, two = 0;
-            for (int i = 0; i < piecesOfSushi; ) {
-                while (arr[i] == 1) {
-                    one++;
-                    i++;
-                }
-                ans = Math.max(ans, Math.min(one, two));
-
-                two = 0;
-
-                while (arr[i] == 2) {
-                    two++;
-                    i++;
-                }
-                ans = Math.max(ans, Math.min(one, two));
-
-                one = 0;
-            }
-
-            out.println(2 * ans);
         }
 
     }
@@ -139,12 +125,22 @@ public class Main {
             this.writer = new PrintWriter(writer);
         }
 
-        public void close() {
-            writer.close();
+        public void print(Object... objects) {
+            for (int i = 0; i < objects.length; i++) {
+                if (i != 0) {
+                    writer.print(' ');
+                }
+                writer.print(objects[i]);
+            }
         }
 
-        public void println(int i) {
-            writer.println(i);
+        public void println(Object... objects) {
+            print(objects);
+            writer.println();
+        }
+
+        public void close() {
+            writer.close();
         }
 
     }

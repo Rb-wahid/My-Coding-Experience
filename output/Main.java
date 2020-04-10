@@ -30,48 +30,12 @@ public class Main {
     }
 
     static class AConneRAndTheARCMarklandN {
-        int findClosest(List<Integer> list, int size, int target) {
-            //Corner Cases
-            if (target <= list.get(0))
-                return list.get(0);
-            if (target >= list.get(size - 1))
-                return list.get(size - 1);
-
-            //Doing binary search
-            int i = 0, j = size, mid = 0;
-
-            while (i < j) {
-                mid = (i + j) / 2;
-
-                if (list.get(mid) == target)
-                    return list.get(mid);
-
-                /*
-                 * If target is less than array element , then search in left
-                 */
-                if (list.get(mid) > target) {
-                    //If target is greater than previous to mid, return closest of two
-                    if (mid > 0 && list.get(mid - 1) < target)
-                        return getClosest(list.get(mid - 1), list.get(mid), target);
-
-                    //Repeat for left half
-
-                    j = mid;
-                } else {
-                    if (mid < size - 1 && list.get(mid + 1) > target)
-                        return getClosest(list.get(mid), list.get(mid + 1), target);
-                    // Update i
-                    i = mid + 1;
-                }
+        boolean isExist(List<Integer> list, int x) {
+            for (int i = 0; i < list.size(); i++) {
+                if (list.get(i) == x)
+                    return true;
             }
-            return list.get(mid);
-        }
-
-        int getClosest(int valueOne, int valueTwo, int target) {
-            if (target - valueOne >= valueTwo - target)
-                return valueTwo;
-            else
-                return valueOne;
+            return false;
         }
 
         public void solve(int testNumber, InputReader in, OutputWriter out) {
@@ -80,26 +44,27 @@ public class Main {
             int currentFloor;
             int closedRestaurant;
             int ans, input;
-            List<Integer> openFloor;
+            List<Integer> closedRestaurantList;
+
             while (testCase-- > 0) {
-                openFloor = new ArrayList<>();
+                closedRestaurantList = new ArrayList<>();
                 totalFloor = in.nextInt();
                 currentFloor = in.nextInt();
                 closedRestaurant = in.nextInt();
 
-                for (int i = 1; i <= totalFloor; i++) {
-                    openFloor.add(i);
-                }
+                for (int i = 0; i < closedRestaurant; i++)
+                    closedRestaurantList.add(in.nextInt());
 
                 for (int i = 0; i < closedRestaurant; i++) {
-                    input = openFloor.indexOf(in.nextInt());
-                    openFloor.remove(input);
+                    if (currentFloor - i >= 1 && !isExist(closedRestaurantList, currentFloor - i)) {
+                        out.println(i);
+                        break;
+                    }
+                    if (currentFloor + i <= totalFloor && !isExist(closedRestaurantList, currentFloor + i)) {
+                        out.println(i);
+                        break;
+                    }
                 }
-
-                ans = findClosest(openFloor, openFloor.size(), currentFloor);
-
-                out.println(Math.abs(currentFloor - ans));
-
             }
         }
 

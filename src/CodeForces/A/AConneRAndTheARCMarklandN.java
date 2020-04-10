@@ -17,41 +17,39 @@ import java.util.List;
 
 public class AConneRAndTheARCMarklandN {
 
-        boolean isExist(List<Integer> list, int x)
-        {
-            for (int i = 0; i < list.size(); i++) {
-                if (list.get(i) == x)
-                    return true;
-            }
-            return false;
+     boolean exist(List<Integer> list, int x) {
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i) == x) return true;
         }
+        return false;
+    }
     public void solve(int testNumber, InputReader in, OutputWriter out) {
         int testCase = in.nextInt();
         int totalFloor;
         int currentFloor;
         int closedRestaurant;
-        int ans , input;
-        List<Integer> closedRestaurantList ;
+        List<Integer> list;
 
-        while (testCase-- > 0){
-            closedRestaurantList = new ArrayList<>();
-            totalFloor = in.nextInt();
-            currentFloor = in.nextInt();
-            closedRestaurant = in.nextInt();
+            while (testCase-- > 0) {
+                totalFloor = in.nextInt();
+                currentFloor = in.nextInt();
+                closedRestaurant = in.nextInt();
+                list = new ArrayList<>();
 
-            for (int i = 0; i < closedRestaurant; i++)
-                closedRestaurantList.add(in.nextInt());
+                for (int i = 0; i < closedRestaurant; i++)
+                    list.add( in.nextInt());
 
-            for (int i = 0; i < closedRestaurant; i++) {
-                if (currentFloor - i >= 1 && !isExist(closedRestaurantList, currentFloor - i)) {
-                    out.println(i);
-                    break;
+                for (int i = 0; i <= closedRestaurant; i++) {
+                    if (currentFloor - i >= 1 && !exist(list, currentFloor - i)) {
+                        out.println(i);
+                        break;
+                    }
+                    if (currentFloor + i <= totalFloor && !exist(list, currentFloor + i)) {
+                        out.println(i);
+                        break;
+                    }
                 }
-                if (currentFloor + i <= totalFloor && !isExist(closedRestaurantList, currentFloor + i)) {
-                    out.println(i);
-                    break;
-                }
+                assert false;
             }
         }
-    }
 }

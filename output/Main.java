@@ -3,11 +3,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.util.List;
 import java.io.BufferedWriter;
 import java.io.Writer;
 import java.io.OutputStreamWriter;
 import java.util.InputMismatchException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.io.InputStream;
 
 /**
@@ -22,25 +24,62 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        ADeadline solver = new ADeadline();
+        AConneRAndTheARCMarklandN solver = new AConneRAndTheARCMarklandN();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class ADeadline {
+    static class AConneRAndTheARCMarklandN {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
             int testCase = in.nextInt();
-            int deadline, dayForRun;
-            double ans;
-
+            int totalFloor;
+            int currentFloor;
+            int closedRestaurant;
+            int ans, input;
+            List<Integer> openFloor;
             while (testCase-- > 0) {
-                deadline = in.nextInt();
-                dayForRun = in.nextInt();
+                ans = Integer.MAX_VALUE;
+                openFloor = new ArrayList<>();
+                totalFloor = in.nextInt();
+                currentFloor = in.nextInt();
+                closedRestaurant = in.nextInt();
 
-                ans = 2 * Math.sqrt(dayForRun) - 1;
+                for (int i = 1; i <= totalFloor; i++) {
+                    openFloor.add(i);
+                }
 
-                out.println(ans <= deadline ? "YES" : "NO");
+                for (int i = 0; i < closedRestaurant; i++) {
+                    input = openFloor.indexOf(in.nextInt());
+                    openFloor.remove(input);
+                }
+
+                for (int i = 0; i < openFloor.size(); i++)
+                    ans = Math.min(ans, Math.abs(currentFloor - openFloor.get(i)));
+
+                out.println(ans);
+
             }
+        }
+
+    }
+
+    static class OutputWriter {
+        private final PrintWriter writer;
+
+        public OutputWriter(OutputStream outputStream) {
+            writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(outputStream)));
+        }
+
+        public OutputWriter(Writer writer) {
+            this.writer = new PrintWriter(writer);
+        }
+
+        public void close() {
+            writer.close();
+        }
+
+        public void println(int i) {
+            writer.println(i);
         }
 
     }
@@ -110,37 +149,6 @@ public class Main {
         public interface SpaceCharFilter {
             public boolean isSpaceChar(int ch);
 
-        }
-
-    }
-
-    static class OutputWriter {
-        private final PrintWriter writer;
-
-        public OutputWriter(OutputStream outputStream) {
-            writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(outputStream)));
-        }
-
-        public OutputWriter(Writer writer) {
-            this.writer = new PrintWriter(writer);
-        }
-
-        public void print(Object... objects) {
-            for (int i = 0; i < objects.length; i++) {
-                if (i != 0) {
-                    writer.print(' ');
-                }
-                writer.print(objects[i]);
-            }
-        }
-
-        public void println(Object... objects) {
-            print(objects);
-            writer.println();
-        }
-
-        public void close() {
-            writer.close();
         }
 
     }

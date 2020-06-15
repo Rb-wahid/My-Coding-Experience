@@ -3,13 +3,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.util.List;
 import java.io.BufferedWriter;
 import java.io.Writer;
 import java.io.OutputStreamWriter;
 import java.util.InputMismatchException;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.io.InputStream;
 
 /**
@@ -24,47 +22,31 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        AConneRAndTheARCMarklandN solver = new AConneRAndTheARCMarklandN();
+        ASubtractions solver = new ASubtractions();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class AConneRAndTheARCMarklandN {
-        boolean isExist(List<Integer> list, int x) {
-            for (int i = 0; i < list.size(); i++) {
-                if (list.get(i) == x)
-                    return true;
-            }
-            return false;
-        }
-
+    static class ASubtractions {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
-            int testCase = in.nextInt();
-            int totalFloor;
-            int currentFloor;
-            int closedRestaurant;
-            int ans, input;
-            List<Integer> closedRestaurantList;
+            int t = in.nextInt();
+            int a, b, count;
 
-            while (testCase-- > 0) {
-                closedRestaurantList = new ArrayList<>();
-                totalFloor = in.nextInt();
-                currentFloor = in.nextInt();
-                closedRestaurant = in.nextInt();
+            while (t-- > 0) {
+                count = 0;
 
-                for (int i = 0; i < closedRestaurant; i++)
-                    closedRestaurantList.add(in.nextInt());
+                a = in.nextInt();
+                b = in.nextInt();
 
-                for (int i = 0; i < closedRestaurant; i++) {
-                    if (currentFloor - i >= 1 && !isExist(closedRestaurantList, currentFloor - i)) {
-                        out.println(i);
-                        break;
-                    }
-                    if (currentFloor + i <= totalFloor && !isExist(closedRestaurantList, currentFloor + i)) {
-                        out.println(i);
-                        break;
-                    }
+                while (a != 0 && b != 0) {
+                    count++;
+                    if (a < b)
+                        b -= a;
+                    else
+                        a -= b;
                 }
+
+                out.println(count);
             }
         }
 

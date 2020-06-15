@@ -1,5 +1,13 @@
 package CodeForces.A;
-
+/**
+ * Built using CHelper plug-in
+ *
+ * @author Rb_wahid
+ *
+ * Problem Title: A. Subtractions
+ *
+ * link : https://codeforces.com/problemset/problem/267/A
+ */
 import FastIO.InputReader;
 import FastIO.OutputWriter;
 

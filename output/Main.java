@@ -22,27 +22,21 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        ASubtractions solver = new ASubtractions();
+        AParkLighting solver = new AParkLighting();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class ASubtractions {
-        int sub(int a, int b) {
-            if (a % b == 0)
-                return a / b;
-            else return a / b + sub(b, a % b);
-        }
-
+    static class AParkLighting {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
             int t = in.nextInt();
-            int a, b;
+            int n, m;
 
             while (t-- > 0) {
-                a = in.nextInt();
-                b = in.nextInt();
+                n = in.nextInt();
+                m = in.nextInt();
 
-                out.println(sub(a, b));
+                out.println((int) Math.ceil((n * m) / 2.0));
             }
         }
 

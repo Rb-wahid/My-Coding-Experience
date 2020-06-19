@@ -22,22 +22,38 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        AParkLighting solver = new AParkLighting();
+        AExpression solver = new AExpression();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class AParkLighting {
+    static class AExpression {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
-            int t = in.nextInt();
-            int n, m;
 
-            while (t-- > 0) {
-                n = in.nextInt();
-                m = in.nextInt();
+            int a = in.nextInt();
+            int b = in.nextInt();
+            int c = in.nextInt();
+            int value = 0;
+            int max = Integer.MIN_VALUE;
 
-                out.println((int) Math.ceil((n * m) / 2.0));
-            }
+            value = a + b * c;
+            max = Math.max(max, value);
+
+            value = a * b * c;
+            max = Math.max(max, value);
+
+            value = a + b + c;
+            max = Math.max(max, value);
+
+            value = a * (b + c);
+            max = Math.max(max, value);
+
+            value = (a + b) * c;
+            max = Math.max(max, value);
+
+            out.println(max);
+
+
         }
 
     }

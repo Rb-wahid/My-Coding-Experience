@@ -4,10 +4,12 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.BufferedWriter;
+import java.util.InputMismatchException;
+import java.util.HashMap;
+import java.io.IOException;
+import java.util.Map;
 import java.io.Writer;
 import java.io.OutputStreamWriter;
-import java.util.InputMismatchException;
-import java.io.IOException;
 import java.io.InputStream;
 
 /**
@@ -28,24 +30,43 @@ public class Main {
     }
 
     static class BTPrimes {
-        public void solve(int testNumber, InputReader in, OutputWriter out) {
-            int n = in.nextInt();
-            int[] arr = new int[n];
+        Map<Long, Boolean> tprime;
 
-            for (int i = 0; i < n; i++) {
-                arr[i] = in.nextInt();
+        void sieve() {
+            tprime = new HashMap<>();
+            boolean[] prime = new boolean[1000];
+
+            for (int i = 2; i < 1000; i++) {
+                prime[i] = true;
             }
 
-            for (int k = 0; k < n; k++) {
-                int count = 0;
-                for (int i = 1; i <= arr[k]; i++) {
-                    if (arr[k] % i == 0)
-                        count++;
+            for (int i = 2; i < 1000; i++) {
+                if (prime[i])
+                    for (int j = i * 2; j < 1000; j += i) {
+                        prime[j] = false;
+                    }
+            }
+
+            for (int i = 2; i < 1000; i++) {
+                if (prime[i]) {
+                    tprime.put((long) i * i, true);
                 }
-                if (count == 3)
+            }
+        }
+
+        public void solve(int testNumber, InputReader in, OutputWriter out) {
+            int n = in.nextInt();
+            long value;
+
+            for (int i = 0; i < n; i++) {
+                value = in.nextLong();
+
+                sieve();
+                if (tprime.containsKey(value))
                     out.println("YES");
                 else
                     out.println("NO");
+
             }
         }
 
@@ -122,6 +143,28 @@ public class Main {
                 c = read();
             }
             int res = 0;
+            do {
+                if (c < '0' || c > '9') {
+                    throw new InputMismatchException();
+                }
+                res *= 10;
+                res += c - '0';
+                c = read();
+            } while (!isSpaceChar(c));
+            return res * sgn;
+        }
+
+        public long nextLong() {
+            int c = read();
+            while (isSpaceChar(c)) {
+                c = read();
+            }
+            int sgn = 1;
+            if (c == '-') {
+                sgn = -1;
+                c = read();
+            }
+            long res = 0;
             do {
                 if (c < '0' || c > '9') {
                     throw new InputMismatchException();

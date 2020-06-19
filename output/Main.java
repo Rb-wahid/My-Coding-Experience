@@ -22,38 +22,62 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        AExpression solver = new AExpression();
+        BTPrimes solver = new BTPrimes();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class AExpression {
+    static class BTPrimes {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
+            int n = in.nextInt();
+            int[] arr = new int[n];
 
-            int a = in.nextInt();
-            int b = in.nextInt();
-            int c = in.nextInt();
-            int value = 0;
-            int max = Integer.MIN_VALUE;
+            for (int i = 0; i < n; i++) {
+                arr[i] = in.nextInt();
+            }
 
-            value = a + b * c;
-            max = Math.max(max, value);
+            for (int k = 0; k < n; k++) {
+                int count = 0;
+                for (int i = 1; i <= arr[k]; i++) {
+                    if (arr[k] % i == 0)
+                        count++;
+                }
+                if (count == 3)
+                    out.println("YES");
+                else
+                    out.println("NO");
+            }
+        }
 
-            value = a * b * c;
-            max = Math.max(max, value);
+    }
 
-            value = a + b + c;
-            max = Math.max(max, value);
+    static class OutputWriter {
+        private final PrintWriter writer;
 
-            value = a * (b + c);
-            max = Math.max(max, value);
+        public OutputWriter(OutputStream outputStream) {
+            writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(outputStream)));
+        }
 
-            value = (a + b) * c;
-            max = Math.max(max, value);
+        public OutputWriter(Writer writer) {
+            this.writer = new PrintWriter(writer);
+        }
 
-            out.println(max);
+        public void print(Object... objects) {
+            for (int i = 0; i < objects.length; i++) {
+                if (i != 0) {
+                    writer.print(' ');
+                }
+                writer.print(objects[i]);
+            }
+        }
 
+        public void println(Object... objects) {
+            print(objects);
+            writer.println();
+        }
 
+        public void close() {
+            writer.close();
         }
 
     }
@@ -123,27 +147,6 @@ public class Main {
         public interface SpaceCharFilter {
             public boolean isSpaceChar(int ch);
 
-        }
-
-    }
-
-    static class OutputWriter {
-        private final PrintWriter writer;
-
-        public OutputWriter(OutputStream outputStream) {
-            writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(outputStream)));
-        }
-
-        public OutputWriter(Writer writer) {
-            this.writer = new PrintWriter(writer);
-        }
-
-        public void close() {
-            writer.close();
-        }
-
-        public void println(int i) {
-            writer.println(i);
         }
 
     }

@@ -22,24 +22,33 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        AMinimalSquare solver = new AMinimalSquare();
+        AAddOddOrSubtractEven solver = new AAddOddOrSubtractEven();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class AMinimalSquare {
+    static class AAddOddOrSubtractEven {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
-            int t = in.nextInt();
 
+            int t = in.nextInt();
             while (t-- > 0) {
+                StringBuilder stringBuilder = new StringBuilder();
                 int a = in.nextInt();
                 int b = in.nextInt();
 
-                int side = Math.min(
-                        Math.max(2 * a, b), Math.max(a, 2 * b)
-                );
+                if (a != b) {
+                    if (b < 3)
+                        stringBuilder.append(1);
+                    else {
+                        if ((b & 1) == 1)
+                            stringBuilder.append(1);
+                        else
+                            stringBuilder.append(2);
+                    }
+                } else
+                    stringBuilder.append(0);
 
-                out.println(side * side);
+                out.println(stringBuilder.toString());
             }
         }
 
@@ -125,12 +134,22 @@ public class Main {
             this.writer = new PrintWriter(writer);
         }
 
-        public void close() {
-            writer.close();
+        public void print(Object... objects) {
+            for (int i = 0; i < objects.length; i++) {
+                if (i != 0) {
+                    writer.print(' ');
+                }
+                writer.print(objects[i]);
+            }
         }
 
-        public void println(int i) {
-            writer.println(i);
+        public void println(Object... objects) {
+            print(objects);
+            writer.println();
+        }
+
+        public void close() {
+            writer.close();
         }
 
     }

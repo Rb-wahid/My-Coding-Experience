@@ -5,9 +5,9 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.BufferedWriter;
 import java.util.InputMismatchException;
-import java.util.HashMap;
 import java.io.IOException;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 import java.io.Writer;
 import java.io.OutputStreamWriter;
 import java.io.InputStream;
@@ -30,44 +30,55 @@ public class Main {
     }
 
     static class BTPrimes {
-        Map<Long, Boolean> tprime;
+        boolean[] prime = new boolean[1000];
+        List<Integer> list = new ArrayList<>();
 
         void sieve() {
-            tprime = new HashMap<>();
-            boolean[] prime = new boolean[1000];
 
             for (int i = 2; i < 1000; i++) {
                 prime[i] = true;
             }
 
             for (int i = 2; i < 1000; i++) {
-                if (prime[i])
+                if (prime[i]) {
+                    list.add(i);
                     for (int j = i * 2; j < 1000; j += i) {
                         prime[j] = false;
                     }
-            }
-
-            for (int i = 2; i < 1000; i++) {
-                if (prime[i]) {
-                    tprime.put((long) i * i, true);
                 }
             }
+        }
+
+        boolean isPrime(long num) {
+            for (int i : list) {
+                if (num <= i)
+                    break;
+                if (num % i == 0)
+                    return false;
+            }
+
+            return true;
         }
 
         public void solve(int testNumber, InputReader in, OutputWriter out) {
             int n = in.nextInt();
             long value;
-
+            StringBuilder stringBuilder = new StringBuilder();
+            sieve();
             for (int i = 0; i < n; i++) {
                 value = in.nextLong();
+                long sqrt = (long) Math.sqrt(value);
 
-                sieve();
-                if (tprime.containsKey(value))
-                    out.println("YES");
-                else
-                    out.println("NO");
-
+                if (sqrt * sqrt != value || value < 2)
+                    stringBuilder.append("NO" + "\n");
+                else {
+                    if (isPrime(sqrt))
+                        stringBuilder.append("YES" + "\n");
+                    else
+                        stringBuilder.append("NO" + "\n");
+                }
             }
+            out.println(stringBuilder.toString());
         }
 
     }

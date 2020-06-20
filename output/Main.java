@@ -4,12 +4,10 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.BufferedWriter;
-import java.util.InputMismatchException;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.io.Writer;
 import java.io.OutputStreamWriter;
+import java.util.InputMismatchException;
+import java.io.IOException;
 import java.io.InputStream;
 
 /**
@@ -24,92 +22,25 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        BTPrimes solver = new BTPrimes();
+        AMinimalSquare solver = new AMinimalSquare();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class BTPrimes {
-        boolean[] prime = new boolean[1000];
-        List<Integer> list = new ArrayList<>();
-
-        void sieve() {
-
-            for (int i = 2; i < 1000; i++) {
-                prime[i] = true;
-            }
-
-            for (int i = 2; i < 1000; i++) {
-                if (prime[i]) {
-                    list.add(i);
-                    for (int j = i * 2; j < 1000; j += i) {
-                        prime[j] = false;
-                    }
-                }
-            }
-        }
-
-        boolean isPrime(long num) {
-            for (int i : list) {
-                if (num <= i)
-                    break;
-                if (num % i == 0)
-                    return false;
-            }
-
-            return true;
-        }
-
+    static class AMinimalSquare {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
-            int n = in.nextInt();
-            long value;
-            StringBuilder stringBuilder = new StringBuilder();
-            sieve();
-            for (int i = 0; i < n; i++) {
-                value = in.nextLong();
-                long sqrt = (long) Math.sqrt(value);
+            int t = in.nextInt();
 
-                if (sqrt * sqrt != value || value < 2)
-                    stringBuilder.append("NO" + "\n");
-                else {
-                    if (isPrime(sqrt))
-                        stringBuilder.append("YES" + "\n");
-                    else
-                        stringBuilder.append("NO" + "\n");
-                }
+            while (t-- > 0) {
+                int a = in.nextInt();
+                int b = in.nextInt();
+
+                int side = Math.min(
+                        Math.max(2 * a, b), Math.max(a, 2 * b)
+                );
+
+                out.println(side * side);
             }
-            out.println(stringBuilder.toString());
-        }
-
-    }
-
-    static class OutputWriter {
-        private final PrintWriter writer;
-
-        public OutputWriter(OutputStream outputStream) {
-            writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(outputStream)));
-        }
-
-        public OutputWriter(Writer writer) {
-            this.writer = new PrintWriter(writer);
-        }
-
-        public void print(Object... objects) {
-            for (int i = 0; i < objects.length; i++) {
-                if (i != 0) {
-                    writer.print(' ');
-                }
-                writer.print(objects[i]);
-            }
-        }
-
-        public void println(Object... objects) {
-            print(objects);
-            writer.println();
-        }
-
-        public void close() {
-            writer.close();
         }
 
     }
@@ -165,28 +96,6 @@ public class Main {
             return res * sgn;
         }
 
-        public long nextLong() {
-            int c = read();
-            while (isSpaceChar(c)) {
-                c = read();
-            }
-            int sgn = 1;
-            if (c == '-') {
-                sgn = -1;
-                c = read();
-            }
-            long res = 0;
-            do {
-                if (c < '0' || c > '9') {
-                    throw new InputMismatchException();
-                }
-                res *= 10;
-                res += c - '0';
-                c = read();
-            } while (!isSpaceChar(c));
-            return res * sgn;
-        }
-
         public boolean isSpaceChar(int c) {
             if (filter != null) {
                 return filter.isSpaceChar(c);
@@ -201,6 +110,27 @@ public class Main {
         public interface SpaceCharFilter {
             public boolean isSpaceChar(int ch);
 
+        }
+
+    }
+
+    static class OutputWriter {
+        private final PrintWriter writer;
+
+        public OutputWriter(OutputStream outputStream) {
+            writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(outputStream)));
+        }
+
+        public OutputWriter(Writer writer) {
+            this.writer = new PrintWriter(writer);
+        }
+
+        public void close() {
+            writer.close();
+        }
+
+        public void println(int i) {
+            writer.println(i);
         }
 
     }

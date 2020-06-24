@@ -13,6 +13,21 @@ import FastIO.InputReader;
 import FastIO.OutputWriter;
 
 public class AAddOddOrSubtractEven {
+
+    int solve(int a ,int b) {
+        if (a > b) {
+            if (((a - b)&1) == 0)
+                return 1;
+            else
+                return 2;
+        }
+        else {
+            if (((b - a)&1) == 1)
+                return 1;
+            else
+                return 2;
+        }
+    }
     public void solve(int testNumber, InputReader in, OutputWriter out) {
 
         int t = in.nextInt();
@@ -22,10 +37,7 @@ public class AAddOddOrSubtractEven {
             int b = in.nextInt();
 
             if (a != b){
-                if ((b&1) == 1)
-                    stringBuilder.append(1);
-                else
-                    stringBuilder.append(2);
+                stringBuilder.append(solve(a, b));
             }
             else
                 stringBuilder.append(0);

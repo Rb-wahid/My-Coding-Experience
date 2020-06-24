@@ -28,6 +28,20 @@ public class Main {
     }
 
     static class AAddOddOrSubtractEven {
+        int solve(int a, int b) {
+            if (a > b) {
+                if (((a - b) & 1) == 0)
+                    return 1;
+                else
+                    return 2;
+            } else {
+                if (((b - a) & 1) == 1)
+                    return 1;
+                else
+                    return 2;
+            }
+        }
+
         public void solve(int testNumber, InputReader in, OutputWriter out) {
 
             int t = in.nextInt();
@@ -37,19 +51,43 @@ public class Main {
                 int b = in.nextInt();
 
                 if (a != b) {
-                    if (b < 3)
-                        stringBuilder.append(1);
-                    else {
-                        if ((b & 1) == 1)
-                            stringBuilder.append(1);
-                        else
-                            stringBuilder.append(2);
-                    }
+                    stringBuilder.append(solve(a, b));
                 } else
                     stringBuilder.append(0);
 
                 out.println(stringBuilder.toString());
             }
+        }
+
+    }
+
+    static class OutputWriter {
+        private final PrintWriter writer;
+
+        public OutputWriter(OutputStream outputStream) {
+            writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(outputStream)));
+        }
+
+        public OutputWriter(Writer writer) {
+            this.writer = new PrintWriter(writer);
+        }
+
+        public void print(Object... objects) {
+            for (int i = 0; i < objects.length; i++) {
+                if (i != 0) {
+                    writer.print(' ');
+                }
+                writer.print(objects[i]);
+            }
+        }
+
+        public void println(Object... objects) {
+            print(objects);
+            writer.println();
+        }
+
+        public void close() {
+            writer.close();
         }
 
     }
@@ -119,37 +157,6 @@ public class Main {
         public interface SpaceCharFilter {
             public boolean isSpaceChar(int ch);
 
-        }
-
-    }
-
-    static class OutputWriter {
-        private final PrintWriter writer;
-
-        public OutputWriter(OutputStream outputStream) {
-            writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(outputStream)));
-        }
-
-        public OutputWriter(Writer writer) {
-            this.writer = new PrintWriter(writer);
-        }
-
-        public void print(Object... objects) {
-            for (int i = 0; i < objects.length; i++) {
-                if (i != 0) {
-                    writer.print(' ');
-                }
-                writer.print(objects[i]);
-            }
-        }
-
-        public void println(Object... objects) {
-            print(objects);
-            writer.println();
-        }
-
-        public void close() {
-            writer.close();
         }
 
     }

@@ -22,37 +22,37 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        BBorze solver = new BBorze();
+        BFence solver = new BFence();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class BBorze {
+    static class BFence {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
+            int n = in.nextInt();
+            int k = in.nextInt();
+            int[] arr = new int[n];
+            int sum = 0;
+            int ans = 1;
             StringBuilder stringBuilder = new StringBuilder();
+            int min = Integer.MAX_VALUE;
 
-            String input = in.next();
-            char[] ch = input.toCharArray();
-            for (int i = 0; i < input.length(); i++) {
-                if (ch[i] == '-') {
-                    if (ch[i + 1] == '.') {
-                        stringBuilder.append(1);
-                        i++;
-                        continue;
-                    }
-                }
-                if (ch[i] == '-') {
-                    if (ch[i + 1] == '-') {
-                        stringBuilder.append(2);
-                        i++;
-                        continue;
-                    }
-                }
-                if (ch[i] == '.') {
-                    stringBuilder.append(0);
-                }
+            for (int i = 0; i < n; i++) {
+                arr[i] = in.nextInt();
             }
 
+            if (n < 3)
+                stringBuilder.append(ans);
+            else {
+                for (int i = 0; i < n - 2; i++) {
+                    sum = arr[i] + arr[i + 1] + arr[i + 2];
+                    if (min > sum) {
+                        min = sum;
+                        ans = i;
+                    }
+                }
+                stringBuilder.append(ans + 1);
+            }
             out.println(stringBuilder.toString());
         }
 
@@ -118,19 +118,26 @@ public class Main {
             return buf[curChar++];
         }
 
-        public String nextString() {
+        public int nextInt() {
             int c = read();
             while (isSpaceChar(c)) {
                 c = read();
             }
-            StringBuilder res = new StringBuilder();
+            int sgn = 1;
+            if (c == '-') {
+                sgn = -1;
+                c = read();
+            }
+            int res = 0;
             do {
-                if (Character.isValidCodePoint(c)) {
-                    res.appendCodePoint(c);
+                if (c < '0' || c > '9') {
+                    throw new InputMismatchException();
                 }
+                res *= 10;
+                res += c - '0';
                 c = read();
             } while (!isSpaceChar(c));
-            return res.toString();
+            return res * sgn;
         }
 
         public boolean isSpaceChar(int c) {
@@ -142,10 +149,6 @@ public class Main {
 
         public static boolean isWhitespace(int c) {
             return c == ' ' || c == '\n' || c == '\r' || c == '\t' || c == -1;
-        }
-
-        public String next() {
-            return nextString();
         }
 
         public interface SpaceCharFilter {

@@ -32,27 +32,29 @@ public class Main {
             int n = in.nextInt();
             int k = in.nextInt();
             int[] arr = new int[n];
-            int sum = 0;
-            int ans = 1;
+            int sum;
+            int ans = 0;
             StringBuilder stringBuilder = new StringBuilder();
+            StringBuilder test = new StringBuilder();
             int min = Integer.MAX_VALUE;
 
             for (int i = 0; i < n; i++) {
                 arr[i] = in.nextInt();
             }
 
-            if (n < 3)
-                stringBuilder.append(ans);
-            else {
-                for (int i = 0; i < n - 2; i++) {
-                    sum = arr[i] + arr[i + 1] + arr[i + 2];
-                    if (min > sum) {
-                        min = sum;
-                        ans = i;
-                    }
+            for (int i = 0; i <= n - k; i++) {
+                sum = 0;
+                for (int p = 0; p < k; p++) {
+                    sum += arr[i + p];
                 }
-                stringBuilder.append(ans + 1);
+
+                if (min > sum) {
+                    min = sum;
+                    ans = i;
+                }
             }
+            stringBuilder.append(ans + 1);
+
             out.println(stringBuilder.toString());
         }
 

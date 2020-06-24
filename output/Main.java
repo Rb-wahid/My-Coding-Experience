@@ -22,41 +22,38 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        AAddOddOrSubtractEven solver = new AAddOddOrSubtractEven();
+        BBorze solver = new BBorze();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class AAddOddOrSubtractEven {
-        int solve(int a, int b) {
-            if (a > b) {
-                if (((a - b) & 1) == 0)
-                    return 1;
-                else
-                    return 2;
-            } else {
-                if (((b - a) & 1) == 1)
-                    return 1;
-                else
-                    return 2;
-            }
-        }
-
+    static class BBorze {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
+            StringBuilder stringBuilder = new StringBuilder();
 
-            int t = in.nextInt();
-            while (t-- > 0) {
-                StringBuilder stringBuilder = new StringBuilder();
-                int a = in.nextInt();
-                int b = in.nextInt();
-
-                if (a != b) {
-                    stringBuilder.append(solve(a, b));
-                } else
+            String input = in.next();
+            char[] ch = input.toCharArray();
+            for (int i = 0; i < input.length(); i++) {
+                if (ch[i] == '-') {
+                    if (ch[i + 1] == '.') {
+                        stringBuilder.append(1);
+                        i++;
+                        continue;
+                    }
+                }
+                if (ch[i] == '-') {
+                    if (ch[i + 1] == '-') {
+                        stringBuilder.append(2);
+                        i++;
+                        continue;
+                    }
+                }
+                if (ch[i] == '.') {
                     stringBuilder.append(0);
-
-                out.println(stringBuilder.toString());
+                }
             }
+
+            out.println(stringBuilder.toString());
         }
 
     }
@@ -121,26 +118,19 @@ public class Main {
             return buf[curChar++];
         }
 
-        public int nextInt() {
+        public String nextString() {
             int c = read();
             while (isSpaceChar(c)) {
                 c = read();
             }
-            int sgn = 1;
-            if (c == '-') {
-                sgn = -1;
-                c = read();
-            }
-            int res = 0;
+            StringBuilder res = new StringBuilder();
             do {
-                if (c < '0' || c > '9') {
-                    throw new InputMismatchException();
+                if (Character.isValidCodePoint(c)) {
+                    res.appendCodePoint(c);
                 }
-                res *= 10;
-                res += c - '0';
                 c = read();
             } while (!isSpaceChar(c));
-            return res * sgn;
+            return res.toString();
         }
 
         public boolean isSpaceChar(int c) {
@@ -152,6 +142,10 @@ public class Main {
 
         public static boolean isWhitespace(int c) {
             return c == ' ' || c == '\n' || c == '\r' || c == '\t' || c == -1;
+        }
+
+        public String next() {
+            return nextString();
         }
 
         public interface SpaceCharFilter {

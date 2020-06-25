@@ -22,25 +22,33 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        BTwoButtons solver = new BTwoButtons();
+        CAAndBAndTeamTraining solver = new CAAndBAndTeamTraining();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class BTwoButtons {
+    static class CAAndBAndTeamTraining {
+        int typeOne(int n, int m) {
+            int count = 0;
+
+            while (n > 0 && m > 0) {
+                n -= 2;
+                m -= 1;
+                count++;
+            }
+
+            return count;
+        }
+
         public void solve(int testNumber, InputReader in, OutputWriter out) {
             int n = in.nextInt();
             int m = in.nextInt();
-            int count = 0;
-            while (n != m) {
-                count++;
-                if (n < m && n * 2 <= m + 1) {
-                    n *= 2;
-                } else {
-                    --n;
-                }
-            }
-            out.println(count);
+            int i = typeOne(n, m);
+
+
+            int ans = i + Math.min(m - 2 * i, n - i);
+            out.println(ans);
+
         }
 
     }

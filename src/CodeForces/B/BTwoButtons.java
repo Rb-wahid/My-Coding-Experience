@@ -19,7 +19,7 @@ public class BTwoButtons {
         int count = 0;
         while (n != m){
             count++;
-            if (n < m && n * 2 <= m) {
+            if (n < m &&  n * 2 <= m+1) {
                 n *= 2;
             }
             else {

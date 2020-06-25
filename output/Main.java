@@ -22,26 +22,25 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        AYoungPhysicist solver = new AYoungPhysicist();
+        BTwoButtons solver = new BTwoButtons();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class AYoungPhysicist {
+    static class BTwoButtons {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
             int n = in.nextInt();
-            int[] arr = new int[3];
-
-            for (int i = 0; i < n; i++) {
-                arr[0] += in.nextInt();
-                arr[1] += in.nextInt();
-                arr[2] += in.nextInt();
+            int m = in.nextInt();
+            int count = 0;
+            while (n != m) {
+                count++;
+                if (n < m && n * 2 <= m) {
+                    n *= 2;
+                } else {
+                    --n;
+                }
             }
-
-            if (arr[0] == 0 && arr[1] == 0 && arr[2] == 0)
-                out.println("YES");
-            else
-                out.println("NO");
+            out.println(count);
         }
 
     }
@@ -126,22 +125,12 @@ public class Main {
             this.writer = new PrintWriter(writer);
         }
 
-        public void print(Object... objects) {
-            for (int i = 0; i < objects.length; i++) {
-                if (i != 0) {
-                    writer.print(' ');
-                }
-                writer.print(objects[i]);
-            }
-        }
-
-        public void println(Object... objects) {
-            print(objects);
-            writer.println();
-        }
-
         public void close() {
             writer.close();
+        }
+
+        public void println(int i) {
+            writer.println(i);
         }
 
     }

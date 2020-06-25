@@ -22,36 +22,31 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        AElephant solver = new AElephant();
+        AYoungPhysicist solver = new AYoungPhysicist();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class AElephant {
+    static class AYoungPhysicist {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
-            int x = in.nextInt();
-            out.println((int) Math.ceil(x / 5.0));
-        }
+            int n = in.nextInt();
+            int[] arr = new int[3];
 
-    }
+            for (int i = 0; i < 3; i++) {
+                arr[i] = in.nextInt();
+            }
 
-    static class OutputWriter {
-        private final PrintWriter writer;
+            for (int i = 0; i < 3; i++) {
+                arr[i] += in.nextInt();
+            }
+            for (int i = 0; i < 3; i++) {
+                arr[i] += in.nextInt();
+            }
 
-        public OutputWriter(OutputStream outputStream) {
-            writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(outputStream)));
-        }
-
-        public OutputWriter(Writer writer) {
-            this.writer = new PrintWriter(writer);
-        }
-
-        public void close() {
-            writer.close();
-        }
-
-        public void println(int i) {
-            writer.println(i);
+            if (arr[0] == 0 && arr[1] == 0 && arr[2] == 0)
+                out.println("YES");
+            else
+                out.println("NO");
         }
 
     }
@@ -121,6 +116,37 @@ public class Main {
         public interface SpaceCharFilter {
             public boolean isSpaceChar(int ch);
 
+        }
+
+    }
+
+    static class OutputWriter {
+        private final PrintWriter writer;
+
+        public OutputWriter(OutputStream outputStream) {
+            writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(outputStream)));
+        }
+
+        public OutputWriter(Writer writer) {
+            this.writer = new PrintWriter(writer);
+        }
+
+        public void print(Object... objects) {
+            for (int i = 0; i < objects.length; i++) {
+                if (i != 0) {
+                    writer.print(' ');
+                }
+                writer.print(objects[i]);
+            }
+        }
+
+        public void println(Object... objects) {
+            print(objects);
+            writer.println();
+        }
+
+        public void close() {
+            writer.close();
         }
 
     }

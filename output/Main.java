@@ -28,12 +28,19 @@ public class Main {
     }
 
     static class CAAndBAndTeamTraining {
-        int typeOne(int n, int m) {
+        int solve(int n, int m) {
             int count = 0;
 
             while (n > 0 && m > 0) {
-                n -= 2;
-                m -= 1;
+                if (n == 1 && m == 1)
+                    break;
+                if (n > m) {
+                    n -= 2;
+                    m -= 1;
+                } else {
+                    --n;
+                    m -= 2;
+                }
                 count++;
             }
 
@@ -43,12 +50,29 @@ public class Main {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
             int n = in.nextInt();
             int m = in.nextInt();
-            int i = typeOne(n, m);
+            out.println(solve(n, m));
 
+        }
 
-            int ans = i + Math.min(m - 2 * i, n - i);
-            out.println(ans);
+    }
 
+    static class OutputWriter {
+        private final PrintWriter writer;
+
+        public OutputWriter(OutputStream outputStream) {
+            writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(outputStream)));
+        }
+
+        public OutputWriter(Writer writer) {
+            this.writer = new PrintWriter(writer);
+        }
+
+        public void close() {
+            writer.close();
+        }
+
+        public void println(int i) {
+            writer.println(i);
         }
 
     }
@@ -118,27 +142,6 @@ public class Main {
         public interface SpaceCharFilter {
             public boolean isSpaceChar(int ch);
 
-        }
-
-    }
-
-    static class OutputWriter {
-        private final PrintWriter writer;
-
-        public OutputWriter(OutputStream outputStream) {
-            writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(outputStream)));
-        }
-
-        public OutputWriter(Writer writer) {
-            this.writer = new PrintWriter(writer);
-        }
-
-        public void close() {
-            writer.close();
-        }
-
-        public void println(int i) {
-            writer.println(i);
         }
 
     }

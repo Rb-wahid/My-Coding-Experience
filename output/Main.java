@@ -22,36 +22,25 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        CAAndBAndTeamTraining solver = new CAAndBAndTeamTraining();
+        ADoubleCola solver = new ADoubleCola();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class CAAndBAndTeamTraining {
-        int solve(int n, int m) {
-            int count = 0;
-
-            while (n > 0 && m > 0) {
-                if (n == 1 && m == 1)
-                    break;
-                if (n > m) {
-                    n -= 2;
-                    m -= 1;
-                } else {
-                    --n;
-                    m -= 2;
-                }
-                count++;
-            }
-
-            return count;
-        }
-
+    static class ADoubleCola {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
-            int n = in.nextInt();
-            int m = in.nextInt();
-            out.println(solve(n, m));
+            long n = in.nextLong();
+            String[] names = {
+                    "Sheldon", "Leonard", "Penny", "Rajesh", "Howard"
+            };
+            long power = 1;
 
+            while (n > power * names.length) {
+                n -= power * names.length;
+                power *= 2;
+            }
+            long ans = (n - 1) / power;
+            out.println(names[(int) ans]);
         }
 
     }
@@ -67,12 +56,22 @@ public class Main {
             this.writer = new PrintWriter(writer);
         }
 
-        public void close() {
-            writer.close();
+        public void print(Object... objects) {
+            for (int i = 0; i < objects.length; i++) {
+                if (i != 0) {
+                    writer.print(' ');
+                }
+                writer.print(objects[i]);
+            }
         }
 
-        public void println(int i) {
-            writer.println(i);
+        public void println(Object... objects) {
+            print(objects);
+            writer.println();
+        }
+
+        public void close() {
+            writer.close();
         }
 
     }
@@ -106,7 +105,7 @@ public class Main {
             return buf[curChar++];
         }
 
-        public int nextInt() {
+        public long nextLong() {
             int c = read();
             while (isSpaceChar(c)) {
                 c = read();
@@ -116,7 +115,7 @@ public class Main {
                 sgn = -1;
                 c = read();
             }
-            int res = 0;
+            long res = 0;
             do {
                 if (c < '0' || c > '9') {
                     throw new InputMismatchException();

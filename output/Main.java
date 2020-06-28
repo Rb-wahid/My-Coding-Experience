@@ -22,24 +22,21 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        ATram solver = new ATram();
+        ADivisibilityProblem solver = new ADivisibilityProblem();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class ATram {
+    static class ADivisibilityProblem {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
             int t = in.nextInt();
-            int max = Integer.MIN_VALUE;
-            int current = 0;
+
             while (t-- > 0) {
                 int a = in.nextInt();
-                int b = in.nextInt();
-                current -= a;
-                current += b;
-                max = Math.max(max, current);
+                double b = in.nextInt();
+                double c = Math.ceil(a / b);
+                out.println((int) (c * b) - a);
             }
-            out.println(max);
         }
 
     }

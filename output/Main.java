@@ -22,24 +22,24 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        AFashionabLee solver = new AFashionabLee();
+        AEqualizePricesAgain solver = new AEqualizePricesAgain();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class AFashionabLee {
+    static class AEqualizePricesAgain {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
             int t = in.nextInt();
 
             while (t-- > 0) {
-                long n = in.nextLong();
+                double n = (int) in.nextInt();
+                int sum = 0;
+                for (int i = 0; i < n; i++) {
+                    sum += in.nextInt();
+                }
 
-                if (n % 4 == 0)
-                    out.println("YES");
-                else
-                    out.println("NO");
-
-
+                int ans = (int) Math.ceil(sum / n);
+                out.println(ans);
             }
         }
 
@@ -56,22 +56,12 @@ public class Main {
             this.writer = new PrintWriter(writer);
         }
 
-        public void print(Object... objects) {
-            for (int i = 0; i < objects.length; i++) {
-                if (i != 0) {
-                    writer.print(' ');
-                }
-                writer.print(objects[i]);
-            }
-        }
-
-        public void println(Object... objects) {
-            print(objects);
-            writer.println();
-        }
-
         public void close() {
             writer.close();
+        }
+
+        public void println(int i) {
+            writer.println(i);
         }
 
     }
@@ -116,28 +106,6 @@ public class Main {
                 c = read();
             }
             int res = 0;
-            do {
-                if (c < '0' || c > '9') {
-                    throw new InputMismatchException();
-                }
-                res *= 10;
-                res += c - '0';
-                c = read();
-            } while (!isSpaceChar(c));
-            return res * sgn;
-        }
-
-        public long nextLong() {
-            int c = read();
-            while (isSpaceChar(c)) {
-                c = read();
-            }
-            int sgn = 1;
-            if (c == '-') {
-                sgn = -1;
-                c = read();
-            }
-            long res = 0;
             do {
                 if (c < '0' || c > '9') {
                     throw new InputMismatchException();

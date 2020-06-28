@@ -3,13 +3,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.util.Arrays;
 import java.io.BufferedWriter;
-import java.util.InputMismatchException;
-import java.io.IOException;
 import java.io.Writer;
 import java.io.OutputStreamWriter;
-import java.util.Comparator;
+import java.util.InputMismatchException;
+import java.io.IOException;
 import java.io.InputStream;
 
 /**
@@ -24,82 +22,45 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        BCollectingPackages solver = new BCollectingPackages();
+        ATram solver = new ATram();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class BCollectingPackages {
+    static class ATram {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
-
             int t = in.nextInt();
-
+            int max = Integer.MIN_VALUE;
+            int current = 0;
             while (t-- > 0) {
-                StringBuilder sb = new StringBuilder();
-                int n = in.nextInt();
-                int a;
-                int b;
-                boolean flag = true;
-                pair[] arr = new pair[n];
-                for (int i = 0; i < n; i++) {
-                    a = in.nextInt();
-                    b = in.nextInt();
-                    arr[i] = new pair(a, b);
-                }
-                int x = 0, y = 0;
-                Compare cm = new Compare();
-                arr = cm.compare(arr, n);
-                pair robot = new pair(0, 0);
-
-                for (int i = 0; i < n; ++i) {
-                    x = arr[i].x - robot.x;
-                    y = arr[i].y - robot.y;
-                    if (x < 0 || y < 0) {
-                        out.println("NO");
-                        flag = false;
-                        break;
-                    }
-                    while (x-- != 0)
-                        sb.append("R");
-
-                    while (y-- != 0)
-                        sb.append("U");
-
-                    robot = arr[i];
-
-                }
-                if (flag) {
-                    out.println("YES");
-                    out.println(sb.toString());
-                }
-//            else
-//                out.println("NO");
+                int a = in.nextInt();
+                int b = in.nextInt();
+                current -= a;
+                current += b;
+                max = Math.max(max, current);
             }
+            out.println(max);
         }
 
-        class pair {
-            int x;
-            int y;
+    }
 
-            public pair(int x, int y) {
-                this.x = x;
-                this.y = y;
-            }
+    static class OutputWriter {
+        private final PrintWriter writer;
 
+        public OutputWriter(OutputStream outputStream) {
+            writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(outputStream)));
         }
 
-        class Compare {
-            pair[] compare(pair[] arr, int size) {
+        public OutputWriter(Writer writer) {
+            this.writer = new PrintWriter(writer);
+        }
 
-                Arrays.sort(arr, new Comparator<pair>() {
+        public void close() {
+            writer.close();
+        }
 
-                    public int compare(pair o1, pair o2) {
-                        return o1.y - o2.y;
-                    }
-                });
-                return arr;
-            }
-
+        public void println(int i) {
+            writer.println(i);
         }
 
     }
@@ -169,37 +130,6 @@ public class Main {
         public interface SpaceCharFilter {
             public boolean isSpaceChar(int ch);
 
-        }
-
-    }
-
-    static class OutputWriter {
-        private final PrintWriter writer;
-
-        public OutputWriter(OutputStream outputStream) {
-            writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(outputStream)));
-        }
-
-        public OutputWriter(Writer writer) {
-            this.writer = new PrintWriter(writer);
-        }
-
-        public void print(Object... objects) {
-            for (int i = 0; i < objects.length; i++) {
-                if (i != 0) {
-                    writer.print(' ');
-                }
-                writer.print(objects[i]);
-            }
-        }
-
-        public void println(Object... objects) {
-            print(objects);
-            writer.println();
-        }
-
-        public void close() {
-            writer.close();
         }
 
     }

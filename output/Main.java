@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.util.Arrays;
 import java.io.BufferedWriter;
 import java.io.Writer;
 import java.io.OutputStreamWriter;
@@ -22,25 +23,33 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        AEqualizePricesAgain solver = new AEqualizePricesAgain();
+        BMahmoudAndATriangle solver = new BMahmoudAndATriangle();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class AEqualizePricesAgain {
+    static class BMahmoudAndATriangle {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
-            int t = in.nextInt();
 
-            while (t-- > 0) {
-                double n = (int) in.nextInt();
-                int sum = 0;
-                for (int i = 0; i < n; i++) {
-                    sum += in.nextInt();
-                }
-
-                int ans = (int) Math.ceil(sum / n);
-                out.println(ans);
+            int n = in.nextInt();
+            int[] arr = new int[n];
+            boolean flag = false;
+            for (int i = 0; i < n; i++) {
+                arr[i] = in.nextInt();
             }
+            Arrays.sort(arr);
+
+            for (int i = 0; i < n - 2; i++) {
+                if (arr[i] + arr[i + 1] > arr[i + 2]) {
+                    flag = true;
+                    break;
+                }
+            }
+
+            if (flag)
+                out.println("YES");
+            else
+                out.println("NO");
         }
 
     }
@@ -56,12 +65,22 @@ public class Main {
             this.writer = new PrintWriter(writer);
         }
 
-        public void close() {
-            writer.close();
+        public void print(Object... objects) {
+            for (int i = 0; i < objects.length; i++) {
+                if (i != 0) {
+                    writer.print(' ');
+                }
+                writer.print(objects[i]);
+            }
         }
 
-        public void println(int i) {
-            writer.println(i);
+        public void println(Object... objects) {
+            print(objects);
+            writer.println();
+        }
+
+        public void close() {
+            writer.close();
         }
 
     }

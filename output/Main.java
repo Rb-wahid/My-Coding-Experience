@@ -22,35 +22,36 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        CMoveBrackets solver = new CMoveBrackets();
+        CAAndBAndTeamTraining solver = new CAAndBAndTeamTraining();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class CMoveBrackets {
-        public void solve(int testNumber, InputReader in, OutputWriter out) {
+    static class CAAndBAndTeamTraining {
+        int solve(int n, int m) {
+            int count = 0;
 
-            int t = in.nextInt();
-
-            while (t-- > 0) {
-                int n = in.nextInt();
-                String str = in.next();
-
-                int open = 0;
-                int ans = 0;
-
-                for (char ch : str.toCharArray()) {
-                    if (ch == '(') {
-                        open++;
-                    } else {
-                        if (open > 0)
-                            open--;
-                        else
-                            ans++;
-                    }
+            while (n > 0 && m > 0) {
+                if (n == 1 && m == 1)
+                    break;
+                if (n > m) {
+                    n -= 2;
+                    m -= 1;
+                } else {
+                    --n;
+                    m -= 2;
                 }
-                out.println(ans);
+                count++;
             }
+
+            return count;
+        }
+
+        public void solve(int testNumber, InputReader in, OutputWriter out) {
+            int n = in.nextInt();
+            int m = in.nextInt();
+            out.println(solve(n, m));
+
         }
 
     }
@@ -106,21 +107,6 @@ public class Main {
             return res * sgn;
         }
 
-        public String nextString() {
-            int c = read();
-            while (isSpaceChar(c)) {
-                c = read();
-            }
-            StringBuilder res = new StringBuilder();
-            do {
-                if (Character.isValidCodePoint(c)) {
-                    res.appendCodePoint(c);
-                }
-                c = read();
-            } while (!isSpaceChar(c));
-            return res.toString();
-        }
-
         public boolean isSpaceChar(int c) {
             if (filter != null) {
                 return filter.isSpaceChar(c);
@@ -130,10 +116,6 @@ public class Main {
 
         public static boolean isWhitespace(int c) {
             return c == ' ' || c == '\n' || c == '\r' || c == '\t' || c == -1;
-        }
-
-        public String next() {
-            return nextString();
         }
 
         public interface SpaceCharFilter {

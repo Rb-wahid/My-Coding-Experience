@@ -3,7 +3,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.util.Arrays;
 import java.io.BufferedWriter;
 import java.io.Writer;
 import java.io.OutputStreamWriter;
@@ -23,64 +22,30 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        BMahmoudAndATriangle solver = new BMahmoudAndATriangle();
+        ARequiredRemainder solver = new ARequiredRemainder();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class BMahmoudAndATriangle {
+    static class ARequiredRemainder {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
+            int t = in.nextInt();
 
-            int n = in.nextInt();
-            int[] arr = new int[n];
-            boolean flag = false;
-            for (int i = 0; i < n; i++) {
-                arr[i] = in.nextInt();
-            }
-            Arrays.sort(arr);
+            while (t-- > 0) {
+                long x = in.nextLong();
+                long y = in.nextLong();
+                long n = in.nextLong();
+                StringBuilder sb = new StringBuilder();
+                long mod = n % x;
 
-            for (int i = 0; i < n - 2; i++) {
-                if (arr[i] + arr[i + 1] > arr[i + 2]) {
-                    flag = true;
-                    break;
+                if (mod - y >= 0) {
+                    n = n - (mod - y);
+                } else {
+                    n = n - mod - x + y;
                 }
+
+                out.println(n);
             }
-
-            if (flag)
-                out.println("YES");
-            else
-                out.println("NO");
-        }
-
-    }
-
-    static class OutputWriter {
-        private final PrintWriter writer;
-
-        public OutputWriter(OutputStream outputStream) {
-            writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(outputStream)));
-        }
-
-        public OutputWriter(Writer writer) {
-            this.writer = new PrintWriter(writer);
-        }
-
-        public void print(Object... objects) {
-            for (int i = 0; i < objects.length; i++) {
-                if (i != 0) {
-                    writer.print(' ');
-                }
-                writer.print(objects[i]);
-            }
-        }
-
-        public void println(Object... objects) {
-            print(objects);
-            writer.println();
-        }
-
-        public void close() {
-            writer.close();
         }
 
     }
@@ -136,6 +101,28 @@ public class Main {
             return res * sgn;
         }
 
+        public long nextLong() {
+            int c = read();
+            while (isSpaceChar(c)) {
+                c = read();
+            }
+            int sgn = 1;
+            if (c == '-') {
+                sgn = -1;
+                c = read();
+            }
+            long res = 0;
+            do {
+                if (c < '0' || c > '9') {
+                    throw new InputMismatchException();
+                }
+                res *= 10;
+                res += c - '0';
+                c = read();
+            } while (!isSpaceChar(c));
+            return res * sgn;
+        }
+
         public boolean isSpaceChar(int c) {
             if (filter != null) {
                 return filter.isSpaceChar(c);
@@ -150,6 +137,27 @@ public class Main {
         public interface SpaceCharFilter {
             public boolean isSpaceChar(int ch);
 
+        }
+
+    }
+
+    static class OutputWriter {
+        private final PrintWriter writer;
+
+        public OutputWriter(OutputStream outputStream) {
+            writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(outputStream)));
+        }
+
+        public OutputWriter(Writer writer) {
+            this.writer = new PrintWriter(writer);
+        }
+
+        public void close() {
+            writer.close();
+        }
+
+        public void println(long i) {
+            writer.println(i);
         }
 
     }

@@ -22,25 +22,16 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        ASoldierAndBananas solver = new ASoldierAndBananas();
+        ACoins solver = new ACoins();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class ASoldierAndBananas {
+    static class ACoins {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
-            int k = in.nextInt();
-            long n = in.nextLong();
-            long w = in.nextInt();
-            long total = 0;
-
-            for (int i = 1; i <= w; i++) {
-                total += i * k;
-            }
-            if (total - n < 0)
-                out.println(0);
-            else
-                out.println(total - n);
+            double n = in.nextInt();
+            long s = in.nextLong();
+            out.println((int) Math.ceil(s / n));
         }
 
     }
@@ -58,10 +49,6 @@ public class Main {
 
         public void close() {
             writer.close();
-        }
-
-        public void println(long i) {
-            writer.println(i);
         }
 
         public void println(int i) {

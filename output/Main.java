@@ -22,29 +22,34 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        ARequiredRemainder solver = new ARequiredRemainder();
+        CMoveBrackets solver = new CMoveBrackets();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class ARequiredRemainder {
+    static class CMoveBrackets {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
+
             int t = in.nextInt();
 
             while (t-- > 0) {
-                long x = in.nextLong();
-                long y = in.nextLong();
-                long n = in.nextLong();
-                StringBuilder sb = new StringBuilder();
-                long mod = n % x;
+                int n = in.nextInt();
+                String str = in.next();
 
-                if (mod - y >= 0) {
-                    n = n - (mod - y);
-                } else {
-                    n = n - mod - x + y;
+                int open = 0;
+                int ans = 0;
+
+                for (char ch : str.toCharArray()) {
+                    if (ch == '(') {
+                        open++;
+                    } else {
+                        if (open > 0)
+                            open--;
+                        else
+                            ans++;
+                    }
                 }
-
-                out.println(n);
+                out.println(ans);
             }
         }
 
@@ -101,26 +106,19 @@ public class Main {
             return res * sgn;
         }
 
-        public long nextLong() {
+        public String nextString() {
             int c = read();
             while (isSpaceChar(c)) {
                 c = read();
             }
-            int sgn = 1;
-            if (c == '-') {
-                sgn = -1;
-                c = read();
-            }
-            long res = 0;
+            StringBuilder res = new StringBuilder();
             do {
-                if (c < '0' || c > '9') {
-                    throw new InputMismatchException();
+                if (Character.isValidCodePoint(c)) {
+                    res.appendCodePoint(c);
                 }
-                res *= 10;
-                res += c - '0';
                 c = read();
             } while (!isSpaceChar(c));
-            return res * sgn;
+            return res.toString();
         }
 
         public boolean isSpaceChar(int c) {
@@ -132,6 +130,10 @@ public class Main {
 
         public static boolean isWhitespace(int c) {
             return c == ' ' || c == '\n' || c == '\r' || c == '\t' || c == -1;
+        }
+
+        public String next() {
+            return nextString();
         }
 
         public interface SpaceCharFilter {
@@ -156,7 +158,7 @@ public class Main {
             writer.close();
         }
 
-        public void println(long i) {
+        public void println(int i) {
             writer.println(i);
         }
 

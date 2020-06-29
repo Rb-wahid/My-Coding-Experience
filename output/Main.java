@@ -22,36 +22,43 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        CAAndBAndTeamTraining solver = new CAAndBAndTeamTraining();
+        ASoldierAndBananas solver = new ASoldierAndBananas();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class CAAndBAndTeamTraining {
-        int solve(int n, int m) {
-            int count = 0;
+    static class ASoldierAndBananas {
+        public void solve(int testNumber, InputReader in, OutputWriter out) {
+            int k = in.nextInt();
+            long n = in.nextLong();
+            long w = in.nextInt();
+            long total = 0;
 
-            while (n > 0 && m > 0) {
-                if (n == 1 && m == 1)
-                    break;
-                if (n > m) {
-                    n -= 2;
-                    m -= 1;
-                } else {
-                    --n;
-                    m -= 2;
-                }
-                count++;
+            for (int i = 1; i <= w; i++) {
+                total += i * k;
             }
-
-            return count;
+            out.println(total - n);
         }
 
-        public void solve(int testNumber, InputReader in, OutputWriter out) {
-            int n = in.nextInt();
-            int m = in.nextInt();
-            out.println(solve(n, m));
+    }
 
+    static class OutputWriter {
+        private final PrintWriter writer;
+
+        public OutputWriter(OutputStream outputStream) {
+            writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(outputStream)));
+        }
+
+        public OutputWriter(Writer writer) {
+            this.writer = new PrintWriter(writer);
+        }
+
+        public void close() {
+            writer.close();
+        }
+
+        public void println(long i) {
+            writer.println(i);
         }
 
     }
@@ -107,6 +114,28 @@ public class Main {
             return res * sgn;
         }
 
+        public long nextLong() {
+            int c = read();
+            while (isSpaceChar(c)) {
+                c = read();
+            }
+            int sgn = 1;
+            if (c == '-') {
+                sgn = -1;
+                c = read();
+            }
+            long res = 0;
+            do {
+                if (c < '0' || c > '9') {
+                    throw new InputMismatchException();
+                }
+                res *= 10;
+                res += c - '0';
+                c = read();
+            } while (!isSpaceChar(c));
+            return res * sgn;
+        }
+
         public boolean isSpaceChar(int c) {
             if (filter != null) {
                 return filter.isSpaceChar(c);
@@ -121,27 +150,6 @@ public class Main {
         public interface SpaceCharFilter {
             public boolean isSpaceChar(int ch);
 
-        }
-
-    }
-
-    static class OutputWriter {
-        private final PrintWriter writer;
-
-        public OutputWriter(OutputStream outputStream) {
-            writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(outputStream)));
-        }
-
-        public OutputWriter(Writer writer) {
-            this.writer = new PrintWriter(writer);
-        }
-
-        public void close() {
-            writer.close();
-        }
-
-        public void println(int i) {
-            writer.println(i);
         }
 
     }

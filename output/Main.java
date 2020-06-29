@@ -37,7 +37,10 @@ public class Main {
             for (int i = 1; i <= w; i++) {
                 total += i * k;
             }
-            out.println(total - n);
+            if (total - n < 0)
+                out.println(0);
+            else
+                out.println(total - n);
         }
 
     }
@@ -58,6 +61,10 @@ public class Main {
         }
 
         public void println(long i) {
+            writer.println(i);
+        }
+
+        public void println(int i) {
             writer.println(i);
         }
 

@@ -22,6 +22,9 @@ public class ASoldierAndBananas {
         for (int i = 1; i <= w ; i++) {
             total += i * k;
         }
+        if (total - n < 0)
+        out.println(0);
+        else
         out.println(total - n);
     }
 }

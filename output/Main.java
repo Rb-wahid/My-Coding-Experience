@@ -32,7 +32,7 @@ public class Main {
             int n = in.nextInt();
             int m = in.nextInt();
             int ans = -1;
-            for (int i = n / 2; i <= n; i++) {
+            for (int i = (n / 2) + 1; i <= n; i++) {
                 if (i % m == 0) {
                     ans = i;
                     break;

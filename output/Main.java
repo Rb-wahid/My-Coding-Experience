@@ -22,40 +22,24 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        AArrayWithOddSum solver = new AArrayWithOddSum();
+        ADreamoonAndStairs solver = new ADreamoonAndStairs();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class AArrayWithOddSum {
+    static class ADreamoonAndStairs {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
-            int t = in.nextInt();
-
-            while (t-- > 0) {
-                int n = in.nextInt();
-                int sum = 0;
-                int even = 0;
-                int odd = 0;
-                int value;
-                StringBuilder sb = new StringBuilder();
-                for (int i = 0; i < n; i++) {
-                    value = in.nextInt();
-                    if ((value & 1) == 1)
-                        odd++;
-                    else
-                        even++;
-                    sum += value;
+            int n = in.nextInt();
+            int m = in.nextInt();
+            int ans = -1;
+            for (int i = n / 2; i <= n; i++) {
+                if (i % m == 0) {
+                    ans = i;
+                    break;
                 }
-                if ((sum & 1) == 0) {
-                    if (odd != 0 && even != 0)
-                        sb.append("YES");
-                    else
-                        sb.append("NO");
-                } else
-                    sb.append("YES");
 
-                out.println(sb);
             }
+            out.println(ans);
         }
 
     }
@@ -140,22 +124,12 @@ public class Main {
             this.writer = new PrintWriter(writer);
         }
 
-        public void print(Object... objects) {
-            for (int i = 0; i < objects.length; i++) {
-                if (i != 0) {
-                    writer.print(' ');
-                }
-                writer.print(objects[i]);
-            }
-        }
-
-        public void println(Object... objects) {
-            print(objects);
-            writer.println();
-        }
-
         public void close() {
             writer.close();
+        }
+
+        public void println(int i) {
+            writer.println(i);
         }
 
     }

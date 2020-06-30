@@ -31,14 +31,18 @@ public class Main {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
             int n = in.nextInt();
             int m = in.nextInt();
-            int ans = -1;
-            for (int i = (n / 2) + 1; i <= n; i++) {
-                if (i % m == 0) {
-                    ans = i;
-                    break;
-                }
-
+            int ans = 0;
+            if (n < m)
+                ans = -1;
+            else {
+                if ((n & 1) == 0)
+                    ans = n >> 1;
+                else
+                    ans = (n >> 1) + 1;
+                while (ans % m != 0)
+                    ans++;
             }
+
             out.println(ans);
         }
 

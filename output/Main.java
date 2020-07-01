@@ -23,28 +23,30 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        ACutRibbon solver = new ACutRibbon();
+        APuzzles solver = new APuzzles();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class ACutRibbon {
+    static class APuzzles {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
             int n = in.nextInt();
-            int a = in.nextInt();
-            int b = in.nextInt();
-            int c = in.nextInt();
-            int[] dp = new int[n + 1];
+            int m = in.nextInt();
+            int[] arr = new int[m];
 
-            Arrays.fill(dp, Integer.MIN_VALUE);
-            dp[0] = 0;
-
-            for (int i = 1; i <= n; i++) {
-                if (i >= a) dp[i] = Math.max(dp[i], dp[i - a] + 1);
-                if (i >= b) dp[i] = Math.max(dp[i], dp[i - b] + 1);
-                if (i >= c) dp[i] = Math.max(dp[i], dp[i - c] + 1);
+            for (int i = 0; i < m; i++) {
+                arr[i] = in.nextInt();
             }
-            out.println(dp[n]);
+            Arrays.sort(arr);
+            int min = Integer.MAX_VALUE;
+
+            for (int i = 0; i <= m - n; i++) {
+                int value = arr[n - 1 + i] - arr[i];
+                if (min > value)
+                    min = value;
+            }
+
+            out.println(min);
         }
 
     }

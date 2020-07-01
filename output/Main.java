@@ -22,28 +22,23 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        ADreamoonAndStairs solver = new ADreamoonAndStairs();
+        AVasyaAndSocks solver = new AVasyaAndSocks();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class ADreamoonAndStairs {
+    static class AVasyaAndSocks {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
             int n = in.nextInt();
             int m = in.nextInt();
-            int ans = 0;
-            if (n < m)
-                ans = -1;
-            else {
-                if ((n & 1) == 0)
-                    ans = n >> 1;
-                else
-                    ans = (n >> 1) + 1;
-                while (ans % m != 0)
-                    ans++;
-            }
 
-            out.println(ans);
+            int newSocks = n / m;
+            int totalSocks = n + newSocks;
+
+            if (totalSocks % m == 0)
+                out.println(totalSocks + 1);
+            else
+                out.println(totalSocks);
         }
 
     }

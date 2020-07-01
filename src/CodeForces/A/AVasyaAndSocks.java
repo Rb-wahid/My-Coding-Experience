@@ -15,14 +15,9 @@ import FastIO.OutputWriter;
 public class AVasyaAndSocks {
     public void solve(int testNumber, InputReader in, OutputWriter out) {
         int n = in.nextInt();
-        int m = in.nextInt();
+        double m = in.nextInt();
 
-        int newSocks = n/m;
-        int totalSocks = n+newSocks;
-
-        if (totalSocks % m == 0)
-            out.println(totalSocks+1);
-        else
-            out.println(totalSocks);
+        int value = (int) Math.floor((n-1)/(m-1));
+            out.println(n + value );
     }
 }

@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.util.Arrays;
 import java.io.BufferedWriter;
 import java.io.Writer;
 import java.io.OutputStreamWriter;
@@ -22,18 +23,46 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        AVasyaAndSocks solver = new AVasyaAndSocks();
+        ACutRibbon solver = new ACutRibbon();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class AVasyaAndSocks {
+    static class ACutRibbon {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
             int n = in.nextInt();
-            double m = in.nextInt();
+            int[] arr = new int[3];
 
-            int value = (int) Math.floor((n - 1) / (m - 1));
-            out.println(n + value);
+            for (int i = 0; i < 3; i++) {
+                arr[i] = in.nextInt();
+            }
+            int count = 0;
+            Arrays.sort(arr);
+            while (n != 0) {
+                if (n % arr[0] != 0) {
+                    n -= arr[0];
+                    count++;
+                } else {
+                    count += n / arr[0];
+                    break;
+                }
+                if (n % arr[1] != 0) {
+                    n -= arr[1];
+                    count++;
+                } else {
+                    count += n / arr[1];
+                    break;
+                }
+                if (n % arr[2] != 0) {
+                    n -= arr[2];
+                    count++;
+                } else {
+                    count += n / arr[2];
+                    break;
+                }
+            }
+
+            out.println(count);
         }
 
     }

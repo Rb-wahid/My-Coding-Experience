@@ -22,50 +22,34 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        AFoxAndSnake solver = new AFoxAndSnake();
+        AHulk solver = new AHulk();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class AFoxAndSnake {
+    static class AHulk {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
             int n = in.nextInt();
-            int m = in.nextInt();
+            String hate = "I hate ";
+            String love = "I love ";
+            String that = "that ";
             StringBuilder sb = new StringBuilder();
-            String[][] arr = new String[n][m];
-            boolean flag = true;
 
-            for (int i = 0; i < n; i += 2) {
-                for (int j = 0; j < m; j++) {
-                    arr[i][j] = "#";
-                }
+            for (int j = 1; j < n; j++) {
+                if ((j & 1) == 0) {
+                    sb.append(love).append(that);
+                } else
+                    sb.append(hate).append(that);
+
             }
 
-            for (int i = 1; i < n; i += 2) {
+            if ((n & 1) == 1)
+                sb.append(hate).append("it");
+            else
+                sb.append(love).append("it");
 
-                for (int j = 1; j < m - 1; j++) {
-                    arr[i][j] = ".";
 
-                }
-
-                if (flag) {
-                    arr[i][0] = ".";
-                    arr[i][m - 1] = "#";
-                    flag = false;
-                } else {
-                    arr[i][0] = "#";
-                    arr[i][m - 1] = ".";
-                    flag = true;
-                }
-            }
-
-            for (int i = 0; i < n; i++) {
-                for (int j = 0; j < m; j++) {
-                    out.print(arr[i][j]);
-                }
-                out.println();
-            }
-
+            out.println(sb.toString());
         }
 
     }
@@ -90,7 +74,8 @@ public class Main {
             }
         }
 
-        public void println() {
+        public void println(Object... objects) {
+            print(objects);
             writer.println();
         }
 

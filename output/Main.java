@@ -32,18 +32,18 @@ public class Main {
             int n = in.nextInt();
             int k = in.nextInt();
             int count = 0;
-            int same = 0;
+            int passed = 0;
+            int[] arr = new int[n];
 
             for (int i = 0; i < n; i++) {
-                int value = in.nextInt();
-                if (value > k)
-                    count++;
-                if (value == k)
-                    same++;
+                arr[i] = in.nextInt();
             }
-            if (count != 0)
-                out.println(count);
-            else out.println(same);
+            passed = arr[k - 1];
+            for (int i = 0; i < n; i++) {
+                if (arr[i] >= passed && arr[i] > 0)
+                    count++;
+            }
+            out.println(count);
         }
 
     }

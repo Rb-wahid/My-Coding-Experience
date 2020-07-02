@@ -32,13 +32,18 @@ public class Main {
             int n = in.nextInt();
             int k = in.nextInt();
             int count = 0;
+            int same = 0;
 
             for (int i = 0; i < n; i++) {
                 int value = in.nextInt();
                 if (value > k)
                     count++;
+                if (value == k)
+                    same++;
             }
-            out.println(count);
+            if (count != 0)
+                out.println(count);
+            else out.println(same);
         }
 
     }

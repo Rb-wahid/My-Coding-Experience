@@ -22,65 +22,23 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        AHulk solver = new AHulk();
+        ANextRound solver = new ANextRound();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class AHulk {
+    static class ANextRound {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
             int n = in.nextInt();
-            String hate = "I hate ";
-            String love = "I love ";
-            String that = "that ";
-            StringBuilder sb = new StringBuilder();
+            int k = in.nextInt();
+            int count = 0;
 
-            for (int j = 1; j < n; j++) {
-                if ((j & 1) == 0) {
-                    sb.append(love).append(that);
-                } else
-                    sb.append(hate).append(that);
-
+            for (int i = 0; i < n; i++) {
+                int value = in.nextInt();
+                if (value > k)
+                    count++;
             }
-
-            if ((n & 1) == 1)
-                sb.append(hate).append("it");
-            else
-                sb.append(love).append("it");
-
-
-            out.println(sb.toString());
-        }
-
-    }
-
-    static class OutputWriter {
-        private final PrintWriter writer;
-
-        public OutputWriter(OutputStream outputStream) {
-            writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(outputStream)));
-        }
-
-        public OutputWriter(Writer writer) {
-            this.writer = new PrintWriter(writer);
-        }
-
-        public void print(Object... objects) {
-            for (int i = 0; i < objects.length; i++) {
-                if (i != 0) {
-                    writer.print(' ');
-                }
-                writer.print(objects[i]);
-            }
-        }
-
-        public void println(Object... objects) {
-            print(objects);
-            writer.println();
-        }
-
-        public void close() {
-            writer.close();
+            out.println(count);
         }
 
     }
@@ -150,6 +108,27 @@ public class Main {
         public interface SpaceCharFilter {
             public boolean isSpaceChar(int ch);
 
+        }
+
+    }
+
+    static class OutputWriter {
+        private final PrintWriter writer;
+
+        public OutputWriter(OutputStream outputStream) {
+            writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(outputStream)));
+        }
+
+        public OutputWriter(Writer writer) {
+            this.writer = new PrintWriter(writer);
+        }
+
+        public void close() {
+            writer.close();
+        }
+
+        public void println(int i) {
+            writer.println(i);
         }
 
     }

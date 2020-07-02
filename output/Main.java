@@ -3,7 +3,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.util.Arrays;
 import java.io.BufferedWriter;
 import java.io.Writer;
 import java.io.OutputStreamWriter;
@@ -23,30 +22,80 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        APuzzles solver = new APuzzles();
+        AFoxAndSnake solver = new AFoxAndSnake();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class APuzzles {
+    static class AFoxAndSnake {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
             int n = in.nextInt();
             int m = in.nextInt();
-            int[] arr = new int[m];
+            StringBuilder sb = new StringBuilder();
+            String[][] arr = new String[n][m];
+            boolean flag = true;
 
-            for (int i = 0; i < m; i++) {
-                arr[i] = in.nextInt();
-            }
-            Arrays.sort(arr);
-            int min = Integer.MAX_VALUE;
-
-            for (int i = 0; i <= m - n; i++) {
-                int value = arr[n - 1 + i] - arr[i];
-                if (min > value)
-                    min = value;
+            for (int i = 0; i < n; i += 2) {
+                for (int j = 0; j < m; j++) {
+                    arr[i][j] = "#";
+                }
             }
 
-            out.println(min);
+            for (int i = 1; i < n; i += 2) {
+
+                for (int j = 1; j < m - 1; j++) {
+                    arr[i][j] = ".";
+
+                }
+
+                if (flag) {
+                    arr[i][0] = ".";
+                    arr[i][m - 1] = "#";
+                    flag = false;
+                } else {
+                    arr[i][0] = "#";
+                    arr[i][m - 1] = ".";
+                    flag = true;
+                }
+            }
+
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < m; j++) {
+                    out.print(arr[i][j]);
+                }
+                out.println();
+            }
+
+        }
+
+    }
+
+    static class OutputWriter {
+        private final PrintWriter writer;
+
+        public OutputWriter(OutputStream outputStream) {
+            writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(outputStream)));
+        }
+
+        public OutputWriter(Writer writer) {
+            this.writer = new PrintWriter(writer);
+        }
+
+        public void print(Object... objects) {
+            for (int i = 0; i < objects.length; i++) {
+                if (i != 0) {
+                    writer.print(' ');
+                }
+                writer.print(objects[i]);
+            }
+        }
+
+        public void println() {
+            writer.println();
+        }
+
+        public void close() {
+            writer.close();
         }
 
     }
@@ -116,27 +165,6 @@ public class Main {
         public interface SpaceCharFilter {
             public boolean isSpaceChar(int ch);
 
-        }
-
-    }
-
-    static class OutputWriter {
-        private final PrintWriter writer;
-
-        public OutputWriter(OutputStream outputStream) {
-            writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(outputStream)));
-        }
-
-        public OutputWriter(Writer writer) {
-            this.writer = new PrintWriter(writer);
-        }
-
-        public void close() {
-            writer.close();
-        }
-
-        public void println(int i) {
-            writer.println(i);
         }
 
     }

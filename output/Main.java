@@ -22,22 +22,35 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        AFafaAndHisCompany solver = new AFafaAndHisCompany();
+        AFrogJumping solver = new AFrogJumping();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class AFafaAndHisCompany {
+    static class AFrogJumping {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
-            int n = in.nextInt();
-            int count = 0;
+            int t = in.nextInt();
 
-            for (int i = 1; i <= n / 2; i++) {
-                if (n % i == 0)
-                    count++;
+            while (t-- > 0) {
+                long a = in.nextInt();
+                long b = in.nextInt();
+                long k = in.nextInt();
+                long temp = 0;
+                long current = 0;
+
+                if ((k & 1) == 0) {
+                    a *= k >> 1;
+                    b *= k >> 1;
+                } else {
+                    --k;
+                    temp = a;
+                    a *= k >> 1;
+                    b *= k >> 1;
+                    a += temp;
+                }
+
+                out.println(a - b);
             }
-
-            out.println(count);
         }
 
     }
@@ -57,7 +70,7 @@ public class Main {
             writer.close();
         }
 
-        public void println(int i) {
+        public void println(long i) {
             writer.println(i);
         }
 

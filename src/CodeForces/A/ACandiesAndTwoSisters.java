@@ -17,12 +17,9 @@ public class ACandiesAndTwoSisters {
         int t = in.nextInt();
 
         while (t-->0){
-            long n = in.nextLong();
-            long ans = n>>1;
-            if (ans != 0 && (ans&1) == 0 || n == 2)
-                --ans;
-
-            out.println(ans);
+            long n = in.nextLong() ;
+            --n;
+            out.println(n>>1);
 
         }
     }

@@ -33,11 +33,8 @@ public class Main {
 
             while (t-- > 0) {
                 long n = in.nextLong();
-                long ans = n >> 1;
-                if (ans != 0 && (ans & 1) == 0 || n == 2)
-                    --ans;
-
-                out.println(ans);
+                --n;
+                out.println(n >> 1);
 
             }
         }

@@ -4,10 +4,12 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.BufferedWriter;
-import java.io.Writer;
-import java.io.OutputStreamWriter;
 import java.util.InputMismatchException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.io.Writer;
+import java.io.OutputStreamWriter;
 import java.io.InputStream;
 
 /**
@@ -22,21 +24,56 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        ACandiesAndTwoSisters solver = new ACandiesAndTwoSisters();
+        ABachgoldProblem solver = new ABachgoldProblem();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class ACandiesAndTwoSisters {
-        public void solve(int testNumber, InputReader in, OutputWriter out) {
-            int t = in.nextInt();
+    static class ABachgoldProblem {
+        List<Integer> seive() {
+            int n = 1_00_000;
+            List<Integer> list = new ArrayList<>();
+            boolean[] prime = new boolean[n + 1];
 
-            while (t-- > 0) {
-                long n = in.nextLong();
-                --n;
-                out.println(n >> 1);
+            for (int i = 2; i * i <= n; i++) {
+                if (!prime[i]) {
+                    list.add(i);
+                    for (int j = i; j <= n; j += i) {
+                        prime[j] = true;
+                    }
+                }
+            }
+            return list;
+        }
+
+        public void solve(int testNumber, InputReader in, OutputWriter out) {
+            int n = in.nextInt();
+            List<Integer> list = seive();
+            int count = 0;
+            int value;
+            StringBuilder sb = new StringBuilder();
+
+            while (n != 0) {
+                for (int i = 0; i <= list.size(); i++) {
+                    value = list.get(i);
+                    if (n % value == 0) {
+                        for (int j = 1; j <= n / value; j++) {
+                            sb.append(value + " ");
+                            count++;
+                            n -= value;
+                        }
+                        break;
+                    } else {
+
+                        sb.append(value + " ");
+                        count++;
+                        n -= value;
+                    }
+                }
 
             }
+            out.println(count);
+            out.println(sb.toString());
         }
 
     }
@@ -52,11 +89,25 @@ public class Main {
             this.writer = new PrintWriter(writer);
         }
 
+        public void print(Object... objects) {
+            for (int i = 0; i < objects.length; i++) {
+                if (i != 0) {
+                    writer.print(' ');
+                }
+                writer.print(objects[i]);
+            }
+        }
+
+        public void println(Object... objects) {
+            print(objects);
+            writer.println();
+        }
+
         public void close() {
             writer.close();
         }
 
-        public void println(long i) {
+        public void println(int i) {
             writer.println(i);
         }
 
@@ -102,28 +153,6 @@ public class Main {
                 c = read();
             }
             int res = 0;
-            do {
-                if (c < '0' || c > '9') {
-                    throw new InputMismatchException();
-                }
-                res *= 10;
-                res += c - '0';
-                c = read();
-            } while (!isSpaceChar(c));
-            return res * sgn;
-        }
-
-        public long nextLong() {
-            int c = read();
-            while (isSpaceChar(c)) {
-                c = read();
-            }
-            int sgn = 1;
-            if (c == '-') {
-                sgn = -1;
-                c = read();
-            }
-            long res = 0;
             do {
                 if (c < '0' || c > '9') {
                     throw new InputMismatchException();

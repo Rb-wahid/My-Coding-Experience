@@ -22,28 +22,43 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        ANextRound solver = new ANextRound();
+        AFafaAndHisCompany solver = new AFafaAndHisCompany();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class ANextRound {
+    static class AFafaAndHisCompany {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
             int n = in.nextInt();
-            int k = in.nextInt();
             int count = 0;
-            int passed = 0;
-            int[] arr = new int[n];
 
-            for (int i = 0; i < n; i++) {
-                arr[i] = in.nextInt();
-            }
-            passed = arr[k - 1];
-            for (int i = 0; i < n; i++) {
-                if (arr[i] >= passed && arr[i] > 0)
+            for (int i = 1; i <= n / 2; i++) {
+                if (n % i == 0)
                     count++;
             }
+
             out.println(count);
+        }
+
+    }
+
+    static class OutputWriter {
+        private final PrintWriter writer;
+
+        public OutputWriter(OutputStream outputStream) {
+            writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(outputStream)));
+        }
+
+        public OutputWriter(Writer writer) {
+            this.writer = new PrintWriter(writer);
+        }
+
+        public void close() {
+            writer.close();
+        }
+
+        public void println(int i) {
+            writer.println(i);
         }
 
     }
@@ -113,27 +128,6 @@ public class Main {
         public interface SpaceCharFilter {
             public boolean isSpaceChar(int ch);
 
-        }
-
-    }
-
-    static class OutputWriter {
-        private final PrintWriter writer;
-
-        public OutputWriter(OutputStream outputStream) {
-            writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(outputStream)));
-        }
-
-        public OutputWriter(Writer writer) {
-            this.writer = new PrintWriter(writer);
-        }
-
-        public void close() {
-            writer.close();
-        }
-
-        public void println(int i) {
-            writer.println(i);
         }
 
     }

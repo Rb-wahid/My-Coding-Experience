@@ -22,34 +22,23 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        AFrogJumping solver = new AFrogJumping();
+        ACandiesAndTwoSisters solver = new ACandiesAndTwoSisters();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class AFrogJumping {
+    static class ACandiesAndTwoSisters {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
             int t = in.nextInt();
 
             while (t-- > 0) {
-                long a = in.nextInt();
-                long b = in.nextInt();
-                long k = in.nextInt();
-                long temp = 0;
-                long current = 0;
+                long n = in.nextLong();
+                long ans = n >> 1;
+                if (ans != 0 && (ans & 1) == 0 || n == 2)
+                    --ans;
 
-                if ((k & 1) == 0) {
-                    a *= k >> 1;
-                    b *= k >> 1;
-                } else {
-                    --k;
-                    temp = a;
-                    a *= k >> 1;
-                    b *= k >> 1;
-                    a += temp;
-                }
+                out.println(ans);
 
-                out.println(a - b);
             }
         }
 
@@ -116,6 +105,28 @@ public class Main {
                 c = read();
             }
             int res = 0;
+            do {
+                if (c < '0' || c > '9') {
+                    throw new InputMismatchException();
+                }
+                res *= 10;
+                res += c - '0';
+                c = read();
+            } while (!isSpaceChar(c));
+            return res * sgn;
+        }
+
+        public long nextLong() {
+            int c = read();
+            while (isSpaceChar(c)) {
+                c = read();
+            }
+            int sgn = 1;
+            if (c == '-') {
+                sgn = -1;
+                c = read();
+            }
+            long res = 0;
             do {
                 if (c < '0' || c > '9') {
                     throw new InputMismatchException();

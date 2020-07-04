@@ -29,7 +29,7 @@ public class ARoadToZero {
             }
             else if (x > y){
                 op1 = y * b;
-                op2 = (a-x) * a;
+                op2 = (x-y) * a;
             }
 
             out.println(op1+op2);

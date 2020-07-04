@@ -28,6 +28,13 @@ public class Main {
     }
 
     static class ARoadToZero {
+        void swap(long x, long y) {
+            long temp = 0;
+            temp = x;
+            x = y;
+            y = temp;
+        }
+
         public void solve(int testNumber, InputReader in, OutputWriter out) {
             int t = in.nextInt();
 
@@ -36,16 +43,19 @@ public class Main {
                 long y = in.nextLong();
                 long a = in.nextLong();
                 long b = in.nextLong();
-                long op1 = 0, op2 = 0;
-                if (x < y) {
-                    op1 = x * b;
-                    op2 = (y - x) * a;
-                } else if (x > y) {
-                    op1 = y * b;
-                    op2 = (x - y) * a;
-                }
+                long total = 0;
 
-                out.println(op1 + op2);
+                if (x > y)
+                    swap(x, y);
+
+                total += a * (y - x);
+
+                if (2 * a < b)
+                    total += x * (2 * a);
+                else
+                    total += x * (b);
+
+                out.println(total);
             }
         }
 

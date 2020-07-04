@@ -14,25 +14,6 @@ import FastIO.OutputWriter;
 
 public class ARoadToZero {
 
-    long solve (long x, long y, long a , long b){
-
-        long op2 = operation_2(x, y);
-        op2 *= b;
-       long op1 = Math.abs(x-y) * a;
-
-       return op1+op2;
-    }
-
-     long operation_2(long x, long y){
-         long count = 0;
-        while (x != 0 && y != 0) {
-
-            --x;
-            --y;
-            count++;
-        }
-        return count;
-    }
     public void solve(int testNumber, InputReader in, OutputWriter out) {
         int t = in.nextInt();
 
@@ -41,9 +22,17 @@ public class ARoadToZero {
             long y = in.nextLong();
             long a = in.nextLong();
             long b = in.nextLong();
+            long op1 = 0, op2 = 0;
+            if(x < y){
+                op1 = x * b;
+                op2 = (y-x) * a;
+            }
+            else if (x > y){
+                op1 = y * b;
+                op2 = (a-x) * a;
+            }
 
-            long ans = solve(x, y, a, b);
-            out.println(ans);
+            out.println(op1+op2);
         }
     }
 }

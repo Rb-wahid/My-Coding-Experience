@@ -3,13 +3,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.util.List;
+import java.util.Arrays;
 import java.io.BufferedWriter;
 import java.io.Writer;
 import java.io.OutputStreamWriter;
 import java.util.InputMismatchException;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.io.InputStream;
 
 /**
@@ -24,30 +23,27 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        ABachgoldProblem solver = new ABachgoldProblem();
+        AHolidayOfEquality solver = new AHolidayOfEquality();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class ABachgoldProblem {
+    static class AHolidayOfEquality {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
             int n = in.nextInt();
-            List<Integer> list = new ArrayList<>();
-            if ((n & 1) == 0) {
-                for (int i = 1; i <= n / 2; i++) {
-                    list.add(2);
-                }
-            } else {
-                n -= 3;
-                for (int i = 1; i <= n / 2; i++) {
-                    list.add(2);
-                }
-                list.add(3);
-            }
 
-            out.println(list.size());
-            for (int i : list)
-                out.print(i + " ");
+            int[] arr = new int[n];
+
+            for (int i = 0; i < n; i++) {
+                arr[i] = in.nextInt();
+            }
+            Arrays.sort(arr);
+            int max = arr[n - 1];
+            int value = 0;
+            for (int i = 0; i < n - 1; i++) {
+                value += max - arr[i];
+            }
+            out.println(value);
         }
 
     }
@@ -61,15 +57,6 @@ public class Main {
 
         public OutputWriter(Writer writer) {
             this.writer = new PrintWriter(writer);
-        }
-
-        public void print(Object... objects) {
-            for (int i = 0; i < objects.length; i++) {
-                if (i != 0) {
-                    writer.print(' ');
-                }
-                writer.print(objects[i]);
-            }
         }
 
         public void close() {

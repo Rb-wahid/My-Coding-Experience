@@ -14,32 +14,30 @@ import FastIO.OutputWriter;
 
 public class ARoadToZero {
 
-    void swap( long x, long y) {
-        long temp = 0;
-        temp = x;
-        x = y;
-        y = temp;
-    }
 
     public void solve(int testNumber, InputReader in, OutputWriter out) {
-        int t = in.nextInt();
+        int test = in.nextInt();
 
-        while (t-->0) {
+        while (test-->0) {
             long x = in.nextLong();
             long y = in.nextLong();
             long a = in.nextLong();
             long b = in.nextLong();
             long total = 0;
 
-            if (x > y)
-                swap(x, y);
-
-            total += a * (y-x);
+            if (x < y) {
+                long temp = 0;
+                temp = x;
+                x = y;
+                y = temp;
+            }
 
                 if (2*a < b)
-                    total += x * (2*a);
-                else
-                    total += x * (b);
+                    total += a * (x+y);
+                else {
+                    total += y*b;
+                    total += a * (x-y);
+                }
 
             out.println(total);
         }

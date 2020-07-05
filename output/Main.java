@@ -57,10 +57,11 @@ public class Main {
                 if (odd <= 1) {
                     sb.append("-1");
                 } else {
-                    for (int i = 0; i < n; i++) {
+                    for (int i = 0, j = 0; i < n && j < 2; i++) {
                         first = toInt(arr[i]);
                         if (isOdd(first)) {
                             sb.append(first);
+                            j++;
                         }
                     }
                 }

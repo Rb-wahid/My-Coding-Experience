@@ -3,11 +3,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.util.Arrays;
 import java.io.BufferedWriter;
-import java.io.Writer;
-import java.io.OutputStreamWriter;
 import java.util.InputMismatchException;
 import java.io.IOException;
+import java.io.Writer;
+import java.io.OutputStreamWriter;
 import java.io.InputStream;
 
 /**
@@ -22,23 +23,54 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        AMinutesBeforeTheNewYear solver = new AMinutesBeforeTheNewYear();
+        AJeffAndDigits solver = new AJeffAndDigits();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class AMinutesBeforeTheNewYear {
+    static class AJeffAndDigits {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
-            int test = in.nextInt();
+            int n = in.nextInt();
+            int[] arr = new int[n];
 
-            while (test-- > 0) {
-                int h = in.nextInt() + 1;
-                int m = in.nextInt();
-                int hour = 24 - h;
-                int minute = 60 - m + (hour * 60);
-
-                out.println(minute);
+            for (int i = 0; i < n; i++) {
+                arr[i] = in.nextInt();
             }
+            Arrays.sort(arr);
+            StringBuilder string = new StringBuilder();
+
+
+            for (int i = n - 1; i >= 0; --i)
+                string.append(arr[i]);
+
+            String str = string.toString();
+            long value = Long.parseLong(str);
+            long temp = 0;
+
+            while (value % 90 != 0 && value != 5) {
+
+                temp = value - (5 * (long) Math.pow(10, n - 1));
+                if (temp % 90 == 0) {
+                    value = temp;
+                    break;
+                } else {
+                    str = str.substring(0, n - 1);
+                    --n;
+                    if (str.length() != 0) {
+                        temp = Long.parseLong(str);
+                        if (temp % 90 == 0) {
+                            value = temp;
+                            break;
+                        }
+                    } else {
+                        value = 5;
+                    }
+                }
+            }
+            if (value == 5)
+                out.println(0);
+            else
+                out.println(value);
         }
 
     }
@@ -56,6 +88,10 @@ public class Main {
 
         public void close() {
             writer.close();
+        }
+
+        public void println(long i) {
+            writer.println(i);
         }
 
         public void println(int i) {

@@ -61,9 +61,9 @@ public class AJeffAndDigits {
                     }
                 }
         }
-        if (z == 0 || f == 0)
+        if (z == 0)
             out.println(-1);
-        else if (value == 5)
+        else if (value == 5 || f == 0)
             out.println(0);
         else
             out.println(value);

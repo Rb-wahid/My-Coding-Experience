@@ -18,9 +18,16 @@ public class AJeffAndDigits {
     public void solve(int testNumber, InputReader in, OutputWriter out) {
         int n = in.nextInt();
         int[] arr = new int[n];
+        int f = 0;
+        int z = 0;
 
         for (int i = 0; i < n; i++) {
             arr[i] = in.nextInt();
+
+            if (arr[i] == 5)
+                f++;
+            else
+                z++;
         }
         Arrays.sort(arr);
         StringBuilder string = new StringBuilder();
@@ -54,7 +61,9 @@ public class AJeffAndDigits {
                     }
                 }
         }
-        if (value == 5)
+        if (z == 0 || f == 0)
+            out.println(-1);
+        else if (value == 5)
             out.println(0);
         else
             out.println(value);

@@ -36,8 +36,12 @@ public class AJeffAndDigits {
        else if (f < 9)
             sb.append(0);
         else {
-            sb.append("5".repeat((f / 9) * 9));
-            sb.append("0".repeat(z));
+            for (int i = 0; i < (f/9) * 9; i++) {
+                sb.append("5");
+            }
+            for (int i = 0; i < z; i++) {
+                sb.append("0");
+            }
         }
         out.println(sb.toString());
     }

@@ -22,50 +22,26 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        AGotAnyGrapes solver = new AGotAnyGrapes();
+        ACollectingCoins solver = new ACollectingCoins();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class AGotAnyGrapes {
+    static class ACollectingCoins {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
-            int Andrew = in.nextInt();
-            int Dmitry = in.nextInt();
-            int Michal = in.nextInt();
+            int t = in.nextInt();
 
-            int green = in.nextInt();
-            int purple = in.nextInt();
-            int black = in.nextInt();
-            boolean flag = true;
+            while (t-- > 0) {
+                long a = in.nextLong();
+                long b = in.nextLong();
+                long c = in.nextLong();
+                long n = in.nextLong();
 
-
-            if (Andrew > green)
-                flag = false;
-            else {
-                green -= Andrew;
+                if ((a + b + c + n) % 3 == 0)
+                    out.println("YES");
+                else
+                    out.println("NO");
             }
-            if (Dmitry > (green + purple))
-                flag = false;
-            else {
-                while (Dmitry-- != 0) {
-                    if (green > 0)
-                        green--;
-                    else {
-                        if (purple > 0)
-                            purple--;
-                    }
-
-                }
-            }
-
-
-            if (Michal > (green + purple + black))
-                flag = false;
-
-            if (flag)
-                out.println("YES");
-            else
-                out.println("NO");
         }
 
     }
@@ -141,6 +117,28 @@ public class Main {
                 c = read();
             }
             int res = 0;
+            do {
+                if (c < '0' || c > '9') {
+                    throw new InputMismatchException();
+                }
+                res *= 10;
+                res += c - '0';
+                c = read();
+            } while (!isSpaceChar(c));
+            return res * sgn;
+        }
+
+        public long nextLong() {
+            int c = read();
+            while (isSpaceChar(c)) {
+                c = read();
+            }
+            int sgn = 1;
+            if (c == '-') {
+                sgn = -1;
+                c = read();
+            }
+            long res = 0;
             do {
                 if (c < '0' || c > '9') {
                     throw new InputMismatchException();

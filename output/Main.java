@@ -22,41 +22,50 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        AJeffAndDigits solver = new AJeffAndDigits();
+        AGotAnyGrapes solver = new AGotAnyGrapes();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class AJeffAndDigits {
+    static class AGotAnyGrapes {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
-            int n = in.nextInt();
-            int[] arr = new int[n];
-            int f = 0;
-            int z = 0;
-            int value = 0;
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < n; i++) {
-                //  arr[i] = in.nextInt();
-                value = in.nextInt();
-                if (value == 5)
-                    f++;
-                else
-                    z++;
+            int Andrew = in.nextInt();
+            int Dmitry = in.nextInt();
+            int Michal = in.nextInt();
+
+            int green = in.nextInt();
+            int purple = in.nextInt();
+            int black = in.nextInt();
+            boolean flag = true;
+
+
+            if (Andrew > green)
+                flag = false;
+            else {
+                green -= Andrew;
+            }
+            if (Dmitry > (green + purple))
+                flag = false;
+            else {
+                while (Dmitry-- != 0) {
+                    if (green > 0)
+                        green--;
+                    else {
+                        if (purple > 0)
+                            purple--;
+                    }
+
+                }
             }
 
-            if (z == 0)
-                sb.append(-1);
-            else if (f < 9)
-                sb.append(0);
-            else {
-                for (int i = 0; i < (f / 9) * 9; i++) {
-                    sb.append("5");
-                }
-                for (int i = 0; i < z; i++) {
-                    sb.append("0");
-                }
-            }
-            out.println(sb.toString());
+
+            if (Michal > (green + purple + black))
+                flag = false;
+
+            if (flag)
+                out.println("YES");
+            else
+                out.println("NO");
         }
 
     }

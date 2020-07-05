@@ -32,8 +32,8 @@ public class Main {
             int n = in.nextInt();
             int a = in.nextInt();
             int b = in.nextInt();
-
-            out.println(n - a);
+            int max = Math.max(a + 1, n - b);
+            out.println((n - max) + 1);
         }
 
     }

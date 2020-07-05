@@ -22,23 +22,18 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        AVasyaTheHipster solver = new AVasyaTheHipster();
+        ATheNumberOfPositions solver = new ATheNumberOfPositions();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class AVasyaTheHipster {
+    static class ATheNumberOfPositions {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
+            int n = in.nextInt();
             int a = in.nextInt();
             int b = in.nextInt();
 
-            int min = Math.min(a, b);
-            int same = Math.abs(a - b);
-
-            if ((same & 1) == 1)
-                same--;
-
-            out.println(min + " " + (same >> 1));
+            out.println(n - a);
         }
 
     }
@@ -54,22 +49,12 @@ public class Main {
             this.writer = new PrintWriter(writer);
         }
 
-        public void print(Object... objects) {
-            for (int i = 0; i < objects.length; i++) {
-                if (i != 0) {
-                    writer.print(' ');
-                }
-                writer.print(objects[i]);
-            }
-        }
-
-        public void println(Object... objects) {
-            print(objects);
-            writer.println();
-        }
-
         public void close() {
             writer.close();
+        }
+
+        public void println(int i) {
+            writer.println(i);
         }
 
     }

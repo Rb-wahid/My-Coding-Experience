@@ -36,8 +36,9 @@ public class Main {
                 long b = in.nextLong();
                 long c = in.nextLong();
                 long n = in.nextLong();
-
-                if ((a + b + c + n) % 3 == 0)
+                long max = Math.max(a, Math.max(b, c));
+                long sum = (a + b + c + n);
+                if (sum % 3 == 0 && sum / 3 >= max)
                     out.println("YES");
                 else
                     out.println("NO");

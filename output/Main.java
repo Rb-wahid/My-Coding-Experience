@@ -22,27 +22,23 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        ACollectingCoins solver = new ACollectingCoins();
+        AVasyaTheHipster solver = new AVasyaTheHipster();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class ACollectingCoins {
+    static class AVasyaTheHipster {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
-            int t = in.nextInt();
+            int a = in.nextInt();
+            int b = in.nextInt();
 
-            while (t-- > 0) {
-                long a = in.nextLong();
-                long b = in.nextLong();
-                long c = in.nextLong();
-                long n = in.nextLong();
-                long max = Math.max(a, Math.max(b, c));
-                long sum = (a + b + c + n);
-                if (sum % 3 == 0 && sum / 3 >= max)
-                    out.println("YES");
-                else
-                    out.println("NO");
-            }
+            int min = Math.min(a, b);
+            int same = Math.abs(a - b);
+
+            if ((same & 1) == 1)
+                same--;
+
+            out.println(min + " " + (same >> 1));
         }
 
     }
@@ -118,28 +114,6 @@ public class Main {
                 c = read();
             }
             int res = 0;
-            do {
-                if (c < '0' || c > '9') {
-                    throw new InputMismatchException();
-                }
-                res *= 10;
-                res += c - '0';
-                c = read();
-            } while (!isSpaceChar(c));
-            return res * sgn;
-        }
-
-        public long nextLong() {
-            int c = read();
-            while (isSpaceChar(c)) {
-                c = read();
-            }
-            int sgn = 1;
-            if (c == '-') {
-                sgn = -1;
-                c = read();
-            }
-            long res = 0;
             do {
                 if (c < '0' || c > '9') {
                     throw new InputMismatchException();

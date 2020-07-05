@@ -4,10 +4,10 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.BufferedWriter;
-import java.io.Writer;
-import java.io.OutputStreamWriter;
 import java.util.InputMismatchException;
 import java.io.IOException;
+import java.io.Writer;
+import java.io.OutputStreamWriter;
 import java.io.InputStream;
 
 /**
@@ -22,39 +22,51 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        ATheNumberOfPositions solver = new ATheNumberOfPositions();
+        AEvenButNotEven solver = new AEvenButNotEven();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class ATheNumberOfPositions {
-        public void solve(int testNumber, InputReader in, OutputWriter out) {
-            int n = in.nextInt();
-            int a = in.nextInt();
-            int b = in.nextInt();
-            int max = Math.max(a + 1, n - b);
-            out.println((n - max) + 1);
+    static class AEvenButNotEven {
+        int toInt(char ch) {
+            return Integer.parseInt(String.valueOf(ch));
         }
 
-    }
-
-    static class OutputWriter {
-        private final PrintWriter writer;
-
-        public OutputWriter(OutputStream outputStream) {
-            writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(outputStream)));
+        boolean isOdd(int num) {
+            return (num & 1) == 1;
         }
 
-        public OutputWriter(Writer writer) {
-            this.writer = new PrintWriter(writer);
-        }
+        public void solve(int testNumber, InputReader sc, OutputWriter out) {
+            int t = sc.nextInt();
 
-        public void close() {
-            writer.close();
-        }
+            while (t-- > 0) {
+                int n = sc.nextInt();
+                String str = sc.next();
+                char[] arr = str.toCharArray();
 
-        public void println(int i) {
-            writer.println(i);
+                int odd = 0;
+                int first = 0;
+                StringBuilder sb = new StringBuilder();
+
+                for (char ch : str.toCharArray()) {
+                    int num = toInt(ch);
+                    if ((num & 1) == 1)
+                        odd++;
+                }
+
+                if (odd <= 1) {
+                    sb.append("-1");
+                } else {
+                    for (int i = 0; i < n; i++) {
+                        first = toInt(arr[i]);
+                        if (isOdd(first)) {
+                            sb.append(first);
+                        }
+                    }
+                }
+                out.println(sb);
+
+            }
         }
 
     }
@@ -110,6 +122,21 @@ public class Main {
             return res * sgn;
         }
 
+        public String nextString() {
+            int c = read();
+            while (isSpaceChar(c)) {
+                c = read();
+            }
+            StringBuilder res = new StringBuilder();
+            do {
+                if (Character.isValidCodePoint(c)) {
+                    res.appendCodePoint(c);
+                }
+                c = read();
+            } while (!isSpaceChar(c));
+            return res.toString();
+        }
+
         public boolean isSpaceChar(int c) {
             if (filter != null) {
                 return filter.isSpaceChar(c);
@@ -121,9 +148,44 @@ public class Main {
             return c == ' ' || c == '\n' || c == '\r' || c == '\t' || c == -1;
         }
 
+        public String next() {
+            return nextString();
+        }
+
         public interface SpaceCharFilter {
             public boolean isSpaceChar(int ch);
 
+        }
+
+    }
+
+    static class OutputWriter {
+        private final PrintWriter writer;
+
+        public OutputWriter(OutputStream outputStream) {
+            writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(outputStream)));
+        }
+
+        public OutputWriter(Writer writer) {
+            this.writer = new PrintWriter(writer);
+        }
+
+        public void print(Object... objects) {
+            for (int i = 0; i < objects.length; i++) {
+                if (i != 0) {
+                    writer.print(' ');
+                }
+                writer.print(objects[i]);
+            }
+        }
+
+        public void println(Object... objects) {
+            print(objects);
+            writer.println();
+        }
+
+        public void close() {
+            writer.close();
         }
 
     }

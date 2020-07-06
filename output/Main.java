@@ -4,10 +4,10 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.BufferedWriter;
-import java.util.InputMismatchException;
-import java.io.IOException;
 import java.io.Writer;
 import java.io.OutputStreamWriter;
+import java.util.InputMismatchException;
+import java.io.IOException;
 import java.io.InputStream;
 
 /**
@@ -22,52 +22,21 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        AEvenButNotEven solver = new AEvenButNotEven();
+        ANearlyLuckyNumber solver = new ANearlyLuckyNumber();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class AEvenButNotEven {
-        int toInt(char ch) {
-            return Integer.parseInt(String.valueOf(ch));
-        }
+    static class ANearlyLuckyNumber {
+        public void solve(int testNumber, InputReader in, OutputWriter out) {
+            String str = in.next();
 
-        boolean isOdd(int num) {
-            return (num & 1) == 1;
-        }
+            str = str.replaceAll("[47]", "");
 
-        public void solve(int testNumber, InputReader sc, OutputWriter out) {
-            int t = sc.nextInt();
-
-            while (t-- > 0) {
-                int n = sc.nextInt();
-                String str = sc.next();
-                char[] arr = str.toCharArray();
-
-                int odd = 0;
-                int first = 0;
-                StringBuilder sb = new StringBuilder();
-
-                for (char ch : str.toCharArray()) {
-                    int num = toInt(ch);
-                    if ((num & 1) == 1)
-                        odd++;
-                }
-
-                if (odd <= 1) {
-                    sb.append("-1");
-                } else {
-                    for (int i = 0, j = 0; i < n && j < 2; i++) {
-                        first = toInt(arr[i]);
-                        if (isOdd(first)) {
-                            sb.append(first);
-                            j++;
-                        }
-                    }
-                }
-                out.println(sb);
-
-            }
+            if (str.length() == 0)
+                out.println("YES");
+            else
+                out.println("NO");
         }
 
     }
@@ -99,28 +68,6 @@ public class Main {
                 }
             }
             return buf[curChar++];
-        }
-
-        public int nextInt() {
-            int c = read();
-            while (isSpaceChar(c)) {
-                c = read();
-            }
-            int sgn = 1;
-            if (c == '-') {
-                sgn = -1;
-                c = read();
-            }
-            int res = 0;
-            do {
-                if (c < '0' || c > '9') {
-                    throw new InputMismatchException();
-                }
-                res *= 10;
-                res += c - '0';
-                c = read();
-            } while (!isSpaceChar(c));
-            return res * sgn;
         }
 
         public String nextString() {

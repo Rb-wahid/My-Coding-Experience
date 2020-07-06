@@ -30,10 +30,12 @@ public class Main {
     static class ANearlyLuckyNumber {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
             String str = in.next();
-            String string = str;
-            str = str.replaceAll("[47]", "");
+            int lucky = 0;
+            for (char ch : str.toCharArray())
+                if (ch == '4' || ch == '7')
+                    lucky++;
 
-            if (str.length() == 0 && string.length() >= 2)
+            if (lucky == 4 || lucky == 7)
                 out.println("YES");
             else
                 out.println("NO");

@@ -22,27 +22,19 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        AInSearchOfAnEasyProblem solver = new AInSearchOfAnEasyProblem();
+        AMahmoudAndEhabAndTheEvenOddGame solver = new AMahmoudAndEhabAndTheEvenOddGame();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class AInSearchOfAnEasyProblem {
+    static class AMahmoudAndEhabAndTheEvenOddGame {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
-            int n = in.nextInt();
-            int value = 0;
+            long num = in.nextLong();
 
-            for (int i = 0; i < n; i++) {
-                value = in.nextInt();
-                if (value == 1) {
-                    value = 1;
-                    break;
-                }
-            }
-            if (value != 1)
-                out.println("EASY");
+            if ((num & 1) == 0)
+                out.println("Mahmoud");
             else
-                out.println("HARD");
+                out.println("Ehab");
         }
 
     }
@@ -107,7 +99,7 @@ public class Main {
             return buf[curChar++];
         }
 
-        public int nextInt() {
+        public long nextLong() {
             int c = read();
             while (isSpaceChar(c)) {
                 c = read();
@@ -117,7 +109,7 @@ public class Main {
                 sgn = -1;
                 c = read();
             }
-            int res = 0;
+            long res = 0;
             do {
                 if (c < '0' || c > '9') {
                     throw new InputMismatchException();

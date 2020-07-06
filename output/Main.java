@@ -30,7 +30,7 @@ public class Main {
     static class AHQ9 {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
             String str = in.next();
-            String string = str.replaceAll("[HQ9+]", "");
+            String string = str.replaceAll("[HQ9]", "");
 
             if (str.length() != string.length())
                 out.println("YES");

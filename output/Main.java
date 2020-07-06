@@ -22,23 +22,23 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        ANearlyLuckyNumber solver = new ANearlyLuckyNumber();
+        ATranslation solver = new ATranslation();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class ANearlyLuckyNumber {
+    static class ATranslation {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
-            String str = in.next();
-            int lucky = 0;
-            for (char ch : str.toCharArray())
-                if (ch == '4' || ch == '7')
-                    lucky++;
 
-            if (lucky == 4 || lucky == 7)
+            String s = in.next();
+            String t = in.next();
+            StringBuilder sb = new StringBuilder(s);
+            sb.reverse();
+            if (sb.toString().equals(t))
                 out.println("YES");
             else
                 out.println("NO");
+
         }
 
     }

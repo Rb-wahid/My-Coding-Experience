@@ -4,10 +4,12 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.BufferedWriter;
-import java.io.Writer;
-import java.io.OutputStreamWriter;
+import java.util.Set;
 import java.util.InputMismatchException;
 import java.io.IOException;
+import java.util.HashSet;
+import java.io.Writer;
+import java.io.OutputStreamWriter;
 import java.io.InputStream;
 
 /**
@@ -22,19 +24,31 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        AMahmoudAndEhabAndTheEvenOddGame solver = new AMahmoudAndEhabAndTheEvenOddGame();
+        ABeautifulYear solver = new ABeautifulYear();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class AMahmoudAndEhabAndTheEvenOddGame {
+    static class ABeautifulYear {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
-            long num = in.nextLong();
+            int year = in.nextInt();
+            String str;
+            Set<Character> set;
+            int i = year + 1;
+            while (true) {
+                str = String.valueOf(i);
+                set = new HashSet<>();
+                for (int j = 0; j < str.length(); j++) {
+                    set.add(str.charAt(j));
+                }
 
-            if ((num & 1) == 0)
-                out.println("Mahmoud");
-            else
-                out.println("Ehab");
+                if (set.size() != str.length())
+                    i++;
+                else
+                    break;
+            }
+
+            out.println(str);
         }
 
     }
@@ -99,7 +113,7 @@ public class Main {
             return buf[curChar++];
         }
 
-        public long nextLong() {
+        public int nextInt() {
             int c = read();
             while (isSpaceChar(c)) {
                 c = read();
@@ -109,7 +123,7 @@ public class Main {
                 sgn = -1;
                 c = read();
             }
-            long res = 0;
+            int res = 0;
             do {
                 if (c < '0' || c > '9') {
                     throw new InputMismatchException();

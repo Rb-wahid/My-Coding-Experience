@@ -22,27 +22,20 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        AStonesOnTheTable solver = new AStonesOnTheTable();
+        AHQ9 solver = new AHQ9();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class AStonesOnTheTable {
+    static class AHQ9 {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
-            int n = in.nextInt();
-            int count = 0;
-            char ch = in.nextCharacter();
-            for (int i = 1; i < n; i++) {
-                char c = in.nextCharacter();
+            String str = in.next();
+            String string = str.replaceAll("[HQ9+]", "");
 
-                if (ch != c)
-                    ch = c;
-                else {
-                    count++;
-                }
-            }
-
-            out.println(count);
+            if (str.length() != string.length())
+                out.println("YES");
+            else
+                out.println("NO");
         }
 
     }
@@ -58,12 +51,22 @@ public class Main {
             this.writer = new PrintWriter(writer);
         }
 
-        public void close() {
-            writer.close();
+        public void print(Object... objects) {
+            for (int i = 0; i < objects.length; i++) {
+                if (i != 0) {
+                    writer.print(' ');
+                }
+                writer.print(objects[i]);
+            }
         }
 
-        public void println(int i) {
-            writer.println(i);
+        public void println(Object... objects) {
+            print(objects);
+            writer.println();
+        }
+
+        public void close() {
+            writer.close();
         }
 
     }
@@ -97,26 +100,19 @@ public class Main {
             return buf[curChar++];
         }
 
-        public int nextInt() {
+        public String nextString() {
             int c = read();
             while (isSpaceChar(c)) {
                 c = read();
             }
-            int sgn = 1;
-            if (c == '-') {
-                sgn = -1;
-                c = read();
-            }
-            int res = 0;
+            StringBuilder res = new StringBuilder();
             do {
-                if (c < '0' || c > '9') {
-                    throw new InputMismatchException();
+                if (Character.isValidCodePoint(c)) {
+                    res.appendCodePoint(c);
                 }
-                res *= 10;
-                res += c - '0';
                 c = read();
             } while (!isSpaceChar(c));
-            return res * sgn;
+            return res.toString();
         }
 
         public boolean isSpaceChar(int c) {
@@ -130,12 +126,8 @@ public class Main {
             return c == ' ' || c == '\n' || c == '\r' || c == '\t' || c == -1;
         }
 
-        public char nextCharacter() {
-            int c = read();
-            while (isSpaceChar(c)) {
-                c = read();
-            }
-            return (char) c;
+        public String next() {
+            return nextString();
         }
 
         public interface SpaceCharFilter {

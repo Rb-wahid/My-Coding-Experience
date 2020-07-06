@@ -27,7 +27,7 @@ public class ACAPSLOCK {
         return withoutFirst.equals(afterUpperCase);
     }
 
-    String opration(String string) {
+    String operation(String string) {
         string = string.toLowerCase();
         String first = String.valueOf(string.charAt(0));
         string = string.replaceFirst(first, first.toUpperCase());
@@ -37,8 +37,11 @@ public class ACAPSLOCK {
     public void solve(int testNumber, InputReader in, OutputWriter out) {
         String str = in.next();
 
-        if (isAllUpperCase(str) || upperCaseWithoutFirst(str))
-        out.println(opration(str));
+        if (isAllUpperCase(str) )
+            out.println(str.toLowerCase());
+
+        else if(upperCaseWithoutFirst(str))
+              out.println(operation(str));
         else
             out.println(str);
     }

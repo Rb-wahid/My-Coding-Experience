@@ -22,20 +22,18 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        AHQ9 solver = new AHQ9();
+        ACAPSLOCK solver = new ACAPSLOCK();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class AHQ9 {
+    static class ACAPSLOCK {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
             String str = in.next();
-            String string = str.replaceAll("[HQ9]", "");
-
-            if (str.length() != string.length())
-                out.println("YES");
-            else
-                out.println("NO");
+            str = str.toLowerCase();
+            String first = String.valueOf(str.charAt(0));
+            str = str.replaceFirst(first, first.toUpperCase());
+            out.println(str);
         }
 
     }

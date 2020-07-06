@@ -22,23 +22,36 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        ATranslation solver = new ATranslation();
+        AAgainTwentyFive solver = new AAgainTwentyFive();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class ATranslation {
+    static class AAgainTwentyFive {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
+            String str = in.next();
+            out.println(25);
+        }
 
-            String s = in.next();
-            String t = in.next();
-            StringBuilder sb = new StringBuilder(s);
-            sb.reverse();
-            if (sb.toString().equals(t))
-                out.println("YES");
-            else
-                out.println("NO");
+    }
 
+    static class OutputWriter {
+        private final PrintWriter writer;
+
+        public OutputWriter(OutputStream outputStream) {
+            writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(outputStream)));
+        }
+
+        public OutputWriter(Writer writer) {
+            this.writer = new PrintWriter(writer);
+        }
+
+        public void close() {
+            writer.close();
+        }
+
+        public void println(int i) {
+            writer.println(i);
         }
 
     }
@@ -105,37 +118,6 @@ public class Main {
         public interface SpaceCharFilter {
             public boolean isSpaceChar(int ch);
 
-        }
-
-    }
-
-    static class OutputWriter {
-        private final PrintWriter writer;
-
-        public OutputWriter(OutputStream outputStream) {
-            writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(outputStream)));
-        }
-
-        public OutputWriter(Writer writer) {
-            this.writer = new PrintWriter(writer);
-        }
-
-        public void print(Object... objects) {
-            for (int i = 0; i < objects.length; i++) {
-                if (i != 0) {
-                    writer.print(' ');
-                }
-                writer.print(objects[i]);
-            }
-        }
-
-        public void println(Object... objects) {
-            print(objects);
-            writer.println();
-        }
-
-        public void close() {
-            writer.close();
         }
 
     }

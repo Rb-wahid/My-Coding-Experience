@@ -22,63 +22,28 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        ACheapTravel solver = new ACheapTravel();
+        AIlyaAndBankAccount solver = new AIlyaAndBankAccount();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class ACheapTravel {
-        int priceForOptimal(int n, int m, int a, int b) {
-            if (n < m)
-                return b;
-            else {
-                int oldN = n;
-                if (n % m == 0) {
-                    return b * (n / m);
-                } else {
-                    int countForb = 0;
-                    while (n - m > 0) {
-                        n -= m;
-                        countForb++;
-                    }
-
-                    return Math.min((countForb * b) + ((oldN - (countForb * m)) * a), ((countForb + 1) * b));
-                }
-            }
-        }
-
+    static class AIlyaAndBankAccount {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
-            int n = in.nextInt();
-            int m = in.nextInt();
-            int a = in.nextInt();
-            int b = in.nextInt();
 
-            int priceForSingle = n * a;
-            int optimalPrice = priceForOptimal(n, m, a, b);
+            long num = in.nextLong();
 
-            out.println(Math.min(priceForSingle, optimalPrice));
+            if (num > 0)
+                out.println(num);
+            else {
+                String strX = String.valueOf(num);
+                String strY = strX.substring(0, strX.length() - 2);
+                strY += strX.substring(strX.length() - 1, strX.length());
+                strX = strX.substring(0, strX.length() - 1);
 
-        }
-
-    }
-
-    static class OutputWriter {
-        private final PrintWriter writer;
-
-        public OutputWriter(OutputStream outputStream) {
-            writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(outputStream)));
-        }
-
-        public OutputWriter(Writer writer) {
-            this.writer = new PrintWriter(writer);
-        }
-
-        public void close() {
-            writer.close();
-        }
-
-        public void println(int i) {
-            writer.println(i);
+                long x = Long.parseLong(strX);
+                long y = Long.parseLong(strY);
+                out.println(Math.max(x, y));
+            }
         }
 
     }
@@ -112,7 +77,7 @@ public class Main {
             return buf[curChar++];
         }
 
-        public int nextInt() {
+        public long nextLong() {
             int c = read();
             while (isSpaceChar(c)) {
                 c = read();
@@ -122,7 +87,7 @@ public class Main {
                 sgn = -1;
                 c = read();
             }
-            int res = 0;
+            long res = 0;
             do {
                 if (c < '0' || c > '9') {
                     throw new InputMismatchException();
@@ -148,6 +113,27 @@ public class Main {
         public interface SpaceCharFilter {
             public boolean isSpaceChar(int ch);
 
+        }
+
+    }
+
+    static class OutputWriter {
+        private final PrintWriter writer;
+
+        public OutputWriter(OutputStream outputStream) {
+            writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(outputStream)));
+        }
+
+        public OutputWriter(Writer writer) {
+            this.writer = new PrintWriter(writer);
+        }
+
+        public void close() {
+            writer.close();
+        }
+
+        public void println(long i) {
+            writer.println(i);
         }
 
     }

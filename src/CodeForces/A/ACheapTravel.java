@@ -26,7 +26,7 @@ public class ACheapTravel {
                         countForb++;
                 }
 
-                return  (countForb*b) + ((oldN-(countForb*m))*a);
+                return  Math.min((countForb*b) + ((oldN-(countForb*m))*a),(countForb*b) + ((oldN-(countForb*m))*b)  );
             }
     }
     public void solve(int testNumber, InputReader in, OutputWriter out) {

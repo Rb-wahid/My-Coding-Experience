@@ -22,29 +22,27 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        AGennadyAndACardGame solver = new AGennadyAndACardGame();
+        ACaseOfTheZerosAndOnes solver = new ACaseOfTheZerosAndOnes();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class AGennadyAndACardGame {
+    static class ACaseOfTheZerosAndOnes {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
-            String onTAble = in.next();
-            String a = String.valueOf(onTAble.charAt(0));
-            String b = String.valueOf(onTAble.charAt(1));
-            StringBuilder sb = new StringBuilder();
+            long n = in.nextLong();
+            String str = in.next();
+            char[] ch = str.toCharArray();
+            int one = 0;
+            int zero = 0;
 
-            for (int i = 0; i < 5; i++) {
-                sb.append(in.next());
+            for (int i = 0; i < n; i++) {
+                if (ch[i] == '1')
+                    one++;
+                else
+                    zero++;
             }
-            String str = sb.toString().replaceAll(a, "").replaceAll(b, "");
 
-            if (sb.toString().equals(str))
-                out.println("NO");
-            else
-                out.println("YES");
-
-
+            out.println(Math.abs(one - zero));
         }
 
     }
@@ -76,6 +74,28 @@ public class Main {
                 }
             }
             return buf[curChar++];
+        }
+
+        public long nextLong() {
+            int c = read();
+            while (isSpaceChar(c)) {
+                c = read();
+            }
+            int sgn = 1;
+            if (c == '-') {
+                sgn = -1;
+                c = read();
+            }
+            long res = 0;
+            do {
+                if (c < '0' || c > '9') {
+                    throw new InputMismatchException();
+                }
+                res *= 10;
+                res += c - '0';
+                c = read();
+            } while (!isSpaceChar(c));
+            return res * sgn;
         }
 
         public String nextString() {
@@ -126,22 +146,12 @@ public class Main {
             this.writer = new PrintWriter(writer);
         }
 
-        public void print(Object... objects) {
-            for (int i = 0; i < objects.length; i++) {
-                if (i != 0) {
-                    writer.print(' ');
-                }
-                writer.print(objects[i]);
-            }
-        }
-
-        public void println(Object... objects) {
-            print(objects);
-            writer.println();
-        }
-
         public void close() {
             writer.close();
+        }
+
+        public void println(int i) {
+            writer.println(i);
         }
 
     }

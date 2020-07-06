@@ -15,19 +15,23 @@ import FastIO.OutputWriter;
 public class ACheapTravel {
 
     int priceForOptimal(int n, int m, int a, int b){
-        int oldN = n;
+        if (n < m)
+            return b;
+        else {
+            int oldN = n;
             if (n%m == 0){
                 return b * (n/m);
             }
             else {
                 int countForb = 0;
                 while (n-m > 0) {
-                        n -= m;
-                        countForb++;
+                    n -= m;
+                    countForb++;
                 }
 
                 return  Math.min((countForb*b) + ((oldN-(countForb*m))*a),(countForb*b) + ((oldN-(countForb*m))*b)  );
             }
+        }
     }
     public void solve(int testNumber, InputReader in, OutputWriter out) {
         int n = in.nextInt();

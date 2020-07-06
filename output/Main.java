@@ -22,15 +22,27 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        AAgainTwentyFive solver = new AAgainTwentyFive();
+        AInSearchOfAnEasyProblem solver = new AInSearchOfAnEasyProblem();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class AAgainTwentyFive {
+    static class AInSearchOfAnEasyProblem {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
-            String str = in.next();
-            out.println(25);
+            int n = in.nextInt();
+            int value = 0;
+
+            for (int i = 0; i < n; i++) {
+                value = in.nextInt();
+                if (value == 1) {
+                    value = 1;
+                    break;
+                }
+            }
+            if (value != 1)
+                out.println("EASY");
+            else
+                out.println("HARD");
         }
 
     }
@@ -46,12 +58,22 @@ public class Main {
             this.writer = new PrintWriter(writer);
         }
 
-        public void close() {
-            writer.close();
+        public void print(Object... objects) {
+            for (int i = 0; i < objects.length; i++) {
+                if (i != 0) {
+                    writer.print(' ');
+                }
+                writer.print(objects[i]);
+            }
         }
 
-        public void println(int i) {
-            writer.println(i);
+        public void println(Object... objects) {
+            print(objects);
+            writer.println();
+        }
+
+        public void close() {
+            writer.close();
         }
 
     }
@@ -85,19 +107,26 @@ public class Main {
             return buf[curChar++];
         }
 
-        public String nextString() {
+        public int nextInt() {
             int c = read();
             while (isSpaceChar(c)) {
                 c = read();
             }
-            StringBuilder res = new StringBuilder();
+            int sgn = 1;
+            if (c == '-') {
+                sgn = -1;
+                c = read();
+            }
+            int res = 0;
             do {
-                if (Character.isValidCodePoint(c)) {
-                    res.appendCodePoint(c);
+                if (c < '0' || c > '9') {
+                    throw new InputMismatchException();
                 }
+                res *= 10;
+                res += c - '0';
                 c = read();
             } while (!isSpaceChar(c));
-            return res.toString();
+            return res * sgn;
         }
 
         public boolean isSpaceChar(int c) {
@@ -109,10 +138,6 @@ public class Main {
 
         public static boolean isWhitespace(int c) {
             return c == ' ' || c == '\n' || c == '\r' || c == '\t' || c == -1;
-        }
-
-        public String next() {
-            return nextString();
         }
 
         public interface SpaceCharFilter {

@@ -28,12 +28,34 @@ public class Main {
     }
 
     static class ACAPSLOCK {
+        boolean isAllUpperCase(String string) {
+            String str = string.toUpperCase();
+
+            return str.equals(string);
+        }
+
+        boolean upperCaseWithoutFirst(String string) {
+            String withoutFirst = string.substring(1, string.length());
+            String afterUpperCase = withoutFirst.toUpperCase();
+
+            return withoutFirst.equals(afterUpperCase);
+        }
+
+        String opration(String string) {
+            string = string.toLowerCase();
+            String first = String.valueOf(string.charAt(0));
+            string = string.replaceFirst(first, first.toUpperCase());
+
+            return string;
+        }
+
         public void solve(int testNumber, InputReader in, OutputWriter out) {
             String str = in.next();
-            str = str.toLowerCase();
-            String first = String.valueOf(str.charAt(0));
-            str = str.replaceFirst(first, first.toUpperCase());
-            out.println(str);
+
+            if (isAllUpperCase(str) || upperCaseWithoutFirst(str))
+                out.println(opration(str));
+            else
+                out.println(str);
         }
 
     }

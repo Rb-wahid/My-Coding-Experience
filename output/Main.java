@@ -22,28 +22,29 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        AIlyaAndBankAccount solver = new AIlyaAndBankAccount();
+        AGennadyAndACardGame solver = new AGennadyAndACardGame();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class AIlyaAndBankAccount {
+    static class AGennadyAndACardGame {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
+            String onTAble = in.next();
+            String a = String.valueOf(onTAble.charAt(0));
+            String b = String.valueOf(onTAble.charAt(1));
+            StringBuilder sb = new StringBuilder();
 
-            long num = in.nextLong();
-
-            if (num > 0)
-                out.println(num);
-            else {
-                String strX = String.valueOf(num);
-                String strY = strX.substring(0, strX.length() - 2);
-                strY += strX.substring(strX.length() - 1, strX.length());
-                strX = strX.substring(0, strX.length() - 1);
-
-                long x = Long.parseLong(strX);
-                long y = Long.parseLong(strY);
-                out.println(Math.max(x, y));
+            for (int i = 0; i < 5; i++) {
+                sb.append(in.next());
             }
+            String str = sb.toString().replaceAll(a, "").replaceAll(b, "");
+
+            if (sb.toString().equals(str))
+                out.println("NO");
+            else
+                out.println("YES");
+
+
         }
 
     }
@@ -77,26 +78,19 @@ public class Main {
             return buf[curChar++];
         }
 
-        public long nextLong() {
+        public String nextString() {
             int c = read();
             while (isSpaceChar(c)) {
                 c = read();
             }
-            int sgn = 1;
-            if (c == '-') {
-                sgn = -1;
-                c = read();
-            }
-            long res = 0;
+            StringBuilder res = new StringBuilder();
             do {
-                if (c < '0' || c > '9') {
-                    throw new InputMismatchException();
+                if (Character.isValidCodePoint(c)) {
+                    res.appendCodePoint(c);
                 }
-                res *= 10;
-                res += c - '0';
                 c = read();
             } while (!isSpaceChar(c));
-            return res * sgn;
+            return res.toString();
         }
 
         public boolean isSpaceChar(int c) {
@@ -108,6 +102,10 @@ public class Main {
 
         public static boolean isWhitespace(int c) {
             return c == ' ' || c == '\n' || c == '\r' || c == '\t' || c == -1;
+        }
+
+        public String next() {
+            return nextString();
         }
 
         public interface SpaceCharFilter {
@@ -128,12 +126,22 @@ public class Main {
             this.writer = new PrintWriter(writer);
         }
 
-        public void close() {
-            writer.close();
+        public void print(Object... objects) {
+            for (int i = 0; i < objects.length; i++) {
+                if (i != 0) {
+                    writer.print(' ');
+                }
+                writer.print(objects[i]);
+            }
         }
 
-        public void println(long i) {
-            writer.println(i);
+        public void println(Object... objects) {
+            print(objects);
+            writer.println();
+        }
+
+        public void close() {
+            writer.close();
         }
 
     }

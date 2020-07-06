@@ -42,7 +42,7 @@ public class Main {
                         countForb++;
                     }
 
-                    return Math.min((countForb * b) + ((oldN - (countForb * m)) * a), (countForb * b) + ((oldN - (countForb * m)) * b));
+                    return Math.min((countForb * b) + ((oldN - (countForb * m)) * a), ((countForb + 1) * b));
                 }
             }
         }

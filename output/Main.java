@@ -4,12 +4,10 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.BufferedWriter;
-import java.util.Set;
-import java.util.InputMismatchException;
-import java.io.IOException;
-import java.util.HashSet;
 import java.io.Writer;
 import java.io.OutputStreamWriter;
+import java.util.InputMismatchException;
+import java.io.IOException;
 import java.io.InputStream;
 
 /**
@@ -24,31 +22,27 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        ABeautifulYear solver = new ABeautifulYear();
+        AStonesOnTheTable solver = new AStonesOnTheTable();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class ABeautifulYear {
+    static class AStonesOnTheTable {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
-            int year = in.nextInt();
-            String str;
-            Set<Character> set;
-            int i = year + 1;
-            while (true) {
-                str = String.valueOf(i);
-                set = new HashSet<>();
-                for (int j = 0; j < str.length(); j++) {
-                    set.add(str.charAt(j));
-                }
+            int n = in.nextInt();
+            int count = 0;
+            char ch = in.nextCharacter();
+            for (int i = 1; i < n; i++) {
+                char c = in.nextCharacter();
 
-                if (set.size() != str.length())
-                    i++;
-                else
-                    break;
+                if (ch != c)
+                    ch = c;
+                else {
+                    count++;
+                }
             }
 
-            out.println(str);
+            out.println(count);
         }
 
     }
@@ -64,22 +58,12 @@ public class Main {
             this.writer = new PrintWriter(writer);
         }
 
-        public void print(Object... objects) {
-            for (int i = 0; i < objects.length; i++) {
-                if (i != 0) {
-                    writer.print(' ');
-                }
-                writer.print(objects[i]);
-            }
-        }
-
-        public void println(Object... objects) {
-            print(objects);
-            writer.println();
-        }
-
         public void close() {
             writer.close();
+        }
+
+        public void println(int i) {
+            writer.println(i);
         }
 
     }
@@ -144,6 +128,14 @@ public class Main {
 
         public static boolean isWhitespace(int c) {
             return c == ' ' || c == '\n' || c == '\r' || c == '\t' || c == -1;
+        }
+
+        public char nextCharacter() {
+            int c = read();
+            while (isSpaceChar(c)) {
+                c = read();
+            }
+            return (char) c;
         }
 
         public interface SpaceCharFilter {

@@ -38,9 +38,9 @@ public class Main {
             int count = 0;
             int min = Integer.MAX_VALUE;
             int max = Integer.MIN_VALUE;
-            int value = arr[0] - arr[1];
-            for (int i = 1; i < t - 1; i++) {
-
+            int value;
+            for (int i = 0; i < t; i++) {
+                value = arr[i];
                 if (value > 0 && max < value) {
                     max = value;
                     count++;
@@ -49,7 +49,6 @@ public class Main {
                     min = value;
                     count++;
                 }
-                value = arr[i] - arr[i + 1];
             }
             out.println(count);
         }

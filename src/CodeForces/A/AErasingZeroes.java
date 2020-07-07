@@ -4,9 +4,9 @@ package CodeForces.A;
  *
  * @author Rb_wahid
  *
- * Problem Title:
+ * Problem Title: A. Erasing Zeroes
  *
- * link :
+ * link : https://codeforces.com/problemset/problem/1303/A
  */
 
 import FastIO.InputReader;

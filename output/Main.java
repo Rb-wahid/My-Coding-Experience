@@ -33,7 +33,7 @@ public class Main {
             int a = in.nextInt();
             int b = in.nextInt();
 
-            if (((a * b) & 1) == 0)
+            if ((a & 1) == 0)
                 out.println("Malvika");
             else
                 out.println("Akshat");

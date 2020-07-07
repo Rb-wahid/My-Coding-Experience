@@ -22,27 +22,62 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        ACaseOfTheZerosAndOnes solver = new ACaseOfTheZerosAndOnes();
+        AEhAbAnDGCd solver = new AEhAbAnDGCd();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class ACaseOfTheZerosAndOnes {
+    static class AEhAbAnDGCd {
+        long gcd(long a, long b) {
+            if (b == 0)
+                return a;
+            return gcd(b, a % b);
+
+        }
+
+        long lcm(long a, long b) {
+            return (a * b) / gcd(a, b);
+        }
+
         public void solve(int testNumber, InputReader in, OutputWriter out) {
-            long n = in.nextLong();
-            String str = in.next();
-            char[] ch = str.toCharArray();
-            int one = 0;
-            int zero = 0;
+            int t = in.nextInt();
 
-            for (int i = 0; i < n; i++) {
-                if (ch[i] == '1')
-                    one++;
-                else
-                    zero++;
+            while (t-- > 0) {
+                long x = in.nextLong();
+
+                out.println(gcd(1, x - 1) + " " + lcm(1, x - 1));
             }
+        }
 
-            out.println(Math.abs(one - zero));
+    }
+
+    static class OutputWriter {
+        private final PrintWriter writer;
+
+        public OutputWriter(OutputStream outputStream) {
+            writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(outputStream)));
+        }
+
+        public OutputWriter(Writer writer) {
+            this.writer = new PrintWriter(writer);
+        }
+
+        public void print(Object... objects) {
+            for (int i = 0; i < objects.length; i++) {
+                if (i != 0) {
+                    writer.print(' ');
+                }
+                writer.print(objects[i]);
+            }
+        }
+
+        public void println(Object... objects) {
+            print(objects);
+            writer.println();
+        }
+
+        public void close() {
+            writer.close();
         }
 
     }
@@ -76,6 +111,28 @@ public class Main {
             return buf[curChar++];
         }
 
+        public int nextInt() {
+            int c = read();
+            while (isSpaceChar(c)) {
+                c = read();
+            }
+            int sgn = 1;
+            if (c == '-') {
+                sgn = -1;
+                c = read();
+            }
+            int res = 0;
+            do {
+                if (c < '0' || c > '9') {
+                    throw new InputMismatchException();
+                }
+                res *= 10;
+                res += c - '0';
+                c = read();
+            } while (!isSpaceChar(c));
+            return res * sgn;
+        }
+
         public long nextLong() {
             int c = read();
             while (isSpaceChar(c)) {
@@ -98,21 +155,6 @@ public class Main {
             return res * sgn;
         }
 
-        public String nextString() {
-            int c = read();
-            while (isSpaceChar(c)) {
-                c = read();
-            }
-            StringBuilder res = new StringBuilder();
-            do {
-                if (Character.isValidCodePoint(c)) {
-                    res.appendCodePoint(c);
-                }
-                c = read();
-            } while (!isSpaceChar(c));
-            return res.toString();
-        }
-
         public boolean isSpaceChar(int c) {
             if (filter != null) {
                 return filter.isSpaceChar(c);
@@ -124,34 +166,9 @@ public class Main {
             return c == ' ' || c == '\n' || c == '\r' || c == '\t' || c == -1;
         }
 
-        public String next() {
-            return nextString();
-        }
-
         public interface SpaceCharFilter {
             public boolean isSpaceChar(int ch);
 
-        }
-
-    }
-
-    static class OutputWriter {
-        private final PrintWriter writer;
-
-        public OutputWriter(OutputStream outputStream) {
-            writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(outputStream)));
-        }
-
-        public OutputWriter(Writer writer) {
-            this.writer = new PrintWriter(writer);
-        }
-
-        public void close() {
-            writer.close();
-        }
-
-        public void println(int i) {
-            writer.println(i);
         }
 
     }

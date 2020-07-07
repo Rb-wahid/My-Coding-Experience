@@ -4,10 +4,10 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.BufferedWriter;
-import java.io.Writer;
-import java.io.OutputStreamWriter;
 import java.util.InputMismatchException;
 import java.io.IOException;
+import java.io.Writer;
+import java.io.OutputStreamWriter;
 import java.io.InputStream;
 
 /**
@@ -22,62 +22,38 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        AEhAbAnDGCd solver = new AEhAbAnDGCd();
+        ACombinationLock solver = new ACombinationLock();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class AEhAbAnDGCd {
-        long gcd(long a, long b) {
-            if (b == 0)
-                return a;
-            return gcd(b, a % b);
+    static class ACombinationLock {
+        int operation(int a, int b) {
+            int num, temp;
+            if (a > b) {
+                num = a - b;
+                temp = (9 - a) + b + 1;
 
-        }
-
-        long lcm(long a, long b) {
-            return (a * b) / gcd(a, b);
+            } else {
+                num = b - a;
+                temp = a + (9 - b) + 1;
+            }
+            return Math.min(num, temp);
         }
 
         public void solve(int testNumber, InputReader in, OutputWriter out) {
-            int t = in.nextInt();
+            int n = in.nextInt();
+            String str = in.next();
+            String keys = in.next();
+            String[] pass = str.split("");
+            String[] key = keys.split("");
+            int count = 0;
 
-            while (t-- > 0) {
-                long x = in.nextLong();
-
-                out.println(gcd(1, x - 1) + " " + lcm(1, x - 1));
+            for (int i = 0; i < n; i++) {
+                count += operation(Integer.parseInt(pass[i]), Integer.parseInt(key[i]));
             }
-        }
 
-    }
-
-    static class OutputWriter {
-        private final PrintWriter writer;
-
-        public OutputWriter(OutputStream outputStream) {
-            writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(outputStream)));
-        }
-
-        public OutputWriter(Writer writer) {
-            this.writer = new PrintWriter(writer);
-        }
-
-        public void print(Object... objects) {
-            for (int i = 0; i < objects.length; i++) {
-                if (i != 0) {
-                    writer.print(' ');
-                }
-                writer.print(objects[i]);
-            }
-        }
-
-        public void println(Object... objects) {
-            print(objects);
-            writer.println();
-        }
-
-        public void close() {
-            writer.close();
+            out.println(count);
         }
 
     }
@@ -133,26 +109,19 @@ public class Main {
             return res * sgn;
         }
 
-        public long nextLong() {
+        public String nextString() {
             int c = read();
             while (isSpaceChar(c)) {
                 c = read();
             }
-            int sgn = 1;
-            if (c == '-') {
-                sgn = -1;
-                c = read();
-            }
-            long res = 0;
+            StringBuilder res = new StringBuilder();
             do {
-                if (c < '0' || c > '9') {
-                    throw new InputMismatchException();
+                if (Character.isValidCodePoint(c)) {
+                    res.appendCodePoint(c);
                 }
-                res *= 10;
-                res += c - '0';
                 c = read();
             } while (!isSpaceChar(c));
-            return res * sgn;
+            return res.toString();
         }
 
         public boolean isSpaceChar(int c) {
@@ -166,9 +135,34 @@ public class Main {
             return c == ' ' || c == '\n' || c == '\r' || c == '\t' || c == -1;
         }
 
+        public String next() {
+            return nextString();
+        }
+
         public interface SpaceCharFilter {
             public boolean isSpaceChar(int ch);
 
+        }
+
+    }
+
+    static class OutputWriter {
+        private final PrintWriter writer;
+
+        public OutputWriter(OutputStream outputStream) {
+            writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(outputStream)));
+        }
+
+        public OutputWriter(Writer writer) {
+            this.writer = new PrintWriter(writer);
+        }
+
+        public void close() {
+            writer.close();
+        }
+
+        public void println(int i) {
+            writer.println(i);
         }
 
     }

@@ -22,46 +22,23 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        AErasingZeroes solver = new AErasingZeroes();
+        AUltraFastMathematician solver = new AUltraFastMathematician();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class AErasingZeroes {
+    static class AUltraFastMathematician {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
-            int t = in.nextInt();
-            while (t-- > 0) {
-                String string = in.next();
+            String a = in.next();
+            String b = in.next();
 
-                if (string.length() < 2)
-                    out.println(0);
-                else {
-                    char[] arr = string.toCharArray();
-                    int count = 0;
-                    int first1 = -1;
-                    int last1 = arr.length - 1;
+            StringBuilder sb = new StringBuilder();
 
-                    for (char ch : arr) {
-                        first1++;
-                        if (ch == '1')
-                            break;
-                    }
-
-                    for (; last1 >= 0; last1--) {
-                        if (arr[last1] == '1') {
-                            break;
-                        }
-                    }
-
-                    for (int i = first1 + 1; i < last1; i++) {
-                        char xchar = arr[i];
-                        if (xchar == '0') {
-                            count++;
-                        }
-                    }
-                    out.println(count);
-                }
+            for (int i = 0; i < a.length(); i++) {
+                sb.append(a.charAt(i) ^ b.charAt(i));
             }
+
+            out.println(sb);
         }
 
     }
@@ -93,28 +70,6 @@ public class Main {
                 }
             }
             return buf[curChar++];
-        }
-
-        public int nextInt() {
-            int c = read();
-            while (isSpaceChar(c)) {
-                c = read();
-            }
-            int sgn = 1;
-            if (c == '-') {
-                sgn = -1;
-                c = read();
-            }
-            int res = 0;
-            do {
-                if (c < '0' || c > '9') {
-                    throw new InputMismatchException();
-                }
-                res *= 10;
-                res += c - '0';
-                c = read();
-            } while (!isSpaceChar(c));
-            return res * sgn;
         }
 
         public String nextString() {
@@ -165,12 +120,22 @@ public class Main {
             this.writer = new PrintWriter(writer);
         }
 
-        public void close() {
-            writer.close();
+        public void print(Object... objects) {
+            for (int i = 0; i < objects.length; i++) {
+                if (i != 0) {
+                    writer.print(' ');
+                }
+                writer.print(objects[i]);
+            }
         }
 
-        public void println(int i) {
-            writer.println(i);
+        public void println(Object... objects) {
+            print(objects);
+            writer.println();
+        }
+
+        public void close() {
+            writer.close();
         }
 
     }

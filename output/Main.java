@@ -22,23 +22,21 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        AUltraFastMathematician solver = new AUltraFastMathematician();
+        AGameWithSticks solver = new AGameWithSticks();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class AUltraFastMathematician {
+    static class AGameWithSticks {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
-            String a = in.next();
-            String b = in.next();
 
-            StringBuilder sb = new StringBuilder();
+            int a = in.nextInt();
+            int b = in.nextInt();
 
-            for (int i = 0; i < a.length(); i++) {
-                sb.append(a.charAt(i) ^ b.charAt(i));
-            }
-
-            out.println(sb);
+            if (((a * b) & 1) == 0)
+                out.println("Malvika");
+            else
+                out.println("Akshat");
         }
 
     }
@@ -72,19 +70,26 @@ public class Main {
             return buf[curChar++];
         }
 
-        public String nextString() {
+        public int nextInt() {
             int c = read();
             while (isSpaceChar(c)) {
                 c = read();
             }
-            StringBuilder res = new StringBuilder();
+            int sgn = 1;
+            if (c == '-') {
+                sgn = -1;
+                c = read();
+            }
+            int res = 0;
             do {
-                if (Character.isValidCodePoint(c)) {
-                    res.appendCodePoint(c);
+                if (c < '0' || c > '9') {
+                    throw new InputMismatchException();
                 }
+                res *= 10;
+                res += c - '0';
                 c = read();
             } while (!isSpaceChar(c));
-            return res.toString();
+            return res * sgn;
         }
 
         public boolean isSpaceChar(int c) {
@@ -96,10 +101,6 @@ public class Main {
 
         public static boolean isWhitespace(int c) {
             return c == ' ' || c == '\n' || c == '\r' || c == '\t' || c == -1;
-        }
-
-        public String next() {
-            return nextString();
         }
 
         public interface SpaceCharFilter {

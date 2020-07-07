@@ -24,17 +24,22 @@ public class AILoveUsername {
         int min = Integer.MAX_VALUE;
         int max = Integer.MIN_VALUE;
         int value ;
-        for (int i = 0; i < t; i++) {
+        if (t < 2 )
+        out.println(0);
+        else {
+            for (int i = 0; i < t; i++) {
                 value = arr[i];
-            if (value > 0 && max < value){
-                max = value;
-                count++;
+                if (value > 0 && max < value){
+                    max = value;
+                    count++;
+                }
+                if (value < 0 && min > value){
+                    min = value;
+                    count++;
+                }
             }
-            if (value < 0 && min > value){
-                min = value;
-                count++;
-            }
+            out.println(count);
         }
-        out.println(count);
+
     }
 }

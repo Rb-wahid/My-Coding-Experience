@@ -22,42 +22,95 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        AILoveUsername solver = new AILoveUsername();
+        ABusToUdayland solver = new ABusToUdayland();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class AILoveUsername {
+    static class ABusToUdayland {
+        boolean firstPair(String string) {
+            String[] str = string.split("");
+            return (str[0].equals("O") && str[1].equals("O"));
+        }
+
+        String seatFirstPair(String string) {
+            string = "++" + string.substring(2, string.length());
+
+            return string;
+        }
+
+        boolean secondPair(String string) {
+            String[] str = string.split("");
+            return (str[3].equals("O") && str[4].equals("O"));
+        }
+
+        String seatSecondPair(String string) {
+            string = string.substring(0, 3) + "++";
+
+            return string;
+        }
+
         public void solve(int testNumber, InputReader in, OutputWriter out) {
-            int t = in.nextInt();
-            int[] arr = new int[t];
+            int n = in.nextInt();
+            String[] str = new String[n];
+            StringBuilder sb = new StringBuilder();
+            boolean flag = false;
 
-            for (int i = 0; i < t; i++) {
-                arr[i] = in.nextInt();
+            for (int i = 0; i < n; i++) {
+                str[i] = in.next();
+
             }
 
-
-            if (t < 2)
-                out.println(0);
-            else {
-                int min = arr[0];
-                int max = arr[0];
-                int value;
-                int count = 0;
-                for (int i = 1; i < t; i++) {
-                    value = arr[i];
-                    if (max < value) {
-                        max = value;
-                        count++;
-                    }
-                    if (min > value) {
-                        min = value;
-                        count++;
-                    }
+            for (int i = 0; i < n; i++) {
+                if (firstPair(str[i])) {
+                    str[i] = seatFirstPair(str[i]);
+                    flag = true;
+                    break;
+                } else if (secondPair(str[i])) {
+                    str[i] = seatSecondPair(str[i]);
+                    flag = true;
+                    break;
                 }
-                out.println(count);
             }
+            if (flag) {
+                out.println("YES");
+                for (String s : str)
+                    out.println(s);
+            } else
+                out.println("NO");
 
+
+        }
+
+    }
+
+    static class OutputWriter {
+        private final PrintWriter writer;
+
+        public OutputWriter(OutputStream outputStream) {
+            writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(outputStream)));
+        }
+
+        public OutputWriter(Writer writer) {
+            this.writer = new PrintWriter(writer);
+        }
+
+        public void print(Object... objects) {
+            for (int i = 0; i < objects.length; i++) {
+                if (i != 0) {
+                    writer.print(' ');
+                }
+                writer.print(objects[i]);
+            }
+        }
+
+        public void println(Object... objects) {
+            print(objects);
+            writer.println();
+        }
+
+        public void close() {
+            writer.close();
         }
 
     }
@@ -113,6 +166,21 @@ public class Main {
             return res * sgn;
         }
 
+        public String nextString() {
+            int c = read();
+            while (isSpaceChar(c)) {
+                c = read();
+            }
+            StringBuilder res = new StringBuilder();
+            do {
+                if (Character.isValidCodePoint(c)) {
+                    res.appendCodePoint(c);
+                }
+                c = read();
+            } while (!isSpaceChar(c));
+            return res.toString();
+        }
+
         public boolean isSpaceChar(int c) {
             if (filter != null) {
                 return filter.isSpaceChar(c);
@@ -124,30 +192,13 @@ public class Main {
             return c == ' ' || c == '\n' || c == '\r' || c == '\t' || c == -1;
         }
 
+        public String next() {
+            return nextString();
+        }
+
         public interface SpaceCharFilter {
             public boolean isSpaceChar(int ch);
 
-        }
-
-    }
-
-    static class OutputWriter {
-        private final PrintWriter writer;
-
-        public OutputWriter(OutputStream outputStream) {
-            writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(outputStream)));
-        }
-
-        public OutputWriter(Writer writer) {
-            this.writer = new PrintWriter(writer);
-        }
-
-        public void close() {
-            writer.close();
-        }
-
-        public void println(int i) {
-            writer.println(i);
         }
 
     }

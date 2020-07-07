@@ -22,23 +22,36 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        AGameWithSticks solver = new AGameWithSticks();
+        AILoveUsername solver = new AILoveUsername();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class AGameWithSticks {
+    static class AILoveUsername {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
+            int t = in.nextInt();
+            int[] arr = new int[t];
 
-            int a = in.nextInt();
-            int b = in.nextInt();
+            for (int i = 0; i < t; i++) {
+                arr[i] = in.nextInt();
+            }
+            int count = 0;
+            int min = Integer.MAX_VALUE;
+            int max = Integer.MIN_VALUE;
+            int value = arr[0] - arr[1];
+            for (int i = 1; i < t - 1; i++) {
 
-            a = Math.min(a, b);
-
-            if ((a & 1) == 0)
-                out.println("Malvika");
-            else
-                out.println("Akshat");
+                if (value > 0 && max < value) {
+                    max = value;
+                    count++;
+                }
+                if (value < 0 && min > value) {
+                    min = value;
+                    count++;
+                }
+                value = arr[i] - arr[i + 1];
+            }
+            out.println(count);
         }
 
     }
@@ -123,22 +136,12 @@ public class Main {
             this.writer = new PrintWriter(writer);
         }
 
-        public void print(Object... objects) {
-            for (int i = 0; i < objects.length; i++) {
-                if (i != 0) {
-                    writer.print(' ');
-                }
-                writer.print(objects[i]);
-            }
-        }
-
-        public void println(Object... objects) {
-            print(objects);
-            writer.println();
-        }
-
         public void close() {
             writer.close();
+        }
+
+        public void println(int i) {
+            writer.println(i);
         }
 
     }

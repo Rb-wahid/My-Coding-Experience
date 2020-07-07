@@ -18,7 +18,9 @@ public class AGameWithSticks {
         int a = in.nextInt();
         int b = in.nextInt();
 
-        if ((a& 1) == 0)
+        a = Math.min(a, b);
+
+        if ((a & 1) == 0)
             out.println("Malvika");
         else
             out.println("Akshat");

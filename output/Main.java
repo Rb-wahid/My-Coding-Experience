@@ -33,6 +33,8 @@ public class Main {
             int a = in.nextInt();
             int b = in.nextInt();
 
+            a = Math.min(a, b);
+
             if ((a & 1) == 0)
                 out.println("Malvika");
             else

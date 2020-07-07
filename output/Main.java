@@ -3,12 +3,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.util.Arrays;
 import java.io.BufferedWriter;
-import java.util.InputMismatchException;
-import java.io.IOException;
 import java.io.Writer;
 import java.io.OutputStreamWriter;
+import java.util.InputMismatchException;
+import java.io.IOException;
 import java.io.InputStream;
 
 /**
@@ -23,41 +22,47 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        AAmusingJoke solver = new AAmusingJoke();
+        AErasingZeroes solver = new AErasingZeroes();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class AAmusingJoke {
+    static class AErasingZeroes {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
-            String x = in.next();
-            String y = in.next();
-            String z = in.next();
-            String string = x;
-            string += y;
+            int t = in.nextInt();
+            while (t-- > 0) {
+                String string = in.next();
 
-            char[] charsA = string.toCharArray();
-            char[] charsB = z.toCharArray();
-            Arrays.sort(charsA);
-            Arrays.sort(charsB);
+                if (string.length() < 2)
+                    out.println(0);
+                else {
+                    char[] arr = string.toCharArray();
+                    int count = 0;
+                    int first1 = -1;
+                    int last1 = arr.length - 1;
 
-            boolean flag = true;
-
-            if (charsA.length == charsB.length) {
-                for (int i = 0; i < charsA.length; i++) {
-                    if (charsA[i] != charsB[i]) {
-                        flag = false;
-                        break;
+                    for (char ch : arr) {
+                        first1++;
+                        if (ch == '1')
+                            break;
                     }
+
+                    for (; last1 >= 0; last1--) {
+                        if (arr[last1] == '1') {
+                            break;
+                        }
+                    }
+
+                    for (int i = first1; i < last1; i++) {
+                        char xchar = arr[i];
+                        if (xchar != arr[i + 1]) {
+                            count++;
+                            i++;
+                        }
+                    }
+                    out.println(count);
                 }
-            } else
-                flag = false;
-
-
-            if (flag)
-                out.println("YES");
-            else
-                out.println("NO");
+            }
         }
 
     }
@@ -89,6 +94,28 @@ public class Main {
                 }
             }
             return buf[curChar++];
+        }
+
+        public int nextInt() {
+            int c = read();
+            while (isSpaceChar(c)) {
+                c = read();
+            }
+            int sgn = 1;
+            if (c == '-') {
+                sgn = -1;
+                c = read();
+            }
+            int res = 0;
+            do {
+                if (c < '0' || c > '9') {
+                    throw new InputMismatchException();
+                }
+                res *= 10;
+                res += c - '0';
+                c = read();
+            } while (!isSpaceChar(c));
+            return res * sgn;
         }
 
         public String nextString() {
@@ -139,22 +166,12 @@ public class Main {
             this.writer = new PrintWriter(writer);
         }
 
-        public void print(Object... objects) {
-            for (int i = 0; i < objects.length; i++) {
-                if (i != 0) {
-                    writer.print(' ');
-                }
-                writer.print(objects[i]);
-            }
-        }
-
-        public void println(Object... objects) {
-            print(objects);
-            writer.println();
-        }
-
         public void close() {
             writer.close();
+        }
+
+        public void println(int i) {
+            writer.println(i);
         }
 
     }

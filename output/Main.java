@@ -3,11 +3,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.util.Arrays;
 import java.io.BufferedWriter;
-import java.io.Writer;
-import java.io.OutputStreamWriter;
 import java.util.InputMismatchException;
 import java.io.IOException;
+import java.io.Writer;
+import java.io.OutputStreamWriter;
 import java.io.InputStream;
 
 /**
@@ -22,16 +23,41 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        AWordCapitalization solver = new AWordCapitalization();
+        AAmusingJoke solver = new AAmusingJoke();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class AWordCapitalization {
+    static class AAmusingJoke {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
-            String str = in.next();
-            String first = String.valueOf(str.charAt(0));
-            out.println(str.replaceFirst(first, first.toUpperCase()));
+            String x = in.next();
+            String y = in.next();
+            String z = in.next();
+            String string = x;
+            string += y;
+
+            char[] charsA = string.toCharArray();
+            char[] charsB = z.toCharArray();
+            Arrays.sort(charsA);
+            Arrays.sort(charsB);
+
+            boolean flag = true;
+
+            if (charsA.length == charsB.length) {
+                for (int i = 0; i < charsA.length; i++) {
+                    if (charsA[i] != charsB[i]) {
+                        flag = false;
+                        break;
+                    }
+                }
+            } else
+                flag = false;
+
+
+            if (flag)
+                out.println("YES");
+            else
+                out.println("NO");
         }
 
     }

@@ -35,20 +35,22 @@ public class Main {
             for (int i = 0; i < t; i++) {
                 arr[i] = in.nextInt();
             }
-            int count = 0;
-            int min = Integer.MAX_VALUE;
-            int max = Integer.MIN_VALUE;
-            int value;
+
+
             if (t < 2)
                 out.println(0);
             else {
-                for (int i = 0; i < t; i++) {
+                int min = arr[0];
+                int max = arr[0];
+                int value;
+                int count = 0;
+                for (int i = 1; i < t; i++) {
                     value = arr[i];
-                    if (value > 0 && max < value) {
+                    if (max < value) {
                         max = value;
                         count++;
                     }
-                    if (value < 0 && min > value) {
+                    if (min > value) {
                         min = value;
                         count++;
                     }

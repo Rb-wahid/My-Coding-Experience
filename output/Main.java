@@ -53,11 +53,10 @@ public class Main {
                         }
                     }
 
-                    for (int i = first1; i < last1; i++) {
+                    for (int i = first1 + 1; i < last1; i++) {
                         char xchar = arr[i];
-                        if (xchar != arr[i + 1]) {
+                        if (xchar == '0') {
                             count++;
-                            i++;
                         }
                     }
                     out.println(count);

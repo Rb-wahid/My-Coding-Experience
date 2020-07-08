@@ -33,30 +33,14 @@ public class Main {
             int t = in.nextInt();
 
             int[] arr = new int[t];
+            int sum = 0;
 
             for (int i = 0; i < t; i++) {
                 arr[i] = in.nextInt();
+                sum += arr[i];
             }
 
-            int count = t + 1;
-            int value;
-
-            for (int i = 0; i < t; i++) {
-                value = arr[i];
-                if (value == 4)
-                    count--;
-                else {
-                    for (int j = 0; j < t; j++) {
-                        if (i != j)
-                            if (value + arr[i] == 4) {
-                                count--;
-                                break;
-                            }
-                    }
-                }
-            }
-
-            out.println(count);
+            out.println((int) Math.ceil(sum / 4.0));
         }
 
     }

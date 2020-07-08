@@ -37,7 +37,8 @@ public class BTaxi {
         }
 
         count = four / 4;
-        count += (int) Math.ceil((two/4.0) + (oneThree/4.0));
+        count += (int) Math.ceil((two/4.0));
+        count += (int) Math.ceil((oneThree/4.0));
 
         out.println(count);
     }

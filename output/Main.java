@@ -22,35 +22,33 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        BTaxi solver = new BTaxi();
+        AFreeIceCream solver = new AFreeIceCream();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class BTaxi {
+    static class AFreeIceCream {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
+            int t = in.nextInt();
+            int have = in.nextInt();
+            int countH = 0;
+            int countS = 0;
+            for (int i = 0; i < t; i++) {
+                char ch = in.nextCharacter();
+                int n = in.nextInt();
+                if (ch == '+') {
+                    have += n;
+                } else {
 
-            int n = in.nextInt();
+                    if (have - n < 0)
+                        countS++;
+                    else
+                        have -= n;
 
-            int[] arr = new int[5];
-
-            for (int i = 0; i < n; i++) {
-                int value = in.nextInt();
-
-                arr[value] += 1;
+                }
             }
-            int sum = arr[4] + arr[3] + (arr[2] >> 1);
-            arr[1] -= arr[3];
 
-            if (arr[2] % 2 != 0) {
-                sum++;
-                arr[1] -= 2;
-            }
-            if (arr[1] > 0)
-                sum += (arr[1] + 3) / 4;
-
-            out.println(sum);
-
+            out.println(have + " " + countS);
         }
 
     }
@@ -66,12 +64,22 @@ public class Main {
             this.writer = new PrintWriter(writer);
         }
 
-        public void close() {
-            writer.close();
+        public void print(Object... objects) {
+            for (int i = 0; i < objects.length; i++) {
+                if (i != 0) {
+                    writer.print(' ');
+                }
+                writer.print(objects[i]);
+            }
         }
 
-        public void println(int i) {
-            writer.println(i);
+        public void println(Object... objects) {
+            print(objects);
+            writer.println();
+        }
+
+        public void close() {
+            writer.close();
         }
 
     }
@@ -136,6 +144,14 @@ public class Main {
 
         public static boolean isWhitespace(int c) {
             return c == ' ' || c == '\n' || c == '\r' || c == '\t' || c == -1;
+        }
+
+        public char nextCharacter() {
+            int c = read();
+            while (isSpaceChar(c)) {
+                c = read();
+            }
+            return (char) c;
         }
 
         public interface SpaceCharFilter {

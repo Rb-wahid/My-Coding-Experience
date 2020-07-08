@@ -30,8 +30,7 @@ public class Main {
     static class AFreeIceCream {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
             int t = in.nextInt();
-            int have = in.nextInt();
-            int countH = 0;
+            long have = in.nextLong();
             int countS = 0;
             for (int i = 0; i < t; i++) {
                 char ch = in.nextCharacter();
@@ -124,6 +123,28 @@ public class Main {
                 c = read();
             }
             int res = 0;
+            do {
+                if (c < '0' || c > '9') {
+                    throw new InputMismatchException();
+                }
+                res *= 10;
+                res += c - '0';
+                c = read();
+            } while (!isSpaceChar(c));
+            return res * sgn;
+        }
+
+        public long nextLong() {
+            int c = read();
+            while (isSpaceChar(c)) {
+                c = read();
+            }
+            int sgn = 1;
+            if (c == '-') {
+                sgn = -1;
+                c = read();
+            }
+            long res = 0;
             do {
                 if (c < '0' || c > '9') {
                     throw new InputMismatchException();

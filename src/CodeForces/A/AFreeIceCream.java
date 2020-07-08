@@ -15,8 +15,7 @@ import FastIO.OutputWriter;
 public class AFreeIceCream {
     public void solve(int testNumber, InputReader in, OutputWriter out) {
         int t = in.nextInt();
-        int have = in.nextInt();
-        int countH = 0;
+        long have = in.nextLong();
         int countS = 0;
         for (int i = 0; i < t; i++) {
             char ch = in.nextCharacter();

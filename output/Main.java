@@ -22,32 +22,26 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        AFreeIceCream solver = new AFreeIceCream();
+        ABeautifulMatrix solver = new ABeautifulMatrix();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class AFreeIceCream {
+    static class ABeautifulMatrix {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
-            int t = in.nextInt();
-            long have = in.nextLong();
-            int countS = 0;
-            for (int i = 0; i < t; i++) {
-                char ch = in.nextCharacter();
-                int n = in.nextInt();
-                if (ch == '+') {
-                    have += n;
-                } else {
 
-                    if (have - n < 0)
-                        countS++;
-                    else
-                        have -= n;
+            int[][] arr = new int[6][6];
 
+            for (int i = 1; i < 6; i++) {
+                for (int j = 1; j < 6; j++) {
+                    arr[i][j] = in.nextInt();
+
+                    if (arr[i][j] == 1) {
+                        out.println(Math.abs(3 - i) + Math.abs(3 - j));
+                        break;
+                    }
                 }
             }
-
-            out.println(have + " " + countS);
         }
 
     }
@@ -63,22 +57,12 @@ public class Main {
             this.writer = new PrintWriter(writer);
         }
 
-        public void print(Object... objects) {
-            for (int i = 0; i < objects.length; i++) {
-                if (i != 0) {
-                    writer.print(' ');
-                }
-                writer.print(objects[i]);
-            }
-        }
-
-        public void println(Object... objects) {
-            print(objects);
-            writer.println();
-        }
-
         public void close() {
             writer.close();
+        }
+
+        public void println(int i) {
+            writer.println(i);
         }
 
     }
@@ -134,28 +118,6 @@ public class Main {
             return res * sgn;
         }
 
-        public long nextLong() {
-            int c = read();
-            while (isSpaceChar(c)) {
-                c = read();
-            }
-            int sgn = 1;
-            if (c == '-') {
-                sgn = -1;
-                c = read();
-            }
-            long res = 0;
-            do {
-                if (c < '0' || c > '9') {
-                    throw new InputMismatchException();
-                }
-                res *= 10;
-                res += c - '0';
-                c = read();
-            } while (!isSpaceChar(c));
-            return res * sgn;
-        }
-
         public boolean isSpaceChar(int c) {
             if (filter != null) {
                 return filter.isSpaceChar(c);
@@ -165,14 +127,6 @@ public class Main {
 
         public static boolean isWhitespace(int c) {
             return c == ' ' || c == '\n' || c == '\r' || c == '\t' || c == -1;
-        }
-
-        public char nextCharacter() {
-            int c = read();
-            while (isSpaceChar(c)) {
-                c = read();
-            }
-            return (char) c;
         }
 
         public interface SpaceCharFilter {

@@ -22,35 +22,62 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        AMishkaAndGame solver = new AMishkaAndGame();
+        BTaxi solver = new BTaxi();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class AMishkaAndGame {
+    static class BTaxi {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
 
-            int n = in.nextInt();
+            int t = in.nextInt();
 
+            int[] arr = new int[t];
 
-            int x = 0;
-            int y = 0;
-
-            for (int i = 0; i < n; i++) {
-                int a = in.nextInt();
-                int b = in.nextInt();
-
-                if (a > b)
-                    x++;
-                if (a < b)
-                    y++;
+            for (int i = 0; i < t; i++) {
+                arr[i] = in.nextInt();
             }
-            if (x == y)
-                out.println("Friendship is magic!^^");
-            else if (x > y)
-                out.println("Mishka");
-            else
-                out.println("Chris");
+
+            int count = t + 1;
+            int value;
+
+            for (int i = 0; i < t; i++) {
+                value = arr[i];
+                if (value == 4)
+                    count--;
+                else {
+                    for (int j = 0; j < t; j++) {
+                        if (i != j)
+                            if (value + arr[i] == 4) {
+                                count--;
+                                break;
+                            }
+                    }
+                }
+            }
+
+            out.println(count);
+        }
+
+    }
+
+    static class OutputWriter {
+        private final PrintWriter writer;
+
+        public OutputWriter(OutputStream outputStream) {
+            writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(outputStream)));
+        }
+
+        public OutputWriter(Writer writer) {
+            this.writer = new PrintWriter(writer);
+        }
+
+        public void close() {
+            writer.close();
+        }
+
+        public void println(int i) {
+            writer.println(i);
         }
 
     }
@@ -120,37 +147,6 @@ public class Main {
         public interface SpaceCharFilter {
             public boolean isSpaceChar(int ch);
 
-        }
-
-    }
-
-    static class OutputWriter {
-        private final PrintWriter writer;
-
-        public OutputWriter(OutputStream outputStream) {
-            writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(outputStream)));
-        }
-
-        public OutputWriter(Writer writer) {
-            this.writer = new PrintWriter(writer);
-        }
-
-        public void print(Object... objects) {
-            for (int i = 0; i < objects.length; i++) {
-                if (i != 0) {
-                    writer.print(' ');
-                }
-                writer.print(objects[i]);
-            }
-        }
-
-        public void println(Object... objects) {
-            print(objects);
-            writer.println();
-        }
-
-        public void close() {
-            writer.close();
         }
 
     }

@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.util.Arrays;
 import java.io.BufferedWriter;
 import java.io.Writer;
 import java.io.OutputStreamWriter;
@@ -22,23 +23,55 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        AVusTheCossackAndAContest solver = new AVusTheCossackAndAContest();
+        BAAndBAndCompilationErrors solver = new BAAndBAndCompilationErrors();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class AVusTheCossackAndAContest {
+    static class BAAndBAndCompilationErrors {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
             int n = in.nextInt();
-            int m = in.nextInt();
-            int k = in.nextInt();
+            int[] first = new int[n];
+            int[] second = new int[n - 1];
+            int[] third = new int[n - 2];
 
-            int value = Math.min(m, k);
+            for (int i = 0; i < n; i++) {
+                first[i] = in.nextInt();
+            }
+            for (int i = 0; i < n - 1; i++) {
+                second[i] = in.nextInt();
+            }
+            for (int i = 0; i < n - 2; i++) {
+                third[i] = in.nextInt();
+            }
 
-            if (value >= n)
-                out.println("Yes");
-            else
-                out.println("No");
+            Arrays.sort(first);
+            Arrays.sort(second);
+            Arrays.sort(third);
+
+            boolean flag1 = false;
+            boolean flag2 = false;
+
+            for (int i = 0; i < n - 1; i++) {
+                if (first[i] != second[i]) {
+                    out.println(first[i]);
+                    flag1 = true;
+                    break;
+                }
+            }
+            if (!flag1)
+                out.println(first[n]);
+
+            for (int i = 0; i < n - 2; i++) {
+                if (second[i] != third[i]) {
+                    out.println(second[i]);
+                    flag2 = true;
+                    break;
+                }
+            }
+
+            if (!flag2)
+                out.println(second[n - 2]);
         }
 
     }
@@ -123,22 +156,12 @@ public class Main {
             this.writer = new PrintWriter(writer);
         }
 
-        public void print(Object... objects) {
-            for (int i = 0; i < objects.length; i++) {
-                if (i != 0) {
-                    writer.print(' ');
-                }
-                writer.print(objects[i]);
-            }
-        }
-
-        public void println(Object... objects) {
-            print(objects);
-            writer.println();
-        }
-
         public void close() {
             writer.close();
+        }
+
+        public void println(int i) {
+            writer.println(i);
         }
 
     }

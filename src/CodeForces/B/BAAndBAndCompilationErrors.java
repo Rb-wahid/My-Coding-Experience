@@ -21,42 +21,24 @@ public class BAAndBAndCompilationErrors {
         int[] second = new int[n-1];
         int[] third = new int[n-2];
 
+        long a = 0;
+        long b = 0;
+        long c = 0;
+
         for (int i = 0; i < n ; i++) {
             first[i] = in.nextInt();
+            a += first[i];
         }
         for (int i = 0; i < n-1 ; i++) {
             second[i] = in.nextInt();
+            b += second[i];
         }
         for (int i = 0; i < n -2; i++) {
             third[i] = in.nextInt();
+            c += third[i];
         }
 
-        Arrays.sort(first);
-        Arrays.sort(second);
-        Arrays.sort(third);
-
-        boolean flag1 = false;
-        boolean flag2 = false;
-
-        for (int i = 0; i < n-1; i++) {
-            if (first[i] != second[i]){
-                out.println(first[i]);
-                flag1 = true;
-                break;
-            }
-        }
-        if (!flag1)
-            out.println(first[n]);
-
-        for (int i = 0; i < n-2; i++) {
-            if (second[i] != third[i]){
-                out.println(second[i]);
-                flag2 = true;
-                break;
-            }
-        }
-
-        if (!flag2)
-            out.println(second[n-2]);
+        out.println(a -b);
+        out.println(b-c);
     }
 }

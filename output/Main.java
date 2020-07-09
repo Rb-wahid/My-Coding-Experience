@@ -22,21 +22,23 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        AMostUnstableArray solver = new AMostUnstableArray();
+        AVusTheCossackAndAContest solver = new AVusTheCossackAndAContest();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class AMostUnstableArray {
+    static class AVusTheCossackAndAContest {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
-            int t = in.nextInt();
+            int n = in.nextInt();
+            int m = in.nextInt();
+            int k = in.nextInt();
 
-            while (t-- > 0) {
-                long n = in.nextLong();
-                long m = in.nextLong();
+            int value = Math.min(m, k);
 
-                out.println(Math.min(2, n - 1) * m);
-            }
+            if (value >= n)
+                out.println("Yes");
+            else
+                out.println("No");
         }
 
     }
@@ -92,28 +94,6 @@ public class Main {
             return res * sgn;
         }
 
-        public long nextLong() {
-            int c = read();
-            while (isSpaceChar(c)) {
-                c = read();
-            }
-            int sgn = 1;
-            if (c == '-') {
-                sgn = -1;
-                c = read();
-            }
-            long res = 0;
-            do {
-                if (c < '0' || c > '9') {
-                    throw new InputMismatchException();
-                }
-                res *= 10;
-                res += c - '0';
-                c = read();
-            } while (!isSpaceChar(c));
-            return res * sgn;
-        }
-
         public boolean isSpaceChar(int c) {
             if (filter != null) {
                 return filter.isSpaceChar(c);
@@ -143,12 +123,22 @@ public class Main {
             this.writer = new PrintWriter(writer);
         }
 
-        public void close() {
-            writer.close();
+        public void print(Object... objects) {
+            for (int i = 0; i < objects.length; i++) {
+                if (i != 0) {
+                    writer.print(' ');
+                }
+                writer.print(objects[i]);
+            }
         }
 
-        public void println(long i) {
-            writer.println(i);
+        public void println(Object... objects) {
+            print(objects);
+            writer.println();
+        }
+
+        public void close() {
+            writer.close();
         }
 
     }

@@ -22,29 +22,21 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        AMaximumInTable solver = new AMaximumInTable();
+        AMostUnstableArray solver = new AMostUnstableArray();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class AMaximumInTable {
+    static class AMostUnstableArray {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
-            int n = in.nextInt();
-            int[][] arr = new int[n + 1][n + 1];
+            int t = in.nextInt();
 
-            for (int i = 1; i <= n; i++) {
-                arr[1][i] = 1;
-                arr[i][1] = 1;
-            }
-            int value = 0;
-            for (int i = 2; i <= n; i++) {
-                for (int j = 2; j <= n; j++) {
-                    value = arr[i - 1][j] + arr[i][j - 1];
-                    arr[i][j] = value;
-                }
-            }
+            while (t-- > 0) {
+                long n = in.nextLong();
+                long m = in.nextLong();
 
-            out.println(arr[n][n]);
+                out.println(Math.min(2, n - 1) * m);
+            }
         }
 
     }
@@ -100,6 +92,28 @@ public class Main {
             return res * sgn;
         }
 
+        public long nextLong() {
+            int c = read();
+            while (isSpaceChar(c)) {
+                c = read();
+            }
+            int sgn = 1;
+            if (c == '-') {
+                sgn = -1;
+                c = read();
+            }
+            long res = 0;
+            do {
+                if (c < '0' || c > '9') {
+                    throw new InputMismatchException();
+                }
+                res *= 10;
+                res += c - '0';
+                c = read();
+            } while (!isSpaceChar(c));
+            return res * sgn;
+        }
+
         public boolean isSpaceChar(int c) {
             if (filter != null) {
                 return filter.isSpaceChar(c);
@@ -133,7 +147,7 @@ public class Main {
             writer.close();
         }
 
-        public void println(int i) {
+        public void println(long i) {
             writer.println(i);
         }
 

@@ -22,33 +22,20 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        BBalancedArray solver = new BBalancedArray();
+        CKThNotDivisibleByN solver = new CKThNotDivisibleByN();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class BBalancedArray {
+    static class CKThNotDivisibleByN {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
             int t = in.nextInt();
-            StringBuilder sb;
             while (t-- > 0) {
-                sb = new StringBuilder();
-                int num = in.nextInt();
+                double a = in.nextLong();
+                long b = in.nextLong();
+                long n = (long) Math.floor((b - 1) / (a - 1));
 
-                if (num % 4 == 0) {
-                    sb.append("YES").append("\n");
-
-                    for (int i = 2; i <= num; i += 2) {
-                        sb.append(i + " ");
-                    }
-
-                    for (int i = 1; i < num - 1; i += 2) {
-                        sb.append(i + " ");
-                    }
-                    sb.append((num - 1) + (num >> 1));
-                } else
-                    sb.append("NO");
-                out.println(sb);
+                out.println(n + b);
             }
         }
 
@@ -105,6 +92,28 @@ public class Main {
             return res * sgn;
         }
 
+        public long nextLong() {
+            int c = read();
+            while (isSpaceChar(c)) {
+                c = read();
+            }
+            int sgn = 1;
+            if (c == '-') {
+                sgn = -1;
+                c = read();
+            }
+            long res = 0;
+            do {
+                if (c < '0' || c > '9') {
+                    throw new InputMismatchException();
+                }
+                res *= 10;
+                res += c - '0';
+                c = read();
+            } while (!isSpaceChar(c));
+            return res * sgn;
+        }
+
         public boolean isSpaceChar(int c) {
             if (filter != null) {
                 return filter.isSpaceChar(c);
@@ -134,22 +143,12 @@ public class Main {
             this.writer = new PrintWriter(writer);
         }
 
-        public void print(Object... objects) {
-            for (int i = 0; i < objects.length; i++) {
-                if (i != 0) {
-                    writer.print(' ');
-                }
-                writer.print(objects[i]);
-            }
-        }
-
-        public void println(Object... objects) {
-            print(objects);
-            writer.println();
-        }
-
         public void close() {
             writer.close();
+        }
+
+        public void println(long i) {
+            writer.println(i);
         }
 
     }

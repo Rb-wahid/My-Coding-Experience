@@ -22,25 +22,36 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        ABeautifulMatrix solver = new ABeautifulMatrix();
+        ASumOfRoundNumbers solver = new ASumOfRoundNumbers();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class ABeautifulMatrix {
+    static class ASumOfRoundNumbers {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
+            int t = in.nextInt();
 
-            int[][] arr = new int[6][6];
+            while (t-- > 0) {
+                int num = in.nextInt();
+                StringBuilder sb = new StringBuilder();
 
-            for (int i = 1; i < 6; i++) {
-                for (int j = 1; j < 6; j++) {
-                    arr[i][j] = in.nextInt();
+                int count = 0;
+                int power = 1;
+                int value = 0;
 
-                    if (arr[i][j] == 1) {
-                        out.println(Math.abs(3 - i) + Math.abs(3 - j));
-                        break;
+                while (num > 0) {
+                    value = num % 10;
+
+                    if (value > 0) {
+                        sb.append(value * power).append(" ");
+                        count++;
                     }
+                    num /= 10;
+                    power *= 10;
                 }
+
+                out.println(count);
+                out.println(sb.toString());
             }
         }
 
@@ -55,6 +66,20 @@ public class Main {
 
         public OutputWriter(Writer writer) {
             this.writer = new PrintWriter(writer);
+        }
+
+        public void print(Object... objects) {
+            for (int i = 0; i < objects.length; i++) {
+                if (i != 0) {
+                    writer.print(' ');
+                }
+                writer.print(objects[i]);
+            }
+        }
+
+        public void println(Object... objects) {
+            print(objects);
+            writer.println();
         }
 
         public void close() {

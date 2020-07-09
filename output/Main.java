@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.util.Arrays;
 import java.io.BufferedWriter;
 import java.io.Writer;
 import java.io.OutputStreamWriter;
@@ -22,38 +23,23 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        AMezoPlayingZoma solver = new AMezoPlayingZoma();
+        ATheNewYearMeetingFriends solver = new ATheNewYearMeetingFriends();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class AMezoPlayingZoma {
+    static class ATheNewYearMeetingFriends {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
-            int t = in.nextInt();
-            int distance = 0;
-            String string = in.next();
-            out.println(t + 1);
-        }
+            int[] arr = new int[3];
 
-    }
+            for (int i = 0; i < 3; i++) {
+                arr[i] = in.nextInt();
+            }
 
-    static class OutputWriter {
-        private final PrintWriter writer;
-
-        public OutputWriter(OutputStream outputStream) {
-            writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(outputStream)));
-        }
-
-        public OutputWriter(Writer writer) {
-            this.writer = new PrintWriter(writer);
-        }
-
-        public void close() {
-            writer.close();
-        }
-
-        public void println(int i) {
-            writer.println(i);
+            int value = 0;
+            Arrays.sort(arr);
+            value = arr[2] - arr[1] + (arr[1] - arr[0]);
+            out.println(value);
         }
 
     }
@@ -109,21 +95,6 @@ public class Main {
             return res * sgn;
         }
 
-        public String nextString() {
-            int c = read();
-            while (isSpaceChar(c)) {
-                c = read();
-            }
-            StringBuilder res = new StringBuilder();
-            do {
-                if (Character.isValidCodePoint(c)) {
-                    res.appendCodePoint(c);
-                }
-                c = read();
-            } while (!isSpaceChar(c));
-            return res.toString();
-        }
-
         public boolean isSpaceChar(int c) {
             if (filter != null) {
                 return filter.isSpaceChar(c);
@@ -135,13 +106,30 @@ public class Main {
             return c == ' ' || c == '\n' || c == '\r' || c == '\t' || c == -1;
         }
 
-        public String next() {
-            return nextString();
-        }
-
         public interface SpaceCharFilter {
             public boolean isSpaceChar(int ch);
 
+        }
+
+    }
+
+    static class OutputWriter {
+        private final PrintWriter writer;
+
+        public OutputWriter(OutputStream outputStream) {
+            writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(outputStream)));
+        }
+
+        public OutputWriter(Writer writer) {
+            this.writer = new PrintWriter(writer);
+        }
+
+        public void close() {
+            writer.close();
+        }
+
+        public void println(int i) {
+            writer.println(i);
         }
 
     }

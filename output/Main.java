@@ -22,37 +22,17 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        ASumOfRoundNumbers solver = new ASumOfRoundNumbers();
+        AMezoPlayingZoma solver = new AMezoPlayingZoma();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class ASumOfRoundNumbers {
+    static class AMezoPlayingZoma {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
             int t = in.nextInt();
-
-            while (t-- > 0) {
-                int num = in.nextInt();
-                StringBuilder sb = new StringBuilder();
-
-                int count = 0;
-                int power = 1;
-                int value = 0;
-
-                while (num > 0) {
-                    value = num % 10;
-
-                    if (value > 0) {
-                        sb.append(value * power).append(" ");
-                        count++;
-                    }
-                    num /= 10;
-                    power *= 10;
-                }
-
-                out.println(count);
-                out.println(sb.toString());
-            }
+            int distance = 0;
+            String string = in.next();
+            out.println(t + 1);
         }
 
     }
@@ -66,20 +46,6 @@ public class Main {
 
         public OutputWriter(Writer writer) {
             this.writer = new PrintWriter(writer);
-        }
-
-        public void print(Object... objects) {
-            for (int i = 0; i < objects.length; i++) {
-                if (i != 0) {
-                    writer.print(' ');
-                }
-                writer.print(objects[i]);
-            }
-        }
-
-        public void println(Object... objects) {
-            print(objects);
-            writer.println();
         }
 
         public void close() {
@@ -143,6 +109,21 @@ public class Main {
             return res * sgn;
         }
 
+        public String nextString() {
+            int c = read();
+            while (isSpaceChar(c)) {
+                c = read();
+            }
+            StringBuilder res = new StringBuilder();
+            do {
+                if (Character.isValidCodePoint(c)) {
+                    res.appendCodePoint(c);
+                }
+                c = read();
+            } while (!isSpaceChar(c));
+            return res.toString();
+        }
+
         public boolean isSpaceChar(int c) {
             if (filter != null) {
                 return filter.isSpaceChar(c);
@@ -152,6 +133,10 @@ public class Main {
 
         public static boolean isWhitespace(int c) {
             return c == ' ' || c == '\n' || c == '\r' || c == '\t' || c == -1;
+        }
+
+        public String next() {
+            return nextString();
         }
 
         public interface SpaceCharFilter {

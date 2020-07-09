@@ -3,11 +3,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.util.Arrays;
 import java.io.BufferedWriter;
-import java.io.Writer;
-import java.io.OutputStreamWriter;
 import java.util.InputMismatchException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.io.Writer;
+import java.io.OutputStreamWriter;
 import java.io.InputStream;
 
 /**
@@ -22,20 +25,49 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        CKThNotDivisibleByN solver = new CKThNotDivisibleByN();
+        APrimeSubtraction solver = new APrimeSubtraction();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class CKThNotDivisibleByN {
+    static class APrimeSubtraction {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
-            int t = in.nextInt();
-            while (t-- > 0) {
-                double a = in.nextLong();
-                long b = in.nextLong();
-                long n = (long) Math.floor((b - 1) / (a - 1));
 
-                out.println(n + b);
+            int t = in.nextInt();
+
+            while (t-- > 0) {
+                long x = in.nextLong();
+                long z = in.nextLong();
+
+                List<Integer> list = new ArrayList<>();
+                boolean[] prime = new boolean[1001];
+                Arrays.fill(prime, true);
+                prime[0] = prime[1] = false;
+                boolean flag = false;
+
+                for (int i = 2; i * i <= 1000; i++) {
+                    if (prime[i])
+                        for (int j = i * i; j <= 1000; j += i) {
+                            prime[j] = false;
+                        }
+                }
+
+                for (int i = 2; i <= 1000; i++)
+                    if (prime[i])
+                        list.add(i);
+
+                long num = z - x;
+
+                for (int i = 0; i < list.size(); i++) {
+                    if (num % list.get(i) == 0) {
+                        flag = true;
+                        break;
+                    }
+                }
+                if (flag)
+                    out.println("YES");
+                else
+                    out.println("NO");
             }
         }
 
@@ -143,12 +175,22 @@ public class Main {
             this.writer = new PrintWriter(writer);
         }
 
-        public void close() {
-            writer.close();
+        public void print(Object... objects) {
+            for (int i = 0; i < objects.length; i++) {
+                if (i != 0) {
+                    writer.print(' ');
+                }
+                writer.print(objects[i]);
+            }
         }
 
-        public void println(long i) {
-            writer.println(i);
+        public void println(Object... objects) {
+            print(objects);
+            writer.println();
+        }
+
+        public void close() {
+            writer.close();
         }
 
     }

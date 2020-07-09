@@ -22,37 +22,34 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        BAAndBAndCompilationErrors solver = new BAAndBAndCompilationErrors();
+        BBalancedArray solver = new BBalancedArray();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class BAAndBAndCompilationErrors {
+    static class BBalancedArray {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
-            int n = in.nextInt();
-            int[] first = new int[n];
-            int[] second = new int[n - 1];
-            int[] third = new int[n - 2];
+            int t = in.nextInt();
+            StringBuilder sb;
+            while (t-- > 0) {
+                sb = new StringBuilder();
+                int num = in.nextInt();
 
-            long a = 0;
-            long b = 0;
-            long c = 0;
+                if (num % 4 == 0) {
+                    sb.append("YES").append("\n");
 
-            for (int i = 0; i < n; i++) {
-                first[i] = in.nextInt();
-                a += first[i];
-            }
-            for (int i = 0; i < n - 1; i++) {
-                second[i] = in.nextInt();
-                b += second[i];
-            }
-            for (int i = 0; i < n - 2; i++) {
-                third[i] = in.nextInt();
-                c += third[i];
-            }
+                    for (int i = 2; i <= num; i += 2) {
+                        sb.append(i + " ");
+                    }
 
-            out.println(a - b);
-            out.println(b - c);
+                    for (int i = 1; i < num - 1; i += 2) {
+                        sb.append(i + " ");
+                    }
+                    sb.append((num - 1) + (num >> 1));
+                } else
+                    sb.append("NO");
+                out.println(sb);
+            }
         }
 
     }
@@ -137,12 +134,22 @@ public class Main {
             this.writer = new PrintWriter(writer);
         }
 
-        public void close() {
-            writer.close();
+        public void print(Object... objects) {
+            for (int i = 0; i < objects.length; i++) {
+                if (i != 0) {
+                    writer.print(' ');
+                }
+                writer.print(objects[i]);
+            }
         }
 
-        public void println(long i) {
-            writer.println(i);
+        public void println(Object... objects) {
+            print(objects);
+            writer.println();
+        }
+
+        public void close() {
+            writer.close();
         }
 
     }

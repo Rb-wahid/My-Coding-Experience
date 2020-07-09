@@ -3,7 +3,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.util.Arrays;
 import java.io.BufferedWriter;
 import java.io.Writer;
 import java.io.OutputStreamWriter;
@@ -23,23 +22,29 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        ATheNewYearMeetingFriends solver = new ATheNewYearMeetingFriends();
+        AMaximumInTable solver = new AMaximumInTable();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class ATheNewYearMeetingFriends {
+    static class AMaximumInTable {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
-            int[] arr = new int[3];
+            int n = in.nextInt();
+            int[][] arr = new int[n + 1][n + 1];
 
-            for (int i = 0; i < 3; i++) {
-                arr[i] = in.nextInt();
+            for (int i = 1; i <= n; i++) {
+                arr[1][i] = 1;
+                arr[i][1] = 1;
+            }
+            int value = 0;
+            for (int i = 2; i <= n; i++) {
+                for (int j = 2; j <= n; j++) {
+                    value = arr[i - 1][j] + arr[i][j - 1];
+                    arr[i][j] = value;
+                }
             }
 
-            int value = 0;
-            Arrays.sort(arr);
-            value = arr[2] - arr[1] + (arr[1] - arr[0]);
-            out.println(value);
+            out.println(arr[n][n]);
         }
 
     }

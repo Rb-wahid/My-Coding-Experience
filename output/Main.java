@@ -3,14 +3,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.util.Arrays;
 import java.io.BufferedWriter;
-import java.util.InputMismatchException;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.io.Writer;
 import java.io.OutputStreamWriter;
+import java.util.InputMismatchException;
+import java.io.IOException;
 import java.io.InputStream;
 
 /**
@@ -38,33 +35,8 @@ public class Main {
             while (t-- > 0) {
                 long x = in.nextLong();
                 long z = in.nextLong();
-
-                List<Integer> list = new ArrayList<>();
-                boolean[] prime = new boolean[1001];
-                Arrays.fill(prime, true);
-                prime[0] = prime[1] = false;
-                boolean flag = false;
-
-                for (int i = 2; i * i <= 1000; i++) {
-                    if (prime[i])
-                        for (int j = i * i; j <= 1000; j += i) {
-                            prime[j] = false;
-                        }
-                }
-
-                for (int i = 2; i <= 1000; i++)
-                    if (prime[i])
-                        list.add(i);
-
-                long num = z - x;
-
-                for (int i = 0; i < list.size(); i++) {
-                    if (num % list.get(i) == 0) {
-                        flag = true;
-                        break;
-                    }
-                }
-                if (flag)
+                long num = x - z;
+                if (num > 1)
                     out.println("YES");
                 else
                     out.println("NO");

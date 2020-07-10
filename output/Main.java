@@ -22,23 +22,26 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        AMultiplicationTable solver = new AMultiplicationTable();
+        CACookieForYou solver = new CACookieForYou();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class AMultiplicationTable {
+    static class CACookieForYou {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
-            int n = in.nextInt();
-            long k = in.nextLong();
-            int count = 0;
+            int t = in.nextInt();
 
-            for (int i = 1; i <= n; i++) {
-                if (k % i == 0 && k / i <= n) {
-                    count++;
-                }
+            while (t-- > 0) {
+                long vanilla = in.nextLong();
+                long chocolate = in.nextLong();
+                long first = in.nextLong();
+                long second = in.nextLong();
+
+                if ((vanilla + chocolate) >= (first + second) && second <= Math.min(vanilla, chocolate))
+                    out.println("Yes");
+                else
+                    out.println("No");
             }
-            out.println(count);
         }
 
     }
@@ -54,12 +57,22 @@ public class Main {
             this.writer = new PrintWriter(writer);
         }
 
-        public void close() {
-            writer.close();
+        public void print(Object... objects) {
+            for (int i = 0; i < objects.length; i++) {
+                if (i != 0) {
+                    writer.print(' ');
+                }
+                writer.print(objects[i]);
+            }
         }
 
-        public void println(int i) {
-            writer.println(i);
+        public void println(Object... objects) {
+            print(objects);
+            writer.println();
+        }
+
+        public void close() {
+            writer.close();
         }
 
     }

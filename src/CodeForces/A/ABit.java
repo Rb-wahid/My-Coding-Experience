@@ -38,11 +38,6 @@ public class ABit {
                     break;
             }
         }
-        if (arr[n-1].equals("X++"))
-            count--;
-        else if (arr[n-1].equals("X--"))
-            count++;
-
         out.println(count);
     }
 }

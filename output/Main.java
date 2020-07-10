@@ -22,20 +22,35 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        ADominoPiling solver = new ADominoPiling();
+        AHitTheLottery solver = new AHitTheLottery();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class ADominoPiling {
+    static class AHitTheLottery {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
+            long num = in.nextLong();
+            int count = 0;
+            while (num != 0) {
+                if (num - 100 >= 0) {
+                    num -= 100;
+                    count++;
+                } else if (num - 20 >= 0) {
+                    num -= 20;
+                    count++;
+                } else if (num - 10 >= 0) {
+                    num -= 10;
+                    count++;
+                } else if (num - 5 >= 0) {
+                    num -= 5;
+                    count++;
+                } else {
+                    num--;
+                    count++;
+                }
+            }
 
-            int n = in.nextInt();
-            int m = in.nextInt();
-
-            int value = (int) Math.floor((n * m) / 2.0);
-
-            out.println(value);
+            out.println(count);
         }
 
     }
@@ -90,7 +105,7 @@ public class Main {
             return buf[curChar++];
         }
 
-        public int nextInt() {
+        public long nextLong() {
             int c = read();
             while (isSpaceChar(c)) {
                 c = read();
@@ -100,7 +115,7 @@ public class Main {
                 sgn = -1;
                 c = read();
             }
-            int res = 0;
+            long res = 0;
             do {
                 if (c < '0' || c > '9') {
                     throw new InputMismatchException();

@@ -22,19 +22,23 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        AMagicalSticks solver = new AMagicalSticks();
+        AMultiplicationTable solver = new AMultiplicationTable();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class AMagicalSticks {
+    static class AMultiplicationTable {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
-            int t = in.nextInt();
-            while (t-- > 0) {
-                long num = in.nextLong();
+            int n = in.nextInt();
+            long k = in.nextLong();
+            int count = 0;
 
-                out.println((long) Math.ceil(num / 2.0));
+            for (int i = 1; i <= n; i++) {
+                if (k % i == 0 && k / i <= n) {
+                    count++;
+                }
             }
+            out.println(count);
         }
 
     }
@@ -54,7 +58,7 @@ public class Main {
             writer.close();
         }
 
-        public void println(long i) {
+        public void println(int i) {
             writer.println(i);
         }
 

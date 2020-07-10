@@ -31,9 +31,9 @@ public class Main {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
 
             long n = in.nextLong();
-            double k = in.nextLong();
-            long value = (long) Math.floor(n / k);
-            if ((value & 1) == 1)
+            long k = in.nextLong();
+            long value = n / k;
+            if ((value & 1) != 0)
                 out.println("YES");
             else
                 out.println("NO");

@@ -22,21 +22,37 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        ASashaAndSticks solver = new ASashaAndSticks();
+        BMagicStick solver = new BMagicStick();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class ASashaAndSticks {
+    static class BMagicStick {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
 
-            long n = in.nextLong();
-            long k = in.nextLong();
-            long value = n / k;
-            if ((value & 1) != 0)
-                out.println("YES");
-            else
-                out.println("NO");
+            int t = in.nextInt();
+
+            while (t-- > 0) {
+                StringBuilder sb = new StringBuilder();
+                long x = in.nextLong();
+                long y = in.nextLong();
+
+                if (x > 3) {
+                    sb.append("YES");
+                } else if ((x == 1)) {
+                    if (y == 1)
+                        sb.append("YES");
+                    else
+                        sb.append("NO");
+                } else if (y <= 3)
+                    sb.append("YES");
+                else
+                    sb.append("NO");
+
+                out.println(sb);
+            }
+
+
         }
 
     }
@@ -99,6 +115,28 @@ public class Main {
                 }
             }
             return buf[curChar++];
+        }
+
+        public int nextInt() {
+            int c = read();
+            while (isSpaceChar(c)) {
+                c = read();
+            }
+            int sgn = 1;
+            if (c == '-') {
+                sgn = -1;
+                c = read();
+            }
+            int res = 0;
+            do {
+                if (c < '0' || c > '9') {
+                    throw new InputMismatchException();
+                }
+                res *= 10;
+                res += c - '0';
+                c = read();
+            } while (!isSpaceChar(c));
+            return res * sgn;
         }
 
         public long nextLong() {

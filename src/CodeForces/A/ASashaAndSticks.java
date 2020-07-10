@@ -16,9 +16,9 @@ public class ASashaAndSticks {
     public void solve(int testNumber, InputReader in, OutputWriter out) {
 
         long n = in.nextLong();
-        long k = in.nextLong();
-        long value = n - (k*2);
-        if (n == k || value >= k)
+        double k = in.nextLong();
+        long value = (long) Math.floor(n/k);
+        if ((value&1) == 1)
             out.println("YES");
         else
             out.println("NO");

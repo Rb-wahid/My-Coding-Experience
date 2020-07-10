@@ -22,26 +22,21 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        CACookieForYou solver = new CACookieForYou();
+        ASashaAndSticks solver = new ASashaAndSticks();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class CACookieForYou {
+    static class ASashaAndSticks {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
-            int t = in.nextInt();
 
-            while (t-- > 0) {
-                long vanilla = in.nextLong();
-                long chocolate = in.nextLong();
-                long first = in.nextLong();
-                long second = in.nextLong();
-
-                if ((vanilla + chocolate) >= (first + second) && second <= Math.min(vanilla, chocolate))
-                    out.println("Yes");
-                else
-                    out.println("No");
-            }
+            long n = in.nextLong();
+            long k = in.nextLong();
+            long value = n - (k * 2);
+            if (n == k || value >= k)
+                out.println("YES");
+            else
+                out.println("NO");
         }
 
     }
@@ -104,28 +99,6 @@ public class Main {
                 }
             }
             return buf[curChar++];
-        }
-
-        public int nextInt() {
-            int c = read();
-            while (isSpaceChar(c)) {
-                c = read();
-            }
-            int sgn = 1;
-            if (c == '-') {
-                sgn = -1;
-                c = read();
-            }
-            int res = 0;
-            do {
-                if (c < '0' || c > '9') {
-                    throw new InputMismatchException();
-                }
-                res *= 10;
-                res += c - '0';
-                c = read();
-            } while (!isSpaceChar(c));
-            return res * sgn;
         }
 
         public long nextLong() {

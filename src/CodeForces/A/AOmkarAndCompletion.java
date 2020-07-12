@@ -4,9 +4,9 @@ package CodeForces.A;
  *
  * @author Rb_wahid
  *
- * Problem Title:
+ * Problem Title: A. Omkar and Completion
  *
- * link :
+ * link : https://codeforces.com/contest/1372/problem/A
  */
 
 import FastIO.InputReader;

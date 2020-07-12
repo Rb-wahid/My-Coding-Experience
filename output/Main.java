@@ -22,26 +22,42 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        BOmkarAndLastClassOfMath solver = new BOmkarAndLastClassOfMath();
+        AKeanuReeves solver = new AKeanuReeves();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class BOmkarAndLastClassOfMath {
+    static class AKeanuReeves {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
+            int n = in.nextInt();
 
-            int t = in.nextInt();
-            while (t-- > 0) {
-                long num = in.nextLong();
-                long k = num;
-                for (int i = 2; i <= 100000; i++) {
-                    if (num % i == 0) {
-                        k = i;
-                        break;
-                    }
-                }
-                out.println(num / k + " " + (num - (num / k)));
+            String str = in.next();
+            String[] strings = str.split("");
+
+            int one = 0;
+            int zero = 0;
+            StringBuilder sb = new StringBuilder();
+
+            for (int i = 0; i < n; i++) {
+                if (strings[i].equals("1"))
+                    one++;
             }
+
+            zero = strings.length - one;
+
+            if (one != zero) {
+                sb.append(1).append(" ");
+                for (String s : strings)
+                    sb.append(s);
+            } else {
+                sb.append(2).append("\n");
+                sb.append(strings[0]).append(" ");
+                for (int i = 1; i < n; i++) {
+                    sb.append(strings[i]);
+                }
+            }
+
+            out.println(sb);
         }
 
     }
@@ -97,26 +113,19 @@ public class Main {
             return res * sgn;
         }
 
-        public long nextLong() {
+        public String nextString() {
             int c = read();
             while (isSpaceChar(c)) {
                 c = read();
             }
-            int sgn = 1;
-            if (c == '-') {
-                sgn = -1;
-                c = read();
-            }
-            long res = 0;
+            StringBuilder res = new StringBuilder();
             do {
-                if (c < '0' || c > '9') {
-                    throw new InputMismatchException();
+                if (Character.isValidCodePoint(c)) {
+                    res.appendCodePoint(c);
                 }
-                res *= 10;
-                res += c - '0';
                 c = read();
             } while (!isSpaceChar(c));
-            return res * sgn;
+            return res.toString();
         }
 
         public boolean isSpaceChar(int c) {
@@ -128,6 +137,10 @@ public class Main {
 
         public static boolean isWhitespace(int c) {
             return c == ' ' || c == '\n' || c == '\r' || c == '\t' || c == -1;
+        }
+
+        public String next() {
+            return nextString();
         }
 
         public interface SpaceCharFilter {

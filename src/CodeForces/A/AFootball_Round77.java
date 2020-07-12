@@ -23,7 +23,9 @@ public class AFootball_Round77 {
 
         for (int i = 0; i < string.length() ; i++) {
             if (strings[i].equals(check)){
+
                 count++;
+                max = Math.max(max, count);
             }
             else {
                 check = strings[i];

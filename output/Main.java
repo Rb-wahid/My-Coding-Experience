@@ -38,7 +38,9 @@ public class Main {
 
             for (int i = 0; i < string.length(); i++) {
                 if (strings[i].equals(check)) {
+
                     count++;
+                    max = Math.max(max, count);
                 } else {
                     check = strings[i];
                     max = Math.max(max, count);

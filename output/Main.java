@@ -42,7 +42,7 @@ public class Main {
                 } else {
                     check = strings[i];
                     max = Math.max(max, count);
-                    count = 0;
+                    count = 1;
                 }
             }
 

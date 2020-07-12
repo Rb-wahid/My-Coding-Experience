@@ -28,7 +28,7 @@ public class AFootball_Round77 {
             else {
                 check = strings[i];
                 max = Math.max(max, count);
-                count = 0;
+                count = 1;
             }
         }
 

@@ -22,25 +22,25 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        AOmkarAndCompletion solver = new AOmkarAndCompletion();
+        BOmkarAndLastClassOfMath solver = new BOmkarAndLastClassOfMath();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class AOmkarAndCompletion {
+    static class BOmkarAndLastClassOfMath {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
 
             int t = in.nextInt();
-
             while (t-- > 0) {
-                int n = in.nextInt();
-
-                while (n > 0) {
-                    out.print(1 + " ");
-                    n--;
-
+                long num = in.nextLong();
+                long k = num;
+                for (int i = 2; i <= 100000; i++) {
+                    if (num % i == 0) {
+                        k = i;
+                        break;
+                    }
                 }
-                out.println();
+                out.println(num / k + " " + (num - (num / k)));
             }
         }
 
@@ -97,6 +97,28 @@ public class Main {
             return res * sgn;
         }
 
+        public long nextLong() {
+            int c = read();
+            while (isSpaceChar(c)) {
+                c = read();
+            }
+            int sgn = 1;
+            if (c == '-') {
+                sgn = -1;
+                c = read();
+            }
+            long res = 0;
+            do {
+                if (c < '0' || c > '9') {
+                    throw new InputMismatchException();
+                }
+                res *= 10;
+                res += c - '0';
+                c = read();
+            } while (!isSpaceChar(c));
+            return res * sgn;
+        }
+
         public boolean isSpaceChar(int c) {
             if (filter != null) {
                 return filter.isSpaceChar(c);
@@ -135,7 +157,8 @@ public class Main {
             }
         }
 
-        public void println() {
+        public void println(Object... objects) {
+            print(objects);
             writer.println();
         }
 

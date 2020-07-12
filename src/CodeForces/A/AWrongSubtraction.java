@@ -16,10 +16,9 @@ public class AWrongSubtraction {
     public void solve(int testNumber, InputReader in, OutputWriter out) {
         long num = in.nextLong();
         int k = in.nextInt();
-        String str = "";
         for (int i = 0; i <k ; i++) {
-            str = String.valueOf(num);
-            if (str.charAt(str.length()-1) == '0')
+
+            if ((num % 10) == 0)
                 num /= 10;
             else
                 --num;

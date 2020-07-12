@@ -4,10 +4,10 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.BufferedWriter;
-import java.io.Writer;
-import java.io.OutputStreamWriter;
 import java.util.InputMismatchException;
 import java.io.IOException;
+import java.io.Writer;
+import java.io.OutputStreamWriter;
 import java.io.InputStream;
 
 /**
@@ -22,51 +22,31 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        ANewYearAndNaming solver = new ANewYearAndNaming();
+        AFootball_Round77 solver = new AFootball_Round77();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class ANewYearAndNaming {
+    static class AFootball_Round77 {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
 
-            int n = in.nextInt();
-            int m = in.nextInt();
+            String string = in.next();
+            String[] strings = string.split("");
+            String check = strings[0];
+            int count = 0;
+            int max = 0;
 
-            String s = in.readLine();
-            String t = in.readLine();
-
-            String[] strings = s.split(" ");
-            String[] stringsT = t.split(" ");
-
-            int q = in.nextInt();
-
-//        for (int i = 0; i < n ; i++) {
-//            out.println(strings[i] + " " + i);
-//        }
-//        out.println();
-//
-//        for (int i = 0; i < m ; i++) {
-//            out.println(stringsT[i] + " " + i);
-//        }
-
-            while (q-- > 0) {
-                long year = in.nextLong();
-                int indexS = (int) year % n;
-                int indexT = (int) year % m;
-
-                if (indexS != 0) {
-                    if (indexT != 0)
-                        out.println(strings[indexS - 1] + stringsT[indexT - 1]);
-                    else
-                        out.println(strings[indexS - 1] + stringsT[stringsT.length - 1]);
-
-                } else if (indexT != 0) {
-                    out.println(strings[strings.length - 1] + stringsT[indexT - 1]);
-
-                } else
-                    out.println(strings[strings.length - 1] + stringsT[stringsT.length - 1]);
+            for (int i = 0; i < string.length(); i++) {
+                if (strings[i].equals(check)) {
+                    count++;
+                } else {
+                    check = strings[i];
+                    max = Math.max(max, count);
+                    count = 0;
+                }
             }
+
+            out.println(max >= 7 ? "YES" : "NO");
         }
 
     }
@@ -100,48 +80,19 @@ public class Main {
             return buf[curChar++];
         }
 
-        public int nextInt() {
+        public String nextString() {
             int c = read();
             while (isSpaceChar(c)) {
                 c = read();
             }
-            int sgn = 1;
-            if (c == '-') {
-                sgn = -1;
-                c = read();
-            }
-            int res = 0;
+            StringBuilder res = new StringBuilder();
             do {
-                if (c < '0' || c > '9') {
-                    throw new InputMismatchException();
+                if (Character.isValidCodePoint(c)) {
+                    res.appendCodePoint(c);
                 }
-                res *= 10;
-                res += c - '0';
                 c = read();
             } while (!isSpaceChar(c));
-            return res * sgn;
-        }
-
-        public long nextLong() {
-            int c = read();
-            while (isSpaceChar(c)) {
-                c = read();
-            }
-            int sgn = 1;
-            if (c == '-') {
-                sgn = -1;
-                c = read();
-            }
-            long res = 0;
-            do {
-                if (c < '0' || c > '9') {
-                    throw new InputMismatchException();
-                }
-                res *= 10;
-                res += c - '0';
-                c = read();
-            } while (!isSpaceChar(c));
-            return res * sgn;
+            return res.toString();
         }
 
         public boolean isSpaceChar(int c) {
@@ -155,24 +106,8 @@ public class Main {
             return c == ' ' || c == '\n' || c == '\r' || c == '\t' || c == -1;
         }
 
-        private String readLine0() {
-            StringBuilder buf = new StringBuilder();
-            int c = read();
-            while (c != '\n' && c != -1) {
-                if (c != '\r') {
-                    buf.appendCodePoint(c);
-                }
-                c = read();
-            }
-            return buf.toString();
-        }
-
-        public String readLine() {
-            String s = readLine0();
-            while (s.trim().length() == 0) {
-                s = readLine0();
-            }
-            return s;
+        public String next() {
+            return nextString();
         }
 
         public interface SpaceCharFilter {

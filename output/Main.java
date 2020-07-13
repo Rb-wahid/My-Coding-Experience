@@ -33,11 +33,14 @@ public class Main {
             int a = in.nextInt();
             int b = in.nextInt();
             int totalHour = a;
+            int d = 0;
 
             while (a >= b) {
-                a /= b;
-                totalHour += a;
+                d = a / b;
+                totalHour += d;
+                a = d + (a % b);
             }
+
 
             out.println(totalHour);
         }

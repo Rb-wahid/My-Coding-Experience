@@ -22,28 +22,40 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        APhoenixAndBalance solver = new APhoenixAndBalance();
+        AIQTest solver = new AIQTest();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class APhoenixAndBalance {
+    static class AIQTest {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
-            int t = in.nextInt();
-            while (t-- > 0) {
-                int n = in.nextInt();
-                int a = 1 << n;
-                int b = 0;
+            int n = in.nextInt();
+            int[] arr = new int[n];
+            int even = 0;
+            int odd = 0;
+            for (int i = 0; i < n; i++) {
+                arr[i] = in.nextInt();
 
-                for (int i = 1; i < n >> 1; i++) {
-                    a += 1 << i;
-                }
-                for (int i = n >> 1; i < n; i++) {
-                    b += 1 << i;
-                }
-
-                out.println(Math.abs(a - b));
+                if ((arr[i] & 1) == 0)
+                    even++;
             }
+
+            odd = arr.length - even;
+
+            if (even > odd) {
+                for (int i = 0; i < n; i++)
+                    if ((arr[i] & 1) == 1) {
+                        out.println(i + 1);
+                        break;
+                    }
+            } else {
+                for (int i = 0; i < n; i++)
+                    if ((arr[i] & 1) == 0) {
+                        out.println(i + 1);
+                        break;
+                    }
+            }
+
         }
 
     }

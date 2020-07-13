@@ -22,40 +22,24 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        AIQTest solver = new AIQTest();
+        ANewYearCandles solver = new ANewYearCandles();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class AIQTest {
+    static class ANewYearCandles {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
-            int n = in.nextInt();
-            int[] arr = new int[n];
-            int even = 0;
-            int odd = 0;
-            for (int i = 0; i < n; i++) {
-                arr[i] = in.nextInt();
 
-                if ((arr[i] & 1) == 0)
-                    even++;
+            int a = in.nextInt();
+            int b = in.nextInt();
+            int totalHour = a;
+
+            while (a >= b) {
+                a /= b;
+                totalHour += a;
             }
 
-            odd = arr.length - even;
-
-            if (even > odd) {
-                for (int i = 0; i < n; i++)
-                    if ((arr[i] & 1) == 1) {
-                        out.println(i + 1);
-                        break;
-                    }
-            } else {
-                for (int i = 0; i < n; i++)
-                    if ((arr[i] & 1) == 0) {
-                        out.println(i + 1);
-                        break;
-                    }
-            }
-
+            out.println(totalHour);
         }
 
     }

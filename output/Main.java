@@ -29,11 +29,14 @@ public class Main {
 
     static class ATwoSubstrings {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
-            String str = in.next();
+            String string = in.next();
+            String str = string;
+            str = str.replace("AB", "");
+            str = str.replace("BA", "");
 
             int length = str.length();
 
-            out.println((length & 1) == 0 ? "YES" : "NO");
+            out.println((length + 4) == string.length() ? "YES" : "NO");
         }
 
     }

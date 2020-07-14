@@ -22,35 +22,21 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        BEvenArray solver = new BEvenArray();
+        AVanyaAndCubes solver = new AVanyaAndCubes();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class BEvenArray {
+    static class AVanyaAndCubes {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
-            int t = in.nextInt();
-
-            while (t-- > 0) {
-                int n = in.nextInt();
-
-                int o = 0;
-                int e = 0;
-                int[] arr = new int[n];
-
-                for (int i = 0; i < n; i++) {
-                    arr[i] = in.nextInt();
-                    if ((arr[i] & 1) != (i & 1)) {
-                        if ((i & 1) == 1)
-                            o++;
-                        else
-                            e++;
-                    }
-                }
-
-                out.println(e != o ? "-1" : o);
-
+            int n = in.nextInt();
+            int h = 0;
+            int count = 0;
+            while (count <= n) {
+                h++;
+                count += (h * (h + 1)) >> 1;
             }
+            out.println(--h);
         }
 
     }
@@ -135,22 +121,12 @@ public class Main {
             this.writer = new PrintWriter(writer);
         }
 
-        public void print(Object... objects) {
-            for (int i = 0; i < objects.length; i++) {
-                if (i != 0) {
-                    writer.print(' ');
-                }
-                writer.print(objects[i]);
-            }
-        }
-
-        public void println(Object... objects) {
-            print(objects);
-            writer.println();
-        }
-
         public void close() {
             writer.close();
+        }
+
+        public void println(int i) {
+            writer.println(i);
         }
 
     }

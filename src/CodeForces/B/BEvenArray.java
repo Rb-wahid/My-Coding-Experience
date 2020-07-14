@@ -19,17 +19,21 @@ public class BEvenArray {
         while (t-->0) {
             int n  = in.nextInt();
 
-            int count = 0;
+            int o = 0;
+            int e = 0;
             int[] arr = new int[n];
 
             for (int i = 0; i <n ; i++) {
                 arr[i] = in.nextInt();
-                if ((arr[i]&1) == 1 && (i&1) == 0) {
-                    count++;
+                if ((arr[i]&1) != (i&1)) {
+                    if ((i&1) == 1)
+                    o++;
+                    else
+                        e++;
                 }
             }
 
-            out.println(n < 2? "-1" : count);
+            out.println( e != o? "-1" : o);
 
         }
     }

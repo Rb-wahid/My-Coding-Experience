@@ -22,36 +22,37 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        AXXXXX solver = new AXXXXX();
+        ATwoSubstrings solver = new ATwoSubstrings();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class AXXXXX {
-        public void solve(int testNumber, InputReader in, OutputWriter out) {
-            int t = in.nextInt();
+    static class ATwoSubstrings {
+        boolean abString(String string) {
+            if (string.length() < 4)
+                return false;
+            char[] chars = string.toCharArray();
+            boolean flag = false;
 
-            while (t-- > 0) {
-                int sum = 0, l = -1, r = 0;
-                int n = in.nextInt();
-                int x = in.nextInt();
-
-                for (int i = 0; i < n; i++) {
-                    int a = in.nextInt();
-                    if (a % x != 0) {
-                        if (l == -1)
-                            l = i;
-                        r = i;
-                    }
-                    sum += a;
+            for (int i = 0; i < chars.length - 1; i++) {
+                if (chars[i] == 'A' && chars[i + 1] == 'B') {
+                    flag = true;
+                    break;
                 }
-                if (sum % x != 0)
-                    out.println(n);
-                else if (l == -1)
-                    out.println(-1);
-                else
-                    out.println(n - Math.min(l + 1, n - r));
             }
+
+            for (int i = chars.length - 1; i > 0; i--) {
+                if (chars[i] == 'B' && chars[i - 1] == 'A') {
+                    return flag;
+                }
+            }
+            return false;
+        }
+
+        public void solve(int testNumber, InputReader in, OutputWriter out) {
+            String string = in.next();
+
+            out.println(abString(string) ? "YES" : "NO");
         }
 
     }
@@ -85,26 +86,19 @@ public class Main {
             return buf[curChar++];
         }
 
-        public int nextInt() {
+        public String nextString() {
             int c = read();
             while (isSpaceChar(c)) {
                 c = read();
             }
-            int sgn = 1;
-            if (c == '-') {
-                sgn = -1;
-                c = read();
-            }
-            int res = 0;
+            StringBuilder res = new StringBuilder();
             do {
-                if (c < '0' || c > '9') {
-                    throw new InputMismatchException();
+                if (Character.isValidCodePoint(c)) {
+                    res.appendCodePoint(c);
                 }
-                res *= 10;
-                res += c - '0';
                 c = read();
             } while (!isSpaceChar(c));
-            return res * sgn;
+            return res.toString();
         }
 
         public boolean isSpaceChar(int c) {
@@ -116,6 +110,10 @@ public class Main {
 
         public static boolean isWhitespace(int c) {
             return c == ' ' || c == '\n' || c == '\r' || c == '\t' || c == -1;
+        }
+
+        public String next() {
+            return nextString();
         }
 
         public interface SpaceCharFilter {
@@ -136,12 +134,22 @@ public class Main {
             this.writer = new PrintWriter(writer);
         }
 
-        public void close() {
-            writer.close();
+        public void print(Object... objects) {
+            for (int i = 0; i < objects.length; i++) {
+                if (i != 0) {
+                    writer.print(' ');
+                }
+                writer.print(objects[i]);
+            }
         }
 
-        public void println(int i) {
-            writer.println(i);
+        public void println(Object... objects) {
+            print(objects);
+            writer.println();
+        }
+
+        public void close() {
+            writer.close();
         }
 
     }

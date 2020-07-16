@@ -22,25 +22,36 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        AGeorgeAndAccommodation solver = new AGeorgeAndAccommodation();
+        AKefaAndFirstSteps solver = new AKefaAndFirstSteps();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class AGeorgeAndAccommodation {
+    static class AKefaAndFirstSteps {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
 
-            int room = in.nextInt();
-            int count = 0;
+            int n = in.nextInt();
+            int[] arr = new int[n];
 
-            while (room-- > 0) {
-                int p = in.nextInt() + 2;
-                int q = in.nextInt();
-
-                if (p <= q)
-                    count++;
+            for (int i = 0; i < n; i++) {
+                arr[i] = in.nextInt();
             }
-            out.println(count);
+
+            int count = 0;
+            int max = Integer.MIN_VALUE;
+
+            for (int i = 0; i < n - 1; i++) {
+                if (arr[i] <= arr[i + 1]) {
+                    count++;
+                    max = Math.max(max, count);
+                } else {
+                    max = Math.max(max, count);
+                    count = 0;
+
+                }
+            }
+
+            out.println(max > 0 ? max + 1 : 1);
         }
 
     }

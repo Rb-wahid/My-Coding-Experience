@@ -28,32 +28,28 @@ public class Main {
     }
 
     static class ATwoSubstrings {
-        boolean abString(String string) {
-            boolean flag = false;
-            if (string.length() < 4)
-                return false;
-            char[] chars = string.toCharArray();
-
-            int p = 0;
-
-            for (int i = 0; i < chars.length - 1; i++) {
-                if (chars[i] == 'A' && chars[i + 1] == 'B') {
-                    p = i + 1;
+        boolean baString(String string) {
+            char[] strings = string.toCharArray();
+            boolean ab = false, ba = false;
+            for (int i = 0; i < strings.length - 1; ++i) {
+                if (strings[i] == 'B' && strings[i + 1] == 'A' && !ba) {
+                    ba = true;
+                    i++;
+                } else if (strings[i] == 'A' && strings[i + 1] == 'B' && ba) {
+                    ab = true;
                 }
             }
 
-            for (int i = 0; i < chars.length - 1; i++) {
-                if (chars[i] == 'B' && chars[i + 1] == 'A') {
-                    flag = true;
-                }
-            }
-            return flag;
+            return ab;
         }
 
         public void solve(int testNumber, InputReader in, OutputWriter out) {
             String string = in.next();
 
-            out.println(abString(string) ? "YES" : "NO");
+//        if (abString(string))
+//            out.println("YES");
+//        else 
+            out.println(baString(string) ? "YES" : "NO");
         }
 
     }

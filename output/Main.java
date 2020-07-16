@@ -22,40 +22,58 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        AMaximumGCD solver = new AMaximumGCD();
+        BIlyaAndQueries solver = new BIlyaAndQueries();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class AMaximumGCD {
-        public void solve(int testNumber, InputReader in, OutputWriter out) {
-            int t = in.nextInt();
+    static class BIlyaAndQueries {
+        int forDot(String string, int a, int b) {
+            char[] arr = string.toCharArray();
+            int count = 0;
 
-            while (t-- > 0) {
-                int n = in.nextInt();
-                out.println((int) Math.floor(n / 2.0));
+            for (int i = a; i < b; i++) {
+                if (arr[i] == '.')
+                    count++;
             }
+            return count;
         }
 
-    }
+        int forHash(String string, int a, int b) {
+            char[] arr = string.toCharArray();
+            int count = 0;
 
-    static class OutputWriter {
-        private final PrintWriter writer;
-
-        public OutputWriter(OutputStream outputStream) {
-            writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(outputStream)));
+            for (int i = a; i < b; i++) {
+                if (arr[i] == '#')
+                    count++;
+            }
+            return count;
         }
 
-        public OutputWriter(Writer writer) {
-            this.writer = new PrintWriter(writer);
-        }
+        public void solve(int testNumber, InputReader in, OutputWriter out) {
 
-        public void close() {
-            writer.close();
-        }
+            String string = in.next();
+            int m = in.nextInt();
+            int dot = 0;
+            int hash = 0;
 
-        public void println(int i) {
-            writer.println(i);
+            for (int i = 0; i < string.length(); i++) {
+                if (string.charAt(i) == '.')
+                    dot++;
+            }
+
+            hash = string.length() - dot;
+
+            while (m-- > 0) {
+                int a = in.nextInt();
+                int b = in.nextInt();
+
+                if (hash >= dot)
+                    out.println(forHash(string, a - 1, b - 1));
+                else
+                    out.println(forDot(string, a - 1, b - 1));
+
+            }
         }
 
     }
@@ -111,6 +129,21 @@ public class Main {
             return res * sgn;
         }
 
+        public String nextString() {
+            int c = read();
+            while (isSpaceChar(c)) {
+                c = read();
+            }
+            StringBuilder res = new StringBuilder();
+            do {
+                if (Character.isValidCodePoint(c)) {
+                    res.appendCodePoint(c);
+                }
+                c = read();
+            } while (!isSpaceChar(c));
+            return res.toString();
+        }
+
         public boolean isSpaceChar(int c) {
             if (filter != null) {
                 return filter.isSpaceChar(c);
@@ -122,9 +155,34 @@ public class Main {
             return c == ' ' || c == '\n' || c == '\r' || c == '\t' || c == -1;
         }
 
+        public String next() {
+            return nextString();
+        }
+
         public interface SpaceCharFilter {
             public boolean isSpaceChar(int ch);
 
+        }
+
+    }
+
+    static class OutputWriter {
+        private final PrintWriter writer;
+
+        public OutputWriter(OutputStream outputStream) {
+            writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(outputStream)));
+        }
+
+        public OutputWriter(Writer writer) {
+            this.writer = new PrintWriter(writer);
+        }
+
+        public void close() {
+            writer.close();
+        }
+
+        public void println(int i) {
+            writer.println(i);
         }
 
     }

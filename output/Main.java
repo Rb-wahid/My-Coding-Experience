@@ -22,36 +22,19 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        AKefaAndFirstSteps solver = new AKefaAndFirstSteps();
+        AMaximumGCD solver = new AMaximumGCD();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class AKefaAndFirstSteps {
+    static class AMaximumGCD {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
+            int t = in.nextInt();
 
-            int n = in.nextInt();
-            int[] arr = new int[n];
-
-            for (int i = 0; i < n; i++) {
-                arr[i] = in.nextInt();
+            while (t-- > 0) {
+                int n = in.nextInt();
+                out.println((int) Math.floor(n / 2.0));
             }
-
-            int count = 0;
-            int max = Integer.MIN_VALUE;
-
-            for (int i = 0; i < n - 1; i++) {
-                if (arr[i] <= arr[i + 1]) {
-                    count++;
-                    max = Math.max(max, count);
-                } else {
-                    max = Math.max(max, count);
-                    count = 0;
-
-                }
-            }
-
-            out.println(max > 0 ? max + 1 : 1);
         }
 
     }

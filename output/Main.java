@@ -28,6 +28,21 @@ public class Main {
     }
 
     static class ATwoSubstrings {
+        boolean abString(String string) {
+            boolean ab = false, ba = false;
+            char[] strings = string.toCharArray();
+
+            for (int i = 0; i < strings.length - 1; ++i) {
+                if (strings[i] == 'A' && strings[i + 1] == 'B' && !ab) {
+                    ab = true;
+                    i++;
+                } else if (strings[i] == 'B' && strings[i + 1] == 'A' && ab) {
+                    ba = true;
+                }
+            }
+            return ba;
+        }
+
         boolean baString(String string) {
             char[] strings = string.toCharArray();
             boolean ab = false, ba = false;
@@ -46,10 +61,41 @@ public class Main {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
             String string = in.next();
 
-//        if (abString(string))
-//            out.println("YES");
-//        else 
-            out.println(baString(string) ? "YES" : "NO");
+            if (abString(string))
+                out.println("YES");
+            else
+                out.println(baString(string) ? "YES" : "NO");
+        }
+
+    }
+
+    static class OutputWriter {
+        private final PrintWriter writer;
+
+        public OutputWriter(OutputStream outputStream) {
+            writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(outputStream)));
+        }
+
+        public OutputWriter(Writer writer) {
+            this.writer = new PrintWriter(writer);
+        }
+
+        public void print(Object... objects) {
+            for (int i = 0; i < objects.length; i++) {
+                if (i != 0) {
+                    writer.print(' ');
+                }
+                writer.print(objects[i]);
+            }
+        }
+
+        public void println(Object... objects) {
+            print(objects);
+            writer.println();
+        }
+
+        public void close() {
+            writer.close();
         }
 
     }
@@ -116,37 +162,6 @@ public class Main {
         public interface SpaceCharFilter {
             public boolean isSpaceChar(int ch);
 
-        }
-
-    }
-
-    static class OutputWriter {
-        private final PrintWriter writer;
-
-        public OutputWriter(OutputStream outputStream) {
-            writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(outputStream)));
-        }
-
-        public OutputWriter(Writer writer) {
-            this.writer = new PrintWriter(writer);
-        }
-
-        public void print(Object... objects) {
-            for (int i = 0; i < objects.length; i++) {
-                if (i != 0) {
-                    writer.print(' ');
-                }
-                writer.print(objects[i]);
-            }
-        }
-
-        public void println(Object... objects) {
-            print(objects);
-            writer.println();
-        }
-
-        public void close() {
-            writer.close();
         }
 
     }

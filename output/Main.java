@@ -29,24 +29,25 @@ public class Main {
 
     static class ATwoSubstrings {
         boolean abString(String string) {
+            boolean flag = false;
             if (string.length() < 4)
                 return false;
             char[] chars = string.toCharArray();
-            boolean flag = false;
+
+            int p = 0;
 
             for (int i = 0; i < chars.length - 1; i++) {
                 if (chars[i] == 'A' && chars[i + 1] == 'B') {
-                    flag = true;
-                    break;
+                    p = i + 1;
                 }
             }
 
-            for (int i = chars.length - 1; i > 0; i--) {
-                if (chars[i] == 'B' && chars[i - 1] == 'A') {
-                    return flag;
+            for (int i = 0; i < chars.length - 1; i++) {
+                if (chars[i] == 'B' && chars[i + 1] == 'A') {
+                    flag = true;
                 }
             }
-            return false;
+            return flag;
         }
 
         public void solve(int testNumber, InputReader in, OutputWriter out) {

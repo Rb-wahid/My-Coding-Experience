@@ -22,56 +22,33 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        BIlyaAndQueries solver = new BIlyaAndQueries();
+        ADonutShops solver = new ADonutShops();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class BIlyaAndQueries {
-        int forDot(String string, int a, int b) {
-            char[] arr = string.toCharArray();
-            int count = 0;
-
-            for (int i = a; i < b; i++) {
-                if (arr[i] == '.')
-                    count++;
-            }
-            return count;
-        }
-
-        int forHash(String string, int a, int b) {
-            char[] arr = string.toCharArray();
-            int count = 0;
-
-            for (int i = a; i < b; i++) {
-                if (arr[i] == '#')
-                    count++;
-            }
-            return count;
-        }
-
+    static class ADonutShops {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
+            int t = in.nextInt();
 
-            String string = in.next();
-            int m = in.nextInt();
-            int dot = 0;
-            int hash = 0;
+            while (t-- > 0) {
+                long a = in.nextLong();
+                long b = in.nextLong();
+                long c = in.nextLong();
+                long sa = 0;
+                long sb = 0;
 
-            for (int i = 0; i < string.length(); i++) {
-                if (string.charAt(i) == '.')
-                    dot++;
-            }
+                sa = a * b;
+                sb = c;
 
-            hash = string.length() - dot;
+                if (sa - sb == 0)
+                    out.println(b + " " + -1);
+                else if (sa - sb > 5)
+                    out.println(-1 + " " + b);
 
-            while (m-- > 0) {
-                int a = in.nextInt();
-                int b = in.nextInt();
-
-                if (hash >= dot)
-                    out.println(forHash(string, a - 1, b - 1));
                 else
-                    out.println(forDot(string, a - 1, b - 1));
+                    out.println(1 + " " + b);
+
 
             }
         }
@@ -129,19 +106,26 @@ public class Main {
             return res * sgn;
         }
 
-        public String nextString() {
+        public long nextLong() {
             int c = read();
             while (isSpaceChar(c)) {
                 c = read();
             }
-            StringBuilder res = new StringBuilder();
+            int sgn = 1;
+            if (c == '-') {
+                sgn = -1;
+                c = read();
+            }
+            long res = 0;
             do {
-                if (Character.isValidCodePoint(c)) {
-                    res.appendCodePoint(c);
+                if (c < '0' || c > '9') {
+                    throw new InputMismatchException();
                 }
+                res *= 10;
+                res += c - '0';
                 c = read();
             } while (!isSpaceChar(c));
-            return res.toString();
+            return res * sgn;
         }
 
         public boolean isSpaceChar(int c) {
@@ -153,10 +137,6 @@ public class Main {
 
         public static boolean isWhitespace(int c) {
             return c == ' ' || c == '\n' || c == '\r' || c == '\t' || c == -1;
-        }
-
-        public String next() {
-            return nextString();
         }
 
         public interface SpaceCharFilter {
@@ -177,12 +157,22 @@ public class Main {
             this.writer = new PrintWriter(writer);
         }
 
-        public void close() {
-            writer.close();
+        public void print(Object... objects) {
+            for (int i = 0; i < objects.length; i++) {
+                if (i != 0) {
+                    writer.print(' ');
+                }
+                writer.print(objects[i]);
+            }
         }
 
-        public void println(int i) {
-            writer.println(i);
+        public void println(Object... objects) {
+            print(objects);
+            writer.println();
+        }
+
+        public void close() {
+            writer.close();
         }
 
     }

@@ -4,9 +4,9 @@ package CodeForces.A;
  *
  * @author Rb_wahid
  *
- * Problem Title:
+ * Problem Title: A. Donut Shops
  *
- * link :
+ * link : https://codeforces.com/contest/1373/problem/A
  */
 
 import FastIO.InputReader;

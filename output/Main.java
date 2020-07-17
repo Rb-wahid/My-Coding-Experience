@@ -42,8 +42,10 @@ public class Main {
                 sb = c;
 
                 if (sa - sb == 0)
-                    out.println(b + " " + -1);
-                else if (sa - sb > 5)
+                    out.println(b * 2 - 2 + " " + -1);
+                else if (sa - sb > 5 && sa - sb < 1000)
+                    out.println(-1 + " " + b * 2);
+                else if (sa - sb > 5 && sa - sb > 1000)
                     out.println(-1 + " " + b);
 
                 else

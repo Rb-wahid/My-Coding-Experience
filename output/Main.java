@@ -22,24 +22,42 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        AGoodNumber solver = new AGoodNumber();
+        AEpicGame solver = new AEpicGame();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class AGoodNumber {
+    static class AEpicGame {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
+            int a = in.nextInt();
+            int b = in.nextInt();
             int n = in.nextInt();
-            int k = in.nextInt();
-            String str;
-            int ans = 0;
-            while (n-- > 0) {
-                str = in.readLine();
-                if (str.substring(str.length() - 1).equals("0") && str.substring(str.length() - 2, str.length() - 1).equals(String.valueOf(k)))
-                    ans++;
 
-            }
-            out.println(ans);
+            if ((n & 1) == 0)
+                out.println(1);
+            else
+                out.println(0);
+        }
+
+    }
+
+    static class OutputWriter {
+        private final PrintWriter writer;
+
+        public OutputWriter(OutputStream outputStream) {
+            writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(outputStream)));
+        }
+
+        public OutputWriter(Writer writer) {
+            this.writer = new PrintWriter(writer);
+        }
+
+        public void close() {
+            writer.close();
+        }
+
+        public void println(int i) {
+            writer.println(i);
         }
 
     }
@@ -106,50 +124,9 @@ public class Main {
             return c == ' ' || c == '\n' || c == '\r' || c == '\t' || c == -1;
         }
 
-        private String readLine0() {
-            StringBuilder buf = new StringBuilder();
-            int c = read();
-            while (c != '\n' && c != -1) {
-                if (c != '\r') {
-                    buf.appendCodePoint(c);
-                }
-                c = read();
-            }
-            return buf.toString();
-        }
-
-        public String readLine() {
-            String s = readLine0();
-            while (s.trim().length() == 0) {
-                s = readLine0();
-            }
-            return s;
-        }
-
         public interface SpaceCharFilter {
             public boolean isSpaceChar(int ch);
 
-        }
-
-    }
-
-    static class OutputWriter {
-        private final PrintWriter writer;
-
-        public OutputWriter(OutputStream outputStream) {
-            writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(outputStream)));
-        }
-
-        public OutputWriter(Writer writer) {
-            this.writer = new PrintWriter(writer);
-        }
-
-        public void close() {
-            writer.close();
-        }
-
-        public void println(int i) {
-            writer.println(i);
         }
 
     }

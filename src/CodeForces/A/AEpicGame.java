@@ -18,9 +18,9 @@ public class AEpicGame {
         int b = in.nextInt();
         int n = in.nextInt();
 
-        if((n&1) == 0)
-            out.println(1);
-        else
+        if(a < b || a == b&& b == n)
             out.println(0);
+        else
+            out.println(1);
     }
 }

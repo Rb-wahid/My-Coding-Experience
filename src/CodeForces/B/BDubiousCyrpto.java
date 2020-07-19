@@ -21,26 +21,25 @@ public class BDubiousCyrpto {
             long r = in.nextLong();
             long m = in.nextLong();
 
-            long n = 1;
-            long temp = 0;
-            long a = 0;
-            long b = 0;
-            long c = 0;
-            a = l;
-            b = r;
+            for (long a = l; a <= r; a++) {
+                long rem = m % a;
+                long x = r - l;
 
-
-            while (true) {
-
-                c = (n * a) - (b + m);
-                if (l <= c) {
-                    if (r >= c)
+                if (rem <= r - l) {
+                    if (m - rem != 0) {
+                        out.println(a + " " + r + " " + (r - rem));
                         break;
-                } else {
-                    n++;
+                    }
+                }
+
+                if (l + a - rem <= r) {
+                    if ((m + a - rem) % a == 0) {
+                        out.println(a + " " + l + " " + (l + a - rem));
+                        break;
+                    }
                 }
             }
-            out.println(a + " " + b + " " + c);
         }
     }
+
 }

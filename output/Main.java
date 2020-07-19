@@ -22,70 +22,41 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        AEpicGame solver = new AEpicGame();
+        BDubiousCyrpto solver = new BDubiousCyrpto();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class AEpicGame {
-        int gcd(int a, int b) {
-            if (b == 0)
-                return a;
-            return gcd(b, a % b);
-        }
-
+    static class BDubiousCyrpto {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
-            int a = in.nextInt();
-            int b = in.nextInt();
-            int n = in.nextInt();
+            int t = in.nextInt();
 
-            int aa = 0;
-            int bb = 0;
-            int temp = 0;
+            while (t-- > 0) {
+                long l = in.nextLong();
+                long r = in.nextLong();
+                long m = in.nextLong();
 
-            while (true) {
+                long n = 2;
+                long temp = 0;
+                long a = 0;
+                long b = 0;
+                long c = 0;
+                a = l;
+                b = r;
 
-                if (n != 0) {
-                    temp = gcd(a, n);
-                    aa++;
-                    n -= temp;
-                } else
-                    break;
 
-                if (n != 0) {
-                    temp = gcd(b, n);
-                    bb++;
-                    n -= temp;
-                } else
-                    break;
+                while (true) {
 
+                    c = (n * a) + (b - m);
+                    if (l <= c) {
+                        if (r >= c)
+                            break;
+                    } else {
+                        n++;
+                    }
+                }
+                out.println(a + " " + b + " " + c);
             }
-
-            if (aa > bb)
-                out.println(0);
-            else
-                out.println(1);
-        }
-
-    }
-
-    static class OutputWriter {
-        private final PrintWriter writer;
-
-        public OutputWriter(OutputStream outputStream) {
-            writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(outputStream)));
-        }
-
-        public OutputWriter(Writer writer) {
-            this.writer = new PrintWriter(writer);
-        }
-
-        public void close() {
-            writer.close();
-        }
-
-        public void println(int i) {
-            writer.println(i);
         }
 
     }
@@ -141,6 +112,28 @@ public class Main {
             return res * sgn;
         }
 
+        public long nextLong() {
+            int c = read();
+            while (isSpaceChar(c)) {
+                c = read();
+            }
+            int sgn = 1;
+            if (c == '-') {
+                sgn = -1;
+                c = read();
+            }
+            long res = 0;
+            do {
+                if (c < '0' || c > '9') {
+                    throw new InputMismatchException();
+                }
+                res *= 10;
+                res += c - '0';
+                c = read();
+            } while (!isSpaceChar(c));
+            return res * sgn;
+        }
+
         public boolean isSpaceChar(int c) {
             if (filter != null) {
                 return filter.isSpaceChar(c);
@@ -155,6 +148,37 @@ public class Main {
         public interface SpaceCharFilter {
             public boolean isSpaceChar(int ch);
 
+        }
+
+    }
+
+    static class OutputWriter {
+        private final PrintWriter writer;
+
+        public OutputWriter(OutputStream outputStream) {
+            writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(outputStream)));
+        }
+
+        public OutputWriter(Writer writer) {
+            this.writer = new PrintWriter(writer);
+        }
+
+        public void print(Object... objects) {
+            for (int i = 0; i < objects.length; i++) {
+                if (i != 0) {
+                    writer.print(' ');
+                }
+                writer.print(objects[i]);
+            }
+        }
+
+        public void println(Object... objects) {
+            print(objects);
+            writer.println();
+        }
+
+        public void close() {
+            writer.close();
         }
 
     }

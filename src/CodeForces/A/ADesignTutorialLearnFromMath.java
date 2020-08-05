@@ -42,9 +42,9 @@ public class ADesignTutorialLearnFromMath {
 
         List<Integer> list = seive(n);
         int a = 0,  b = 0;
-
-        if ((n&1) == 0){
-            a = b = n>>1;
+        a =  n>>1;
+        if ((n&1) == 0 && list.contains(a)){
+           b = a;
         }
         else {
             for (int i = 0; i <list.size() ; i++) {

@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.util.Arrays;
 import java.io.BufferedWriter;
 import java.io.Writer;
 import java.io.OutputStreamWriter;
@@ -22,58 +23,21 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        ADesignTutorialLearnFromMath solver = new ADesignTutorialLearnFromMath();
+        ARestoringThreeNumbers solver = new ARestoringThreeNumbers();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class ADesignTutorialLearnFromMath {
+    static class ARestoringThreeNumbers {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
-            int n = in.nextInt();
+            long[] arr = new long[4];
 
-            int a = 0, b = 0;
-
-            if ((n & 1) == 0) {
-                a = 8;
-                b = n - 8;
-            } else {
-                a = 9;
-                b = n - 9;
+            for (int i = 0; i < 4; i++) {
+                arr[i] = in.nextLong();
             }
+            Arrays.sort(arr);
 
-
-            out.println(b + " " + a);
-        }
-
-    }
-
-    static class OutputWriter {
-        private final PrintWriter writer;
-
-        public OutputWriter(OutputStream outputStream) {
-            writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(outputStream)));
-        }
-
-        public OutputWriter(Writer writer) {
-            this.writer = new PrintWriter(writer);
-        }
-
-        public void print(Object... objects) {
-            for (int i = 0; i < objects.length; i++) {
-                if (i != 0) {
-                    writer.print(' ');
-                }
-                writer.print(objects[i]);
-            }
-        }
-
-        public void println(Object... objects) {
-            print(objects);
-            writer.println();
-        }
-
-        public void close() {
-            writer.close();
+            out.println((arr[3] - arr[0]) + " " + (arr[3] - arr[1]) + " " + (arr[3] - arr[2]));
         }
 
     }
@@ -107,7 +71,7 @@ public class Main {
             return buf[curChar++];
         }
 
-        public int nextInt() {
+        public long nextLong() {
             int c = read();
             while (isSpaceChar(c)) {
                 c = read();
@@ -117,7 +81,7 @@ public class Main {
                 sgn = -1;
                 c = read();
             }
-            int res = 0;
+            long res = 0;
             do {
                 if (c < '0' || c > '9') {
                     throw new InputMismatchException();
@@ -143,6 +107,37 @@ public class Main {
         public interface SpaceCharFilter {
             public boolean isSpaceChar(int ch);
 
+        }
+
+    }
+
+    static class OutputWriter {
+        private final PrintWriter writer;
+
+        public OutputWriter(OutputStream outputStream) {
+            writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(outputStream)));
+        }
+
+        public OutputWriter(Writer writer) {
+            this.writer = new PrintWriter(writer);
+        }
+
+        public void print(Object... objects) {
+            for (int i = 0; i < objects.length; i++) {
+                if (i != 0) {
+                    writer.print(' ');
+                }
+                writer.print(objects[i]);
+            }
+        }
+
+        public void println(Object... objects) {
+            print(objects);
+            writer.println();
+        }
+
+        public void close() {
+            writer.close();
         }
 
     }

@@ -3,11 +3,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.util.Arrays;
 import java.io.BufferedWriter;
-import java.io.Writer;
-import java.io.OutputStreamWriter;
 import java.util.InputMismatchException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.io.Writer;
+import java.io.OutputStreamWriter;
 import java.io.InputStream;
 
 /**
@@ -22,23 +25,54 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        BDrinks solver = new BDrinks();
+        ADesignTutorialLearnFromMath solver = new ADesignTutorialLearnFromMath();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class BDrinks {
+    static class ADesignTutorialLearnFromMath {
+        List<Integer> seive(int n) {
+            List<Integer> list = new ArrayList<>();
+            boolean[] prime = new boolean[n + 1];
+            Arrays.fill(prime, true);
+
+            for (int i = 2; i * i <= n; i++) {
+                if (prime[i])
+                    for (int j = i * i; j <= n; j += i) {
+                        prime[j] = false;
+                    }
+            }
+
+            for (int i = 2; i <= n; i++) {
+                if (!prime[i])
+                    list.add(i);
+            }
+
+            return list;
+        }
+
         public void solve(int testNumber, InputReader in, OutputWriter out) {
             int n = in.nextInt();
-            double sum = 0;
 
-            for (int i = 0; i < n; i++) {
-                sum += in.nextInt();
+            List<Integer> list = seive(n);
+            int a = 0, b = 0;
+
+            if ((n & 1) == 0) {
+                a = b = n >> 1;
+            } else {
+                for (int i = 0; i < list.size(); i++) {
+                    for (int j = list.size() - 1; j >= 0; j--) {
+                        if (list.get(i) + list.get(j) == n) {
+                            a = list.get(j);
+                            b = list.get(i);
+                            break;
+                        }
+                    }
+                }
             }
-            double ans = sum / n;
-            String string = String.format("%.12f", ans);
 
-            out.println(string);
+
+            out.println(a + " " + b);
         }
 
     }

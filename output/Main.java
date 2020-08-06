@@ -23,21 +23,70 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        ARestoringThreeNumbers solver = new ARestoringThreeNumbers();
+        BInterestingDrink solver = new BInterestingDrink();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class ARestoringThreeNumbers {
-        public void solve(int testNumber, InputReader in, OutputWriter out) {
-            long[] arr = new long[4];
+    static class BInterestingDrink {
+        int binarySearch(int[] arr, int x) {
+            int l = 0;
+            int r = arr.length - 1;
+            int mid;
+            int index = -1;
 
-            for (int i = 0; i < 4; i++) {
-                arr[i] = in.nextLong();
+            while (l <= r) {
+                mid = (l + r) >> 1;
+
+                if (arr[mid] == x) {
+                    index = mid;
+                    break;
+                } else if (arr[mid] < x) {
+                    l = mid + 1;
+                    index = (l + r) >> 1;
+                } else {
+                    r = mid - 1;
+                    index = (l + r) >> 1;
+                }
+            }
+            return index;
+        }
+
+        public void solve(int testNumber, InputReader in, OutputWriter out) {
+            int n = in.nextInt();
+            int[] arr = new int[n];
+
+            for (int i = 0; i < n; i++) {
+                arr[i] = in.nextInt();
             }
             Arrays.sort(arr);
+            int q = in.nextInt();
 
-            out.println((arr[3] - arr[0]) + " " + (arr[3] - arr[1]) + " " + (arr[3] - arr[2]));
+            while (q-- > 0) {
+                int m = in.nextInt();
+                out.println(binarySearch(arr, m) + 1);
+            }
+        }
+
+    }
+
+    static class OutputWriter {
+        private final PrintWriter writer;
+
+        public OutputWriter(OutputStream outputStream) {
+            writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(outputStream)));
+        }
+
+        public OutputWriter(Writer writer) {
+            this.writer = new PrintWriter(writer);
+        }
+
+        public void close() {
+            writer.close();
+        }
+
+        public void println(int i) {
+            writer.println(i);
         }
 
     }
@@ -71,7 +120,7 @@ public class Main {
             return buf[curChar++];
         }
 
-        public long nextLong() {
+        public int nextInt() {
             int c = read();
             while (isSpaceChar(c)) {
                 c = read();
@@ -81,7 +130,7 @@ public class Main {
                 sgn = -1;
                 c = read();
             }
-            long res = 0;
+            int res = 0;
             do {
                 if (c < '0' || c > '9') {
                     throw new InputMismatchException();
@@ -107,37 +156,6 @@ public class Main {
         public interface SpaceCharFilter {
             public boolean isSpaceChar(int ch);
 
-        }
-
-    }
-
-    static class OutputWriter {
-        private final PrintWriter writer;
-
-        public OutputWriter(OutputStream outputStream) {
-            writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(outputStream)));
-        }
-
-        public OutputWriter(Writer writer) {
-            this.writer = new PrintWriter(writer);
-        }
-
-        public void print(Object... objects) {
-            for (int i = 0; i < objects.length; i++) {
-                if (i != 0) {
-                    writer.print(' ');
-                }
-                writer.print(objects[i]);
-            }
-        }
-
-        public void println(Object... objects) {
-            print(objects);
-            writer.println();
-        }
-
-        public void close() {
-            writer.close();
         }
 
     }

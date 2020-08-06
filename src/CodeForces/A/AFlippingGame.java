@@ -32,6 +32,8 @@ public class AFlippingGame {
             if (i == 1)
                 count++;
         }
+        if (arr.length == 1)
+            count = 0;
         out.println(count);
     }
 }

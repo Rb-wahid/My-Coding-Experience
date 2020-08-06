@@ -13,6 +13,7 @@ import FastIO.InputReader;
 import FastIO.OutputWriter;
 
 import java.util.Arrays;
+import java.util.TreeSet;
 
 public class BInterestingDrink {
     int binarySearch(int[]arr, int x) {
@@ -41,17 +42,20 @@ public class BInterestingDrink {
     }
     public void solve(int testNumber, InputReader in, OutputWriter out) {
         int n = in.nextInt();
-        int[] arr = new int[n];
-
+        TreeSet<Integer> treeSet = new TreeSet<>();
         for (int i = 0; i < n; i++) {
-            arr[i] = in.nextInt();
+            treeSet.add(in.nextInt());
         }
-        Arrays.sort(arr);
         int q = in.nextInt();
 
         while (q-->0) {
             int m = in.nextInt();
-            out.println(binarySearch(arr, m)+1);
+            boolean f = treeSet.contains(m);
+            int ans = 0;
+            if(f)
+                ans++;
+
+            out.println(treeSet.headSet(m).size()+ans);
         }
     }
 }

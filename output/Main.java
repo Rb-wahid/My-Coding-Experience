@@ -3,7 +3,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.util.Arrays;
 import java.io.BufferedWriter;
 import java.io.Writer;
 import java.io.OutputStreamWriter;
@@ -23,41 +22,32 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        BInterestingDrink solver = new BInterestingDrink();
+        AFlippingGame solver = new AFlippingGame();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class BInterestingDrink {
-        int binarySearch(int[] arr, int x) {
-            int l = 0;
-            int r = arr.length;
-            int mid;
-
-            while (l < r) {
-                mid = (l + r) >> 1;
-
-                if (arr[mid] <= x) {
-                    l = mid + 1;
-                } else {
-                    r = mid;
-                }
-            }
-            return l;
-        }
-
+    static class AFlippingGame {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
             int n = in.nextInt();
             int[] arr = new int[n];
+
             for (int i = 0; i < n; i++) {
                 arr[i] = in.nextInt();
             }
-            int q = in.nextInt();
-            Arrays.sort(arr);
-            while (q-- > 0) {
-                int m = in.nextInt();
-                out.println(binarySearch(arr, m));
+
+            for (int i = 1; i < n - 1; i++) {
+                arr[i] = arr[i] ^ 1;
             }
+            if (arr[n - 1] == 0)
+                arr[n - 1] = arr[n - 1] ^ 1;
+            int count = 0;
+
+            for (int i : arr) {
+                if (i == 1)
+                    count++;
+            }
+            out.println(count);
         }
 
     }

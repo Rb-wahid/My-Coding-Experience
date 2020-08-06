@@ -40,7 +40,7 @@ public class BInterestingDrink {
             arr[i] = in.nextInt();
         }
         int q = in.nextInt();
-
+        Arrays.sort(arr);
         while (q-->0) {
             int m = in.nextInt();
             out.println(binarySearch(arr, m));

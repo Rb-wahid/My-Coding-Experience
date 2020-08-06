@@ -18,44 +18,32 @@ import java.util.TreeSet;
 public class BInterestingDrink {
     int binarySearch(int[]arr, int x) {
         int l = 0;
-        int r = arr.length-1;
+        int r = arr.length;
         int mid;
-        int index = -1;
 
-        while (l <= r) {
+        while (l < r) {
             mid = (l+r) >>1;
 
-            if (arr[mid] == x){
-                index = mid;
-                break;
-            }
-            else if (arr[mid] < x){
-                l = mid+1;
-                index = (l+r)>>1;
+            if (arr[mid] <= x){
+               l = mid+1;
             }
             else {
-                r = mid-1;
-                index = (l+r)>>1;
+                r = mid;
             }
         }
-        return index;
+        return l;
     }
     public void solve(int testNumber, InputReader in, OutputWriter out) {
         int n = in.nextInt();
-        TreeSet<Integer> treeSet = new TreeSet<>();
+        int[] arr = new int[n];
         for (int i = 0; i < n; i++) {
-            treeSet.add(in.nextInt());
+            arr[i] = in.nextInt();
         }
         int q = in.nextInt();
 
         while (q-->0) {
             int m = in.nextInt();
-            boolean f = treeSet.contains(m);
-            int ans = 0;
-            if(f)
-                ans++;
-
-            out.println(treeSet.headSet(m).size()+ans);
+            out.println(binarySearch(arr, m));
         }
     }
 }

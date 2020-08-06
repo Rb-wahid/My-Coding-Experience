@@ -3,13 +3,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.util.Arrays;
 import java.io.BufferedWriter;
 import java.io.Writer;
-import java.util.Set;
 import java.io.OutputStreamWriter;
 import java.util.InputMismatchException;
 import java.io.IOException;
-import java.util.TreeSet;
 import java.io.InputStream;
 
 /**
@@ -30,24 +29,34 @@ public class Main {
     }
 
     static class BInterestingDrink {
+        int binarySearch(int[] arr, int x) {
+            int l = 0;
+            int r = arr.length;
+            int mid;
+
+            while (l < r) {
+                mid = (l + r) >> 1;
+
+                if (arr[mid] <= x) {
+                    l = mid + 1;
+                } else {
+                    r = mid;
+                }
+            }
+            return l;
+        }
+
         public void solve(int testNumber, InputReader in, OutputWriter out) {
             int n = in.nextInt();
-            TreeSet<Integer> treeSet = new TreeSet<>();
-            //   int[] arr = new int[n];
-
+            int[] arr = new int[n];
             for (int i = 0; i < n; i++) {
-                treeSet.add(in.nextInt());
+                arr[i] = in.nextInt();
             }
             int q = in.nextInt();
-
+            Arrays.sort(arr);
             while (q-- > 0) {
                 int m = in.nextInt();
-                boolean f = treeSet.contains(m);
-                int ans = 0;
-                if (f)
-                    ans++;
-
-                out.println(treeSet.headSet(m).size() + ans);
+                out.println(binarySearch(arr, m));
             }
         }
 

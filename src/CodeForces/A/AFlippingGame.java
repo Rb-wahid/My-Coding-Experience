@@ -20,20 +20,22 @@ public class AFlippingGame {
         for (int i = 0; i < n; i++) {
             arr[i] = in.nextInt();
         }
-
-        for (int i = 1; i < n-1; i++) {
-                arr[i] = arr[i]^1;
-        }
-        if (arr[n-1] == 0)
-            arr[n-1] = arr[n-1]^1;
         int count = 0;
+        if (arr.length == 1 && arr[0] == 1)
+            arr[0] = 0;
+        else {
+            if (arr[n - 1] == 0)
+                arr[n - 1] = arr[n - 1] ^ 1;
 
-        for (int i : arr){
+
+            for (int i = 1; i < n - 1; i++) {
+                arr[i] = arr[i] ^ 1;
+            }
+        }
+        for (int i : arr) {
             if (i == 1)
                 count++;
         }
-        if (arr.length == 1)
-            count = 0;
         out.println(count);
     }
 }

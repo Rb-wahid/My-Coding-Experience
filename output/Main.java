@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.util.Arrays;
 import java.io.BufferedWriter;
 import java.io.Writer;
 import java.io.OutputStreamWriter;
@@ -22,52 +23,47 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        AFlippingGame solver = new AFlippingGame();
+        AInsomniaCure solver = new AInsomniaCure();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class AFlippingGame {
+    static class AInsomniaCure {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
+            int k = in.nextInt();
+            int l = in.nextInt();
+            int m = in.nextInt();
             int n = in.nextInt();
-            int value = 0;
-            int one = 0;
-            int zero = 0;
-            int maxZero = -1;
+            int d = in.nextInt();
 
-            for (int i = 0; i < n; i++) {
-                value = in.nextInt();
-                if (value == 1) {
-                    one++;
-                    if (zero > 0)
-                        zero--;
-                } else {
-                    zero++;
-                    maxZero = Math.max(maxZero, zero);
-                }
+            boolean[] check = new boolean[d + 1];
+            Arrays.fill(check, true);
+
+            for (int i = k; i <= d; i += k) {
+                if (check[i])
+                    check[i] = false;
             }
-            out.println(one + maxZero);
-        }
+            for (int i = l; i <= d; i += l) {
+                if (check[i])
+                    check[i] = false;
+            }
+            for (int i = m; i <= d; i += m) {
+                if (check[i])
+                    check[i] = false;
+            }
+            for (int i = n; i <= d; i += n) {
+                if (check[i])
+                    check[i] = false;
+            }
 
-    }
+            int count = 0;
 
-    static class OutputWriter {
-        private final PrintWriter writer;
+            for (int i = 1; i <= d; i++)
+                if (!check[i]) {
+                    count++;
+                }
 
-        public OutputWriter(OutputStream outputStream) {
-            writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(outputStream)));
-        }
-
-        public OutputWriter(Writer writer) {
-            this.writer = new PrintWriter(writer);
-        }
-
-        public void close() {
-            writer.close();
-        }
-
-        public void println(int i) {
-            writer.println(i);
+            out.println(count);
         }
 
     }
@@ -137,6 +133,27 @@ public class Main {
         public interface SpaceCharFilter {
             public boolean isSpaceChar(int ch);
 
+        }
+
+    }
+
+    static class OutputWriter {
+        private final PrintWriter writer;
+
+        public OutputWriter(OutputStream outputStream) {
+            writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(outputStream)));
+        }
+
+        public OutputWriter(Writer writer) {
+            this.writer = new PrintWriter(writer);
+        }
+
+        public void close() {
+            writer.close();
+        }
+
+        public void println(int i) {
+            writer.println(i);
         }
 
     }

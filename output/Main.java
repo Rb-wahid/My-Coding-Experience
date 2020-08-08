@@ -3,12 +3,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.util.Arrays;
 import java.io.BufferedWriter;
-import java.io.Writer;
-import java.io.OutputStreamWriter;
 import java.util.InputMismatchException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.io.Writer;
+import java.io.OutputStreamWriter;
+import java.util.Collections;
 import java.io.InputStream;
 
 /**
@@ -23,47 +25,39 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        AInsomniaCure solver = new AInsomniaCure();
+        BVanyaAndLanterns solver = new BVanyaAndLanterns();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class AInsomniaCure {
+    static class BVanyaAndLanterns {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
-            int k = in.nextInt();
-            int l = in.nextInt();
-            int m = in.nextInt();
             int n = in.nextInt();
-            int d = in.nextInt();
+            long l = in.nextLong();
 
-            boolean[] check = new boolean[d + 1];
-            Arrays.fill(check, true);
+            List<Long> list = new ArrayList();
+            List<Double> list2 = new ArrayList();
+            double value = 0d;
 
-            for (int i = k; i <= d; i += k) {
-                if (check[i])
-                    check[i] = false;
+            for (int i = 0; i < n; i++) {
+                list.add(in.nextLong());
             }
-            for (int i = l; i <= d; i += l) {
-                if (check[i])
-                    check[i] = false;
-            }
-            for (int i = m; i <= d; i += m) {
-                if (check[i])
-                    check[i] = false;
-            }
-            for (int i = n; i <= d; i += n) {
-                if (check[i])
-                    check[i] = false;
-            }
+            Collections.sort(list);
 
-            int count = 0;
+            long a = 0;
+            for (int i = n - 1; i > 0; i--) {
+                value = (double) list.get(i) - list.get(i - 1);
+                list2.add(value / 2.0);
+            }
+            value = (double) list.get(0);
+            list2.add(value);
+            Collections.sort(list2);
+//        for (Double d : list2)
+//            out.println(d);
 
-            for (int i = 1; i <= d; i++)
-                if (!check[i]) {
-                    count++;
-                }
+            String string = String.format("%.10f", list2.get(list2.size() - 1));
 
-            out.println(count);
+            out.println(string);
         }
 
     }
@@ -119,6 +113,28 @@ public class Main {
             return res * sgn;
         }
 
+        public long nextLong() {
+            int c = read();
+            while (isSpaceChar(c)) {
+                c = read();
+            }
+            int sgn = 1;
+            if (c == '-') {
+                sgn = -1;
+                c = read();
+            }
+            long res = 0;
+            do {
+                if (c < '0' || c > '9') {
+                    throw new InputMismatchException();
+                }
+                res *= 10;
+                res += c - '0';
+                c = read();
+            } while (!isSpaceChar(c));
+            return res * sgn;
+        }
+
         public boolean isSpaceChar(int c) {
             if (filter != null) {
                 return filter.isSpaceChar(c);
@@ -148,12 +164,22 @@ public class Main {
             this.writer = new PrintWriter(writer);
         }
 
-        public void close() {
-            writer.close();
+        public void print(Object... objects) {
+            for (int i = 0; i < objects.length; i++) {
+                if (i != 0) {
+                    writer.print(' ');
+                }
+                writer.print(objects[i]);
+            }
         }
 
-        public void println(int i) {
-            writer.println(i);
+        public void println(Object... objects) {
+            print(objects);
+            writer.println();
+        }
+
+        public void close() {
+            writer.close();
         }
 
     }

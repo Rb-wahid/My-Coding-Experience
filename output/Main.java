@@ -49,11 +49,12 @@ public class Main {
                 value = (double) list.get(i) - list.get(i - 1);
                 list2.add(value / 2.0);
             }
-            value = (double) list.get(0);
+            value = (double) list.get(0) - 0;
+            list2.add(value);
+
+            value = (double) l - list.get(n - 1);
             list2.add(value);
             Collections.sort(list2);
-//        for (Double d : list2)
-//            out.println(d);
 
             String string = String.format("%.10f", list2.get(list2.size() - 1));
 

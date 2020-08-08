@@ -30,28 +30,23 @@ public class Main {
     static class AFlippingGame {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
             int n = in.nextInt();
-            int[] arr = new int[n];
+            int value = 0;
+            int one = 0;
+            int zero = 0;
+            int maxZero = -1;
 
             for (int i = 0; i < n; i++) {
-                arr[i] = in.nextInt();
-            }
-            int count = 0;
-            if (arr.length == 1 && arr[0] == 1)
-                arr[0] = 0;
-            else {
-                if (arr[n - 1] == 0)
-                    arr[n - 1] = arr[n - 1] ^ 1;
-
-
-                for (int i = 1; i < n - 1; i++) {
-                    arr[i] = arr[i] ^ 1;
+                value = in.nextInt();
+                if (value == 1) {
+                    one++;
+                    if (zero > 0)
+                        zero--;
+                } else {
+                    zero++;
+                    maxZero = Math.max(maxZero, zero);
                 }
             }
-            for (int i : arr) {
-                if (i == 1)
-                    count++;
-            }
-            out.println(count);
+            out.println(one + maxZero);
         }
 
     }

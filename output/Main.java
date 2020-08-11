@@ -4,10 +4,13 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.BufferedWriter;
-import java.io.Writer;
-import java.io.OutputStreamWriter;
 import java.util.InputMismatchException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.io.Writer;
+import java.io.OutputStreamWriter;
+import java.util.Collections;
 import java.io.InputStream;
 
 /**
@@ -28,22 +31,6 @@ public class Main {
     }
 
     static class BWorms {
-        int binarySearch(int[] arr, int key) {
-            int high = arr.length;
-            int low = 0;
-            int mid = 0;
-
-            while (low < high) {
-                mid = (high + low) / 2;
-                if (arr[mid] <= key)
-                    low = mid + 1;
-                else
-                    high = mid;
-            }
-
-            return low;
-        }
-
         public void solve(int testNumber, InputReader in, OutputWriter out) {
             int n = in.nextInt();
             int[] arr = new int[n];
@@ -51,23 +38,19 @@ public class Main {
             for (int i = 0; i < n; i++) {
                 arr[i] = in.nextInt();
             }
-            int[] newArray = new int[n + 1];
-            newArray[0] = 0;
-            newArray[1] = arr[0];
-            for (int i = 1; i < n; i++) {
-                newArray[i + 1] = newArray[i] + arr[i];
-            }
+            List<Integer> list = new ArrayList<>();
 
-//        for (int i : newArray)
-//            out.print(i + " ");
-//        out.println();
+            list.add(arr[0]);
+            for (int i = 1; i < n; i++) {
+                list.add(list.get(i - 1) + arr[i]);
+            }
             int m = in.nextInt();
 
             while (m-- > 0) {
                 int q = in.nextInt();
-                int v = binarySearch(newArray, q);
-                // out.println(v);
-                out.println(v > n ? v - 1 : v);
+                int v = Collections.binarySearch(list, q);
+
+                out.println(v < 0 ? Math.abs(v) : v + 1);
             }
         }
 

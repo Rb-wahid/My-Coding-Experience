@@ -4,13 +4,10 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.BufferedWriter;
-import java.util.InputMismatchException;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.io.Writer;
 import java.io.OutputStreamWriter;
-import java.util.Collections;
+import java.util.InputMismatchException;
+import java.io.IOException;
 import java.io.InputStream;
 
 /**
@@ -25,40 +22,53 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        BVanyaAndLanterns solver = new BVanyaAndLanterns();
+        BWorms solver = new BWorms();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class BVanyaAndLanterns {
+    static class BWorms {
+        int binarySearch(int[] arr, int key) {
+            int high = arr.length;
+            int low = 0;
+            int mid = 0;
+
+            while (low < high) {
+                mid = (high + low) / 2;
+                if (arr[mid] <= key)
+                    low = mid + 1;
+                else
+                    high = mid;
+            }
+
+            return low;
+        }
+
         public void solve(int testNumber, InputReader in, OutputWriter out) {
             int n = in.nextInt();
-            long l = in.nextLong();
-
-            List<Long> list = new ArrayList();
-            List<Double> list2 = new ArrayList();
-            double value = 0d;
+            int[] arr = new int[n];
 
             for (int i = 0; i < n; i++) {
-                list.add(in.nextLong());
+                arr[i] = in.nextInt();
             }
-            Collections.sort(list);
-
-            long a = 0;
-            for (int i = n - 1; i > 0; i--) {
-                value = (double) list.get(i) - list.get(i - 1);
-                list2.add(value / 2.0);
+            int[] newArray = new int[n + 1];
+            newArray[0] = 0;
+            newArray[1] = arr[0];
+            for (int i = 1; i < n; i++) {
+                newArray[i + 1] = newArray[i] + arr[i];
             }
-            value = (double) list.get(0) - 0;
-            list2.add(value);
 
-            value = (double) l - list.get(n - 1);
-            list2.add(value);
-            Collections.sort(list2);
+//        for (int i : newArray)
+//            out.print(i + " ");
+//        out.println();
+            int m = in.nextInt();
 
-            String string = String.format("%.10f", list2.get(list2.size() - 1));
-
-            out.println(string);
+            while (m-- > 0) {
+                int q = in.nextInt();
+                int v = binarySearch(newArray, q);
+                // out.println(v);
+                out.println(v > n ? v - 1 : v);
+            }
         }
 
     }
@@ -114,28 +124,6 @@ public class Main {
             return res * sgn;
         }
 
-        public long nextLong() {
-            int c = read();
-            while (isSpaceChar(c)) {
-                c = read();
-            }
-            int sgn = 1;
-            if (c == '-') {
-                sgn = -1;
-                c = read();
-            }
-            long res = 0;
-            do {
-                if (c < '0' || c > '9') {
-                    throw new InputMismatchException();
-                }
-                res *= 10;
-                res += c - '0';
-                c = read();
-            } while (!isSpaceChar(c));
-            return res * sgn;
-        }
-
         public boolean isSpaceChar(int c) {
             if (filter != null) {
                 return filter.isSpaceChar(c);
@@ -165,22 +153,12 @@ public class Main {
             this.writer = new PrintWriter(writer);
         }
 
-        public void print(Object... objects) {
-            for (int i = 0; i < objects.length; i++) {
-                if (i != 0) {
-                    writer.print(' ');
-                }
-                writer.print(objects[i]);
-            }
-        }
-
-        public void println(Object... objects) {
-            print(objects);
-            writer.println();
-        }
-
         public void close() {
             writer.close();
+        }
+
+        public void println(int i) {
+            writer.println(i);
         }
 
     }

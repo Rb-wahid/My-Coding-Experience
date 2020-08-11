@@ -4,13 +4,10 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.BufferedWriter;
-import java.util.InputMismatchException;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.io.Writer;
 import java.io.OutputStreamWriter;
-import java.util.Collections;
+import java.util.InputMismatchException;
+import java.io.IOException;
 import java.io.InputStream;
 
 /**
@@ -25,33 +22,20 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        BWorms solver = new BWorms();
+        APatrickAndShopping solver = new APatrickAndShopping();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class BWorms {
+    static class APatrickAndShopping {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
-            int n = in.nextInt();
-            int[] arr = new int[n];
+            long d1 = in.nextLong();
+            long d2 = in.nextLong();
+            long d3 = in.nextLong();
 
-            for (int i = 0; i < n; i++) {
-                arr[i] = in.nextInt();
-            }
-            List<Integer> list = new ArrayList<>();
+            long op1 = (d1 * 2) + (d2 * 2);
 
-            list.add(arr[0]);
-            for (int i = 1; i < n; i++) {
-                list.add(list.get(i - 1) + arr[i]);
-            }
-            int m = in.nextInt();
-
-            while (m-- > 0) {
-                int q = in.nextInt();
-                int v = Collections.binarySearch(list, q);
-
-                out.println(v < 0 ? Math.abs(v) : v + 1);
-            }
+            out.println(Math.min(op1, (d1 + d2 + d3)));
         }
 
     }
@@ -85,7 +69,7 @@ public class Main {
             return buf[curChar++];
         }
 
-        public int nextInt() {
+        public long nextLong() {
             int c = read();
             while (isSpaceChar(c)) {
                 c = read();
@@ -95,7 +79,7 @@ public class Main {
                 sgn = -1;
                 c = read();
             }
-            int res = 0;
+            long res = 0;
             do {
                 if (c < '0' || c > '9') {
                     throw new InputMismatchException();
@@ -140,7 +124,7 @@ public class Main {
             writer.close();
         }
 
-        public void println(int i) {
+        public void println(long i) {
             writer.println(i);
         }
 

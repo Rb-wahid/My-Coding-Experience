@@ -15,20 +15,32 @@ import FastIO.OutputWriter;
 public class AOddSelection {
     public void solve(int testNumber, InputReader in, OutputWriter out) {
         int t = in.nextInt();
-        int n, x, odd;
-        int[] arr;
+        int n, x, even, odd;
         while (t-- > 0) {
             n = in.nextInt();
             x = in.nextInt();
+            even = 0;
             odd = 0;
-            for (int i = 0; i < n; i++) {
-                if ((in.nextInt() & 1) == 1)
+            int value = 0;
+            for (int i = 0; i < n ; i++) {
+                value = in.nextInt();
+
+                if ((value&1) == 0)
+                    even++;
+                else
                     odd++;
             }
-            if ((odd & 1) == 1)
-                out.println("Yes");
-            else
-                out.println("No");
+            boolean flag = false;
+
+            for (int i = 1; i <= odd ; i += 2) {
+                if (i > x)
+                    break;
+                if (x-i <= even){
+                    flag = true;
+                    break;
+                }
+            }
+            out.println(flag? "Yes" : "No");
         }
     }
 }

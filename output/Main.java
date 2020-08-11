@@ -34,8 +34,9 @@ public class Main {
             long d3 = in.nextLong();
 
             long op1 = (d1 * 2) + (d2 * 2);
+            long op2 = Math.min(d1, d2) * 2 + (d3 * 2);
 
-            out.println(Math.min(op1, (d1 + d2 + d3)));
+            out.println(Math.min(Math.min(op1, op2), (d1 + d2 + d3)));
         }
 
     }

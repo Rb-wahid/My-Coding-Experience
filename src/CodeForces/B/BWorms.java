@@ -4,9 +4,9 @@ package CodeForces.B;
  *
  * @author Rb_wahid
  *
- * Problem Title:
+ * Problem Title: B. Worms
  *
- * link :
+ * link : https://codeforces.com/problemset/problem/474/B
  */
 
 import FastIO.InputReader;

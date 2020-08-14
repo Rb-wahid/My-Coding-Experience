@@ -22,43 +22,27 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        ACaptainFlintAndCrewRecruitment solver = new ACaptainFlintAndCrewRecruitment();
+        ARepeatingCipher solver = new ARepeatingCipher();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class ACaptainFlintAndCrewRecruitment {
+    static class ARepeatingCipher {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
-            int t = in.nextInt();
+            int n = in.nextInt();
+            String string = in.next();
+            int count = 0;
+            StringBuilder sb = new StringBuilder();
+            char[] ch = string.toCharArray();
 
-            while (t-- > 0) {
-                int n = in.nextInt();
-                StringBuilder sb = new StringBuilder();
-
-                int a = 6;
-                int b = 10;
-                int c = 14;
-                int d = n - 30;
-
-                if (a == d || b == d || c == d) {
-                    c++;
-                    d--;
-                    sb.append("YES").append("\n");
-                    sb.append(a).append(" ")
-                            .append(b).append(" ")
-                            .append(c).append(" ")
-                            .append(d);
-                } else if (d > 0) {
-                    sb.append("YES").append("\n");
-                    sb.append(a).append(" ")
-                            .append(b).append(" ")
-                            .append(c).append(" ")
-                            .append(d);
-                } else
-                    sb.append("NO");
-
-                out.println(sb);
+            int v = 0;
+            while (v != n) {
+                sb.append(ch[v]);
+                count++;
+                v += count;
             }
+            out.println(sb);
+
         }
 
     }
@@ -114,6 +98,21 @@ public class Main {
             return res * sgn;
         }
 
+        public String nextString() {
+            int c = read();
+            while (isSpaceChar(c)) {
+                c = read();
+            }
+            StringBuilder res = new StringBuilder();
+            do {
+                if (Character.isValidCodePoint(c)) {
+                    res.appendCodePoint(c);
+                }
+                c = read();
+            } while (!isSpaceChar(c));
+            return res.toString();
+        }
+
         public boolean isSpaceChar(int c) {
             if (filter != null) {
                 return filter.isSpaceChar(c);
@@ -123,6 +122,10 @@ public class Main {
 
         public static boolean isWhitespace(int c) {
             return c == ' ' || c == '\n' || c == '\r' || c == '\t' || c == -1;
+        }
+
+        public String next() {
+            return nextString();
         }
 
         public interface SpaceCharFilter {

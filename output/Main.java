@@ -4,10 +4,15 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.BufferedWriter;
-import java.io.Writer;
-import java.io.OutputStreamWriter;
+import java.util.Collection;
 import java.util.InputMismatchException;
 import java.io.IOException;
+import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Stream;
+import java.io.Writer;
+import java.io.OutputStreamWriter;
 import java.io.InputStream;
 
 /**
@@ -22,34 +27,38 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        AC solver = new AC();
+        ACommonSubsequence solver = new ACommonSubsequence();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class AC {
+    static class ACommonSubsequence {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
             int t = in.nextInt();
 
             while (t-- > 0) {
-                long a = in.nextLong();
-                long b = in.nextLong();
-                long n = in.nextLong();
+                int n = in.nextInt();
+                int m = in.nextInt();
 
-                int count = 0;
-
-                while (true) {
-                    count++;
-                    if (a < b)
-                        a += b;
-                    else
-                        b += a;
-
-                    if (a > n || b > n)
-                        break;
+                List<Integer> listA = new ArrayList<>();
+                List<Integer> listB = new ArrayList<>();
+                for (int i = 0; i < n; i++) {
+                    listA.add(in.nextInt());
                 }
 
-                out.println(count);
+                for (int i = 0; i < m; i++) {
+                    listB.add(in.nextInt());
+                }
+
+                List<Integer> ans = listA.stream()
+                        .filter(listB::contains)
+                        .collect(Collectors.toList());
+
+                if (ans.size() > 0) {
+                    out.println("Yes");
+                    out.println(1 + " " + ans.get(0));
+                } else
+                    out.println("NO");
             }
         }
 
@@ -106,28 +115,6 @@ public class Main {
             return res * sgn;
         }
 
-        public long nextLong() {
-            int c = read();
-            while (isSpaceChar(c)) {
-                c = read();
-            }
-            int sgn = 1;
-            if (c == '-') {
-                sgn = -1;
-                c = read();
-            }
-            long res = 0;
-            do {
-                if (c < '0' || c > '9') {
-                    throw new InputMismatchException();
-                }
-                res *= 10;
-                res += c - '0';
-                c = read();
-            } while (!isSpaceChar(c));
-            return res * sgn;
-        }
-
         public boolean isSpaceChar(int c) {
             if (filter != null) {
                 return filter.isSpaceChar(c);
@@ -157,12 +144,22 @@ public class Main {
             this.writer = new PrintWriter(writer);
         }
 
-        public void close() {
-            writer.close();
+        public void print(Object... objects) {
+            for (int i = 0; i < objects.length; i++) {
+                if (i != 0) {
+                    writer.print(' ');
+                }
+                writer.print(objects[i]);
+            }
         }
 
-        public void println(int i) {
-            writer.println(i);
+        public void println(Object... objects) {
+            print(objects);
+            writer.println();
+        }
+
+        public void close() {
+            writer.close();
         }
 
     }

@@ -22,72 +22,35 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        AOddSelection solver = new AOddSelection();
+        AC solver = new AC();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class AOddSelection {
+    static class AC {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
             int t = in.nextInt();
-            int n, x, even, odd;
+
             while (t-- > 0) {
-                n = in.nextInt();
-                x = in.nextInt();
-                even = 0;
-                odd = 0;
-                int value = 0;
-                for (int i = 0; i < n; i++) {
-                    value = in.nextInt();
+                long a = in.nextLong();
+                long b = in.nextLong();
+                long n = in.nextLong();
 
-                    if ((value & 1) == 0)
-                        even++;
+                int count = 0;
+
+                while (true) {
+                    count++;
+                    if (a < b)
+                        a += b;
                     else
-                        odd++;
-                }
-                boolean flag = false;
+                        b += a;
 
-                for (int i = 1; i <= odd; i += 2) {
-                    if (i > x)
+                    if (a > n || b > n)
                         break;
-                    if (x - i <= even) {
-                        flag = true;
-                        break;
-                    }
                 }
-                out.println(flag ? "Yes" : "No");
+
+                out.println(count);
             }
-        }
-
-    }
-
-    static class OutputWriter {
-        private final PrintWriter writer;
-
-        public OutputWriter(OutputStream outputStream) {
-            writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(outputStream)));
-        }
-
-        public OutputWriter(Writer writer) {
-            this.writer = new PrintWriter(writer);
-        }
-
-        public void print(Object... objects) {
-            for (int i = 0; i < objects.length; i++) {
-                if (i != 0) {
-                    writer.print(' ');
-                }
-                writer.print(objects[i]);
-            }
-        }
-
-        public void println(Object... objects) {
-            print(objects);
-            writer.println();
-        }
-
-        public void close() {
-            writer.close();
         }
 
     }
@@ -143,6 +106,28 @@ public class Main {
             return res * sgn;
         }
 
+        public long nextLong() {
+            int c = read();
+            while (isSpaceChar(c)) {
+                c = read();
+            }
+            int sgn = 1;
+            if (c == '-') {
+                sgn = -1;
+                c = read();
+            }
+            long res = 0;
+            do {
+                if (c < '0' || c > '9') {
+                    throw new InputMismatchException();
+                }
+                res *= 10;
+                res += c - '0';
+                c = read();
+            } while (!isSpaceChar(c));
+            return res * sgn;
+        }
+
         public boolean isSpaceChar(int c) {
             if (filter != null) {
                 return filter.isSpaceChar(c);
@@ -157,6 +142,27 @@ public class Main {
         public interface SpaceCharFilter {
             public boolean isSpaceChar(int ch);
 
+        }
+
+    }
+
+    static class OutputWriter {
+        private final PrintWriter writer;
+
+        public OutputWriter(OutputStream outputStream) {
+            writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(outputStream)));
+        }
+
+        public OutputWriter(Writer writer) {
+            this.writer = new PrintWriter(writer);
+        }
+
+        public void close() {
+            writer.close();
+        }
+
+        public void println(int i) {
+            writer.println(i);
         }
 
     }

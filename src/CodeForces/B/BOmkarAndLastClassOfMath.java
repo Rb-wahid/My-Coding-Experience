@@ -1,4 +1,4 @@
-package CodeForces;
+package CodeForces.B;
 /**
  * Built using CHelper plug-in
  *

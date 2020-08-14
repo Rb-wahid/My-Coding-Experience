@@ -4,15 +4,10 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.BufferedWriter;
-import java.util.Collection;
-import java.util.InputMismatchException;
-import java.io.IOException;
-import java.util.stream.Collectors;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Stream;
 import java.io.Writer;
 import java.io.OutputStreamWriter;
+import java.util.InputMismatchException;
+import java.io.IOException;
 import java.io.InputStream;
 
 /**
@@ -27,38 +22,42 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        ACommonSubsequence solver = new ACommonSubsequence();
+        ACaptainFlintAndCrewRecruitment solver = new ACaptainFlintAndCrewRecruitment();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class ACommonSubsequence {
+    static class ACaptainFlintAndCrewRecruitment {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
             int t = in.nextInt();
 
             while (t-- > 0) {
                 int n = in.nextInt();
-                int m = in.nextInt();
+                StringBuilder sb = new StringBuilder();
 
-                List<Integer> listA = new ArrayList<>();
-                List<Integer> listB = new ArrayList<>();
-                for (int i = 0; i < n; i++) {
-                    listA.add(in.nextInt());
-                }
+                int a = 6;
+                int b = 10;
+                int c = 14;
+                int d = n - 30;
 
-                for (int i = 0; i < m; i++) {
-                    listB.add(in.nextInt());
-                }
-
-                List<Integer> ans = listA.stream()
-                        .filter(listB::contains)
-                        .collect(Collectors.toList());
-
-                if (ans.size() > 0) {
-                    out.println("Yes");
-                    out.println(1 + " " + ans.get(0));
+                if (a == d || b == d || c == d) {
+                    c++;
+                    d--;
+                    sb.append("YES").append("\n");
+                    sb.append(a).append(" ")
+                            .append(b).append(" ")
+                            .append(c).append(" ")
+                            .append(d);
+                } else if (d > 0) {
+                    sb.append("YES").append("\n");
+                    sb.append(a).append(" ")
+                            .append(b).append(" ")
+                            .append(c).append(" ")
+                            .append(d);
                 } else
-                    out.println("NO");
+                    sb.append("NO");
+
+                out.println(sb);
             }
         }
 

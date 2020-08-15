@@ -13,6 +13,14 @@ import FastIO.InputReader;
 import FastIO.OutputWriter;
 
 public class ABoboniuLikesToColorBalls {
+
+    boolean check (long r, long g, long b, long w) {
+        return (r & 1)+(g & 1) + (b & 1) + (w & 1) < 2;
+    }
+
+    boolean greaterThanZero(long r, long g, long b, long w){
+        return r > 0 && g > 0 && b > 0 && w > 0;
+    }
     public void solve(int testNumber, InputReader in, OutputWriter out) {
         int t = in.nextInt();
 
@@ -22,24 +30,12 @@ public class ABoboniuLikesToColorBalls {
             long b = in.nextLong();
             long w = in.nextLong();
 
-            long min = Math.min(r, Math.min(g, b));
-            r = r - min;
-            g = g - min;
-            b = b - min;
-            w = w + min;
-
-            int count = 0;
-
-            if ((w & 1) == 0)
-                count++;
-            if ((r & 1) == 0)
-                count++;
-            if ((g & 1) == 0)
-                count++;
-            if ((b & 1) == 0)
-                count++;
-
-            out.println(count >= 3 ? "Yes" : "No");
+            if (check(r, g, b, w))
+                out.println("Yes");
+            else if (greaterThanZero(r, g, b, w) && check(r-1, g-1, b-1, w+1))
+                out.println("Yes");
+            else
+                out.println("No");
         }
     }
 }

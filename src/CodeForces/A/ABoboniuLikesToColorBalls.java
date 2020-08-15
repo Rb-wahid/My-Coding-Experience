@@ -18,8 +18,8 @@ public class ABoboniuLikesToColorBalls {
         return (r & 1)+(g & 1) + (b & 1) + (w & 1) < 2;
     }
 
-    boolean greaterThanZero(long r, long g, long b, long w){
-        return r > 0 && g > 0 && b > 0 && w > 0;
+    boolean greaterThanZero(long r, long g, long b){
+        return r > 0 && g > 0 && b > 0 ;
     }
     public void solve(int testNumber, InputReader in, OutputWriter out) {
         int t = in.nextInt();
@@ -32,7 +32,7 @@ public class ABoboniuLikesToColorBalls {
 
             if (check(r, g, b, w))
                 out.println("Yes");
-            else if (greaterThanZero(r, g, b, w) && check(r-1, g-1, b-1, w+1))
+            else if (greaterThanZero(r, g, b) && check(r-1, g-1, b-1, w+1))
                 out.println("Yes");
             else
                 out.println("No");

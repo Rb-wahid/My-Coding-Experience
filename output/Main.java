@@ -3,11 +3,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.util.Arrays;
 import java.io.BufferedWriter;
 import java.io.Writer;
 import java.io.OutputStreamWriter;
 import java.util.InputMismatchException;
 import java.io.IOException;
+import java.util.Collections;
 import java.io.InputStream;
 
 /**
@@ -22,36 +24,67 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        ABoboniuLikesToColorBalls solver = new ABoboniuLikesToColorBalls();
+        DBoboniuChatsWithDu solver = new DBoboniuChatsWithDu();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class ABoboniuLikesToColorBalls {
-        boolean check(long r, long g, long b, long w) {
-            return (r & 1) + (g & 1) + (b & 1) + (w & 1) < 2;
-        }
-
-        boolean greaterThanZero(long r, long g, long b) {
-            return r > 0 && g > 0 && b > 0;
-        }
-
+    static class DBoboniuChatsWithDu {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
-            int t = in.nextInt();
+            int n = in.nextInt();
+            int d = in.nextInt();
+            long m = in.nextLong();
+            int idx = 0;
 
-            while (t-- > 0) {
-                long r = in.nextLong();
-                long g = in.nextLong();
-                long b = in.nextLong();
-                long w = in.nextLong();
-
-                if (check(r, g, b, w))
-                    out.println("Yes");
-                else if (greaterThanZero(r, g, b) && check(r - 1, g - 1, b - 1, w + 1))
-                    out.println("Yes");
-                else
-                    out.println("No");
+            Long[] arr = new Long[n];
+            for (int i = 0; i < n; i++) {
+                arr[i] = in.nextLong();
+                if (arr[i] > m)
+                    idx++;
             }
+            Arrays.sort(arr, Collections.reverseOrder());
+
+            for (int i = 1; i < n; i++) {
+                arr[i] += arr[i - 1];
+            }
+
+
+            long ans = 0;
+            if (idx == 0)
+                out.println(arr[n - 1]);
+            else {
+                for (int i = 1; i <= idx; i++) {
+                    int days = n - (i - 1) * (d + 1) - 1;
+                    if (days >= 0) {
+                        int v = Math.min(n, idx + days);
+                        long x = arr[i - 1] + arr[v - 1] - arr[idx - 1];
+                        ans = Math.max(ans, x);
+                    }
+                }
+
+                out.println(ans);
+            }
+        }
+
+    }
+
+    static class OutputWriter {
+        private final PrintWriter writer;
+
+        public OutputWriter(OutputStream outputStream) {
+            writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(outputStream)));
+        }
+
+        public OutputWriter(Writer writer) {
+            this.writer = new PrintWriter(writer);
+        }
+
+        public void close() {
+            writer.close();
+        }
+
+        public void println(long i) {
+            writer.println(i);
         }
 
     }
@@ -143,37 +176,6 @@ public class Main {
         public interface SpaceCharFilter {
             public boolean isSpaceChar(int ch);
 
-        }
-
-    }
-
-    static class OutputWriter {
-        private final PrintWriter writer;
-
-        public OutputWriter(OutputStream outputStream) {
-            writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(outputStream)));
-        }
-
-        public OutputWriter(Writer writer) {
-            this.writer = new PrintWriter(writer);
-        }
-
-        public void print(Object... objects) {
-            for (int i = 0; i < objects.length; i++) {
-                if (i != 0) {
-                    writer.print(' ');
-                }
-                writer.print(objects[i]);
-            }
-        }
-
-        public void println(Object... objects) {
-            print(objects);
-            writer.println();
-        }
-
-        public void close() {
-            writer.close();
         }
 
     }

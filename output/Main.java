@@ -3,13 +3,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.util.Arrays;
 import java.io.BufferedWriter;
 import java.io.Writer;
 import java.io.OutputStreamWriter;
 import java.util.InputMismatchException;
 import java.io.IOException;
-import java.util.Collections;
 import java.io.InputStream;
 
 /**
@@ -24,67 +22,38 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        DBoboniuChatsWithDu solver = new DBoboniuChatsWithDu();
+        AMaximumIncrease solver = new AMaximumIncrease();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class DBoboniuChatsWithDu {
+    static class AMaximumIncrease {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
             int n = in.nextInt();
-            int d = in.nextInt();
-            long m = in.nextLong();
-            int idx = 0;
+            long[] arr2 = new long[n];
+            long[] arr = new long[n];
 
-            Long[] arr = new Long[n];
             for (int i = 0; i < n; i++) {
-                arr[i] = in.nextLong();
-                if (arr[i] > m)
-                    idx++;
+                arr2[i] = in.nextLong();
             }
-            Arrays.sort(arr, Collections.reverseOrder());
+            int count = 1;
 
-            for (int i = 1; i < n; i++) {
-                arr[i] += arr[i - 1];
-            }
+            for (int j = 0; j < n - 1; j++) {
+                if (arr2[j] < arr2[j + 1]) {
+                    count++;
+                    arr[j + 1] = count;
 
-
-            long ans = 0;
-            if (idx == 0)
-                out.println(arr[n - 1]);
-            else {
-                for (int i = 1; i <= idx; i++) {
-                    int days = n - (i - 1) * (d + 1) - 1;
-                    if (days >= 0) {
-                        int v = Math.min(n, idx + days);
-                        long x = arr[i - 1] + arr[v - 1] - arr[idx - 1];
-                        ans = Math.max(ans, x);
-                    }
+                } else {
+                    arr[j] = count;
+                    count = 1;
                 }
-
-                out.println(ans);
             }
-        }
+            if (arr2[n - 2] < arr2[n - 1])
+                arr[n - 1] = arr[n - 2] + 1;
+            else
+                arr[n - 1] = 1;
 
-    }
-
-    static class OutputWriter {
-        private final PrintWriter writer;
-
-        public OutputWriter(OutputStream outputStream) {
-            writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(outputStream)));
-        }
-
-        public OutputWriter(Writer writer) {
-            this.writer = new PrintWriter(writer);
-        }
-
-        public void close() {
-            writer.close();
-        }
-
-        public void println(long i) {
-            writer.println(i);
+            out.println(arr[n - 1]);
         }
 
     }
@@ -176,6 +145,27 @@ public class Main {
         public interface SpaceCharFilter {
             public boolean isSpaceChar(int ch);
 
+        }
+
+    }
+
+    static class OutputWriter {
+        private final PrintWriter writer;
+
+        public OutputWriter(OutputStream outputStream) {
+            writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(outputStream)));
+        }
+
+        public OutputWriter(Writer writer) {
+            this.writer = new PrintWriter(writer);
+        }
+
+        public void close() {
+            writer.close();
+        }
+
+        public void println(long i) {
+            writer.println(i);
         }
 
     }

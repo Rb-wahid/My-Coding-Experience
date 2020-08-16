@@ -22,28 +22,26 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        ANearestInterestingNumber solver = new ANearestInterestingNumber();
+        AChipsMoving solver = new AChipsMoving();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class ANearestInterestingNumber {
-        int sum(int n) {
-            int result = 0;
-            while (n != 0) {
-                result += n % 10;
-                n /= 10;
-            }
-            return result;
-        }
-
+    static class AChipsMoving {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
-            int a = in.nextInt();
+            int n = in.nextInt();
+            int odd = 0;
+            int even = 0;
+            long x;
+            for (int i = 0; i < n; i++) {
+                x = in.nextLong();
 
-            while (sum(a) % 4 != 0)
-                a++;
+                if ((x & 1) == 0)
+                    even++;
+            }
+            odd = n - even;
 
-            out.println(a);
+            out.println(Math.min(odd, even));
         }
 
     }
@@ -88,6 +86,28 @@ public class Main {
                 c = read();
             }
             int res = 0;
+            do {
+                if (c < '0' || c > '9') {
+                    throw new InputMismatchException();
+                }
+                res *= 10;
+                res += c - '0';
+                c = read();
+            } while (!isSpaceChar(c));
+            return res * sgn;
+        }
+
+        public long nextLong() {
+            int c = read();
+            while (isSpaceChar(c)) {
+                c = read();
+            }
+            int sgn = 1;
+            if (c == '-') {
+                sgn = -1;
+                c = read();
+            }
+            long res = 0;
             do {
                 if (c < '0' || c > '9') {
                     throw new InputMismatchException();

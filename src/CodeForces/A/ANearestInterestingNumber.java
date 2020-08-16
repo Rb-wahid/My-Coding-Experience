@@ -4,9 +4,9 @@ package CodeForces.A;
  *
  * @author Rb_wahid
  *
- * Problem Title:
+ * Problem Title: A. Nearest Interesting Number
  *
- * link :
+ * link : https://codeforces.com/problemset/problem/1183/A
  */
 
 import FastIO.InputReader;

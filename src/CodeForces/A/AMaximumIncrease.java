@@ -24,6 +24,7 @@ public class AMaximumIncrease {
             arr2[i] = in.nextLong();
         }
         int count = 1;
+        long max = Integer.MIN_VALUE;
         if (n > 1) {
         for (int j = 0; j < n - 1; j++) {
             if (arr2[j] < arr2[j + 1]) {
@@ -40,7 +41,11 @@ public class AMaximumIncrease {
         else
             arr[n - 1] = 1;
 
-            out.println(arr[n-1]);
+        for (long k : arr) {
+            max = Math.max(max, k);
+        }
+
+            out.println(max);
     }
         else
             out.println(1);

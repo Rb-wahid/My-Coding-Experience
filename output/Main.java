@@ -37,23 +37,27 @@ public class Main {
                 arr2[i] = in.nextLong();
             }
             int count = 1;
+            if (n > 1) {
+                for (int j = 0; j < n - 1; j++) {
+                    if (arr2[j] < arr2[j + 1]) {
+                        count++;
+                        arr[j + 1] = count;
 
-            for (int j = 0; j < n - 1; j++) {
-                if (arr2[j] < arr2[j + 1]) {
-                    count++;
-                    arr[j + 1] = count;
-
-                } else {
-                    arr[j] = count;
-                    count = 1;
+                    } else {
+                        arr[j] = count;
+                        count = 1;
+                    }
                 }
-            }
-            if (arr2[n - 2] < arr2[n - 1])
-                arr[n - 1] = arr[n - 2] + 1;
-            else
-                arr[n - 1] = 1;
+                if (arr2[n - 2] < arr2[n - 1])
+                    arr[n - 1] = arr[n - 2] + 1;
+                else
+                    arr[n - 1] = 1;
 
-            out.println(arr[n - 1]);
+                out.println(arr[n - 1]);
+            } else
+                out.println(1);
+
+
         }
 
     }
@@ -165,6 +169,10 @@ public class Main {
         }
 
         public void println(long i) {
+            writer.println(i);
+        }
+
+        public void println(int i) {
             writer.println(i);
         }
 

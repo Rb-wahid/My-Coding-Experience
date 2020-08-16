@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.util.Arrays;
 import java.io.BufferedWriter;
 import java.io.Writer;
 import java.io.OutputStreamWriter;
@@ -32,7 +33,7 @@ public class Main {
             int n = in.nextInt();
             long[] arr2 = new long[n];
             long[] arr = new long[n];
-
+            Arrays.fill(arr, 1);
             for (int i = 0; i < n; i++) {
                 arr2[i] = in.nextLong();
             }

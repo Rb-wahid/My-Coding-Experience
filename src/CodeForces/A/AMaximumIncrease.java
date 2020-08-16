@@ -19,7 +19,7 @@ public class AMaximumIncrease {
         int n = in.nextInt();
         long[] arr2 = new long[n];
         long[] arr = new long[n];
-
+        Arrays.fill(arr, 1);
         for (int i = 0; i < n; i++) {
             arr2[i] = in.nextLong();
         }

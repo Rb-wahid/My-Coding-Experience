@@ -3,7 +3,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.util.Arrays;
 import java.io.BufferedWriter;
 import java.io.Writer;
 import java.io.OutputStreamWriter;
@@ -23,47 +22,28 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        AMaximumIncrease solver = new AMaximumIncrease();
+        ANearestInterestingNumber solver = new ANearestInterestingNumber();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class AMaximumIncrease {
-        public void solve(int testNumber, InputReader in, OutputWriter out) {
-            int n = in.nextInt();
-            long[] arr2 = new long[n];
-            long[] arr = new long[n];
-            Arrays.fill(arr, 1);
-            for (int i = 0; i < n; i++) {
-                arr2[i] = in.nextLong();
+    static class ANearestInterestingNumber {
+        int sum(int n) {
+            int result = 0;
+            while (n != 0) {
+                result += n % 10;
+                n /= 10;
             }
-            int count = 1;
-            long max = Integer.MIN_VALUE;
-            if (n > 1) {
-                for (int j = 0; j < n - 1; j++) {
-                    if (arr2[j] < arr2[j + 1]) {
-                        count++;
-                        arr[j + 1] = count;
+            return result;
+        }
 
-                    } else {
-                        arr[j] = count;
-                        count = 1;
-                    }
-                }
-                if (arr2[n - 2] < arr2[n - 1])
-                    arr[n - 1] = arr[n - 2] + 1;
-                else
-                    arr[n - 1] = 1;
+        public void solve(int testNumber, InputReader in, OutputWriter out) {
+            int a = in.nextInt();
 
-                for (long k : arr) {
-                    max = Math.max(max, k);
-                }
+            while (sum(a) % 4 != 0)
+                a++;
 
-                out.println(max);
-            } else
-                out.println(1);
-
-
+            out.println(a);
         }
 
     }
@@ -119,28 +99,6 @@ public class Main {
             return res * sgn;
         }
 
-        public long nextLong() {
-            int c = read();
-            while (isSpaceChar(c)) {
-                c = read();
-            }
-            int sgn = 1;
-            if (c == '-') {
-                sgn = -1;
-                c = read();
-            }
-            long res = 0;
-            do {
-                if (c < '0' || c > '9') {
-                    throw new InputMismatchException();
-                }
-                res *= 10;
-                res += c - '0';
-                c = read();
-            } while (!isSpaceChar(c));
-            return res * sgn;
-        }
-
         public boolean isSpaceChar(int c) {
             if (filter != null) {
                 return filter.isSpaceChar(c);
@@ -172,10 +130,6 @@ public class Main {
 
         public void close() {
             writer.close();
-        }
-
-        public void println(long i) {
-            writer.println(i);
         }
 
         public void println(int i) {

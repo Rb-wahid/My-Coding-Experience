@@ -33,7 +33,7 @@ public class Main {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
             int l = in.nextInt();
             int r = in.nextInt();
-            Set<Integer> set = new HashSet<>();
+            Set<Integer> set;
             int value = 0;
             boolean flag = false;
             for (int i = l; i <= r; i++) {
@@ -44,9 +44,7 @@ public class Main {
                     value /= 10;
                 }
                 if (set.size() == String.valueOf(i).length()) {
-                    for (int k : set)
-                        out.print(k);
-                    out.println();
+                    out.println(i);
                     flag = true;
                     break;
                 }
@@ -68,16 +66,8 @@ public class Main {
             this.writer = new PrintWriter(writer);
         }
 
-        public void println() {
-            writer.println();
-        }
-
         public void close() {
             writer.close();
-        }
-
-        public void print(int i) {
-            writer.print(i);
         }
 
         public void println(int i) {

@@ -25,7 +25,7 @@ public class ABadTriangle {
             for (int i = 0; i < n; i++) {
                 arr[i] = in.nextInt();
             }
-            if ((arr[0]+arr[1]) < arr[n-1])
+            if ((arr[0]+arr[1]) <= arr[n-1])
                 out.println(1 + " " + 2 + " " + n );
             else
                 out.println(-1);

@@ -1,12 +1,10 @@
 import java.io.OutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.HashSet;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.BufferedWriter;
 import java.io.Writer;
-import java.util.Set;
 import java.io.OutputStreamWriter;
 import java.util.InputMismatchException;
 import java.io.IOException;
@@ -24,33 +22,37 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        ADistinctDigits solver = new ADistinctDigits();
+        BSequentialNim solver = new BSequentialNim();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class ADistinctDigits {
+    static class BSequentialNim {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
-            int l = in.nextInt();
-            int r = in.nextInt();
-            Set<Integer> set;
-            int value = 0;
-            boolean flag = false;
-            for (int i = l; i <= r; i++) {
-                set = new HashSet<>();
-                value = i;
-                while (value != 0) {
-                    set.add(value % 10);
-                    value /= 10;
+            int t = in.nextInt();
+            while (t-- > 0) {
+                int n = in.nextInt();
+                long[] arr = new long[n];
+                int count = 0;
+                for (int i = 0; i < n; i++) {
+                    arr[i] = in.nextLong();
                 }
-                if (set.size() == String.valueOf(i).length()) {
-                    out.println(i);
-                    flag = true;
-                    break;
+
+                while (count < n && arr[count] == 1)
+                    count++;
+
+                if (n == count) {
+                    if ((count & 1) == 1)
+                        out.println("First");
+                    else
+                        out.println("Second");
+                } else {
+                    if ((count & 1) == 0)
+                        out.println("First");
+                    else
+                        out.println("Second");
                 }
             }
-            if (!flag)
-                out.println(-1);
         }
 
     }
@@ -66,12 +68,22 @@ public class Main {
             this.writer = new PrintWriter(writer);
         }
 
-        public void close() {
-            writer.close();
+        public void print(Object... objects) {
+            for (int i = 0; i < objects.length; i++) {
+                if (i != 0) {
+                    writer.print(' ');
+                }
+                writer.print(objects[i]);
+            }
         }
 
-        public void println(int i) {
-            writer.println(i);
+        public void println(Object... objects) {
+            print(objects);
+            writer.println();
+        }
+
+        public void close() {
+            writer.close();
         }
 
     }
@@ -116,6 +128,28 @@ public class Main {
                 c = read();
             }
             int res = 0;
+            do {
+                if (c < '0' || c > '9') {
+                    throw new InputMismatchException();
+                }
+                res *= 10;
+                res += c - '0';
+                c = read();
+            } while (!isSpaceChar(c));
+            return res * sgn;
+        }
+
+        public long nextLong() {
+            int c = read();
+            while (isSpaceChar(c)) {
+                c = read();
+            }
+            int sgn = 1;
+            if (c == '-') {
+                sgn = -1;
+                c = read();
+            }
+            long res = 0;
             do {
                 if (c < '0' || c > '9') {
                     throw new InputMismatchException();

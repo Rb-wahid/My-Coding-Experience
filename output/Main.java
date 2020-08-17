@@ -3,11 +3,15 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.util.Arrays;
 import java.io.BufferedWriter;
-import java.io.Writer;
-import java.io.OutputStreamWriter;
 import java.util.InputMismatchException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.io.Writer;
+import java.io.OutputStreamWriter;
+import java.util.Collections;
 import java.io.InputStream;
 
 /**
@@ -22,23 +26,53 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        ALoveA solver = new ALoveA();
+        BSpreadsheets solver = new BSpreadsheets();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class ALoveA {
+    static class BSpreadsheets {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
-            String string = in.next();
-            int length = string.length();
-            int a = 0;
+//        char[] arr = new char[27];
+//
+//        for (int i = 1; i <=26 ; i++) {
+//            arr[i] = (char) (i+64);
+//        }
 
-            for (char c : string.toCharArray())
-                if (c == 'a')
-                    a++;
+//        for (char c : arr)
+//            out.print(c + " ");
+            List<Character> list = new ArrayList<>();
 
+            for (int i = 65; i <= 90; i++) {
+                list.add((char) i);
+            }
+            int t = in.nextInt();
 
-            out.println(Math.min(length, (2 * a) - 1));
+            while (t-- > 0) {
+                StringBuilder sb = new StringBuilder();
+                String st1 = in.nextString();
+                if (st1.charAt(0) == 'R') {
+                    String[] strings = st1.split("[RC]");
+                    Arrays.sort(strings, Collections.reverseOrder());
+
+                    int col = Integer.parseInt(strings[0]);
+                    int a = col / 26;
+                    int b = col % 26;
+                    sb.append(list.get(a - 1)).append(list.get(b - 1));
+                    sb.append(strings[1]);
+
+                    out.println(sb);
+                } else {
+                    String[] strings = st1.split("[1-9]");
+                    String[] intStr = st1.split("[A-Z]");
+                    Arrays.sort(intStr, Collections.reverseOrder());
+
+                    char[] chars = strings[0].toCharArray();
+                    int v = (list.indexOf(chars[0]) + 1) * 26 + list.indexOf(chars[1]) + 1;
+                    sb.append("R").append(intStr[0]).append("C").append(v);
+                    out.println(sb);
+                }
+            }
         }
 
     }
@@ -54,12 +88,22 @@ public class Main {
             this.writer = new PrintWriter(writer);
         }
 
-        public void close() {
-            writer.close();
+        public void print(Object... objects) {
+            for (int i = 0; i < objects.length; i++) {
+                if (i != 0) {
+                    writer.print(' ');
+                }
+                writer.print(objects[i]);
+            }
         }
 
-        public void println(int i) {
-            writer.println(i);
+        public void println(Object... objects) {
+            print(objects);
+            writer.println();
+        }
+
+        public void close() {
+            writer.close();
         }
 
     }
@@ -93,6 +137,28 @@ public class Main {
             return buf[curChar++];
         }
 
+        public int nextInt() {
+            int c = read();
+            while (isSpaceChar(c)) {
+                c = read();
+            }
+            int sgn = 1;
+            if (c == '-') {
+                sgn = -1;
+                c = read();
+            }
+            int res = 0;
+            do {
+                if (c < '0' || c > '9') {
+                    throw new InputMismatchException();
+                }
+                res *= 10;
+                res += c - '0';
+                c = read();
+            } while (!isSpaceChar(c));
+            return res * sgn;
+        }
+
         public String nextString() {
             int c = read();
             while (isSpaceChar(c)) {
@@ -117,10 +183,6 @@ public class Main {
 
         public static boolean isWhitespace(int c) {
             return c == ' ' || c == '\n' || c == '\r' || c == '\t' || c == -1;
-        }
-
-        public String next() {
-            return nextString();
         }
 
         public interface SpaceCharFilter {

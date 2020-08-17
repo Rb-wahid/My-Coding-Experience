@@ -33,14 +33,7 @@ public class Main {
 
     static class BSpreadsheets {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
-//        char[] arr = new char[27];
-//
-//        for (int i = 1; i <=26 ; i++) {
-//            arr[i] = (char) (i+64);
-//        }
 
-//        for (char c : arr)
-//            out.print(c + " ");
             List<Character> list = new ArrayList<>();
 
             for (int i = 65; i <= 90; i++) {
@@ -54,24 +47,31 @@ public class Main {
                 if (st1.charAt(0) == 'R') {
                     String[] strings = st1.split("[RC]");
                     Arrays.sort(strings, Collections.reverseOrder());
-
                     int col = Integer.parseInt(strings[0]);
-                    int a = col / 26;
-                    int b = col % 26;
-                    sb.append(list.get(a - 1)).append(list.get(b - 1));
-                    sb.append(strings[1]);
 
-                    out.println(sb);
+                    if (col > 26) {
+                        int a = col / 26;
+                        int b = col % 26;
+                        sb.append(list.get(a - 1)).append(list.get(b - 1));
+                        sb.append(strings[1]);
+                    } else {
+                        sb.append(list.get(col - 1)).append(strings[1]);
+                    }
+
                 } else {
-                    String[] strings = st1.split("[1-9]");
-                    String[] intStr = st1.split("[A-Z]");
-                    Arrays.sort(intStr, Collections.reverseOrder());
+                    String forInt = st1.replaceAll("[A-Z]", "");
+                    String forStr = st1.replaceAll("[1-9]", "");
 
-                    char[] chars = strings[0].toCharArray();
-                    int v = (list.indexOf(chars[0]) + 1) * 26 + list.indexOf(chars[1]) + 1;
-                    sb.append("R").append(intStr[0]).append("C").append(v);
-                    out.println(sb);
+                    if (forStr.length() == 1) {
+                        int v = list.indexOf(forStr.charAt(0)) + 1;
+                        sb.append("R").append(forInt).append("C").append(v);
+                    } else {
+                        char[] chars = forStr.toCharArray();
+                        int v = (list.indexOf(chars[0]) + 1) * 26 + list.indexOf(chars[1]) + 1;
+                        sb.append("R").append(forInt).append("C").append(v);
+                    }
                 }
+                out.println(sb);
             }
         }
 

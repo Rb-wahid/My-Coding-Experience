@@ -32,12 +32,19 @@ public class BSpreadsheets {
             String st1 = in.nextString();
             if (st1.charAt(0) == 'R') {
                 String[] strings = st1.split("[RC]");
-                Arrays.sort(strings, Collections.reverseOrder());
-                int col = Integer.parseInt(strings[0]);
+                int a = 0;
+                int b = 0;
+                for (String s: strings){
+                    if (!s.trim().isEmpty() && a == 0)
+                        a = Integer.parseInt(s);
+                    else if (!s.trim().isEmpty() && b == 0)
+                        b = Integer.parseInt(s);
+                }
+                int col = b;
 
                 if (col > 26) {
-                    int a = col / 26;
-                    int b = col % 26;
+                     a = col / 26;
+                     b = col % 26;
                     sb.append(list.get(a - 1)).append(list.get(b - 1));
                     sb.append(strings[1]);
                 }

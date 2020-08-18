@@ -5,11 +5,9 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.BufferedWriter;
 import java.io.Writer;
-import java.util.Set;
 import java.io.OutputStreamWriter;
 import java.util.InputMismatchException;
 import java.io.IOException;
-import java.util.LinkedHashSet;
 import java.io.InputStream;
 
 /**
@@ -24,26 +22,38 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        BRestoreThePermutationByMerger solver = new BRestoreThePermutationByMerger();
+        ADreamoonAndRankingCollection solver = new ADreamoonAndRankingCollection();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class BRestoreThePermutationByMerger {
+    static class ADreamoonAndRankingCollection {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
             int t = in.nextInt();
 
             while (t-- > 0) {
                 int n = in.nextInt();
-                Set<Integer> set = new LinkedHashSet<>();
+                int x = in.nextInt();
+                int[] arr = new int[n];
+                boolean[] check = new boolean[102];
+                int count = 0;
 
-                for (int i = 0; i < n * 2; i++) {
-                    set.add(in.nextInt());
+                for (int i = 0; i < n; i++) {
+                    arr[i] = in.nextInt();
+                    check[arr[i]] = true;
                 }
-                for (int i : set)
-                    out.print(i + " ");
 
-                out.println();
+                for (int i = n + x; i > 0; i--) {
+                    count = 0;
+                    for (int j = 1; j <= i; j++) {
+                        if (!check[j])
+                            count++;
+                    }
+                    if (count <= x) {
+                        out.println(i);
+                        break;
+                    }
+                }
             }
         }
 
@@ -60,21 +70,12 @@ public class Main {
             this.writer = new PrintWriter(writer);
         }
 
-        public void print(Object... objects) {
-            for (int i = 0; i < objects.length; i++) {
-                if (i != 0) {
-                    writer.print(' ');
-                }
-                writer.print(objects[i]);
-            }
-        }
-
-        public void println() {
-            writer.println();
-        }
-
         public void close() {
             writer.close();
+        }
+
+        public void println(int i) {
+            writer.println(i);
         }
 
     }

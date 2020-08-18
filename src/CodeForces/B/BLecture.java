@@ -21,28 +21,21 @@ public class BLecture {
     public void solve(int testNumber, InputReader in, OutputWriter out) {
         int n = in.nextInt();
         int m = in.nextInt();
-        List<String> list = new ArrayList<String>();
-        String[] input = new String[2];
+        Map<String, String> map = new HashMap<>();
         String[] str = new String[n];
         StringBuilder sb = new StringBuilder();
+        String a ;
+        String b ;
 
         for (int i = 0; i <m ; i++) {
-           String s = in.readLine();
-            list.add(s);
+           a = in.next();
+           b = in.next();
+
+           map.put(a, a.length() <= b.length()? a : b);
         }
-//        for (String s : list)
-//        out.print(s + " ");
         for (int i = 0; i < n; i++) {
             str[i] = in.next();
-        }
-        for (int i = 0; i < n; i++) {
-            for (String value : list) {
-                String[] s = value.split(" ");
-                String a = s[0];
-                String b = s[1];
-                if (a.equals(str[i]) || b.equals(str[i]))
-                    sb.append(a.length() <= b.length() ? a : b).append(" ");
-            }
+            sb.append(map.get(str[i])).append(" ");
         }
         out.println(sb);
     }

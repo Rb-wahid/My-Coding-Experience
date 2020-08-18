@@ -20,7 +20,7 @@ public class ADreamoonAndRankingCollection {
             int n = in.nextInt();
             int x = in.nextInt();
             int[] arr = new int[n];
-            boolean[] check = new boolean[102];
+            boolean[] check = new boolean[202];
             int count = 0;
 
             for (int i = 0; i <n ; i++) {

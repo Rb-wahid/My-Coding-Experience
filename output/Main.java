@@ -4,10 +4,12 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.BufferedWriter;
-import java.io.Writer;
-import java.io.OutputStreamWriter;
 import java.util.InputMismatchException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.io.Writer;
+import java.io.OutputStreamWriter;
 import java.io.InputStream;
 
 /**
@@ -22,60 +24,39 @@ public class Main {
         OutputStream outputStream = System.out;
         InputReader in = new InputReader(inputStream);
         OutputWriter out = new OutputWriter(outputStream);
-        ADreamoonAndRankingCollection solver = new ADreamoonAndRankingCollection();
+        BLecture solver = new BLecture();
         solver.solve(1, in, out);
         out.close();
     }
 
-    static class ADreamoonAndRankingCollection {
+    static class BLecture {
         public void solve(int testNumber, InputReader in, OutputWriter out) {
-            int t = in.nextInt();
+            int n = in.nextInt();
+            int m = in.nextInt();
+            List<String> list = new ArrayList<String>();
+            String[] input = new String[2];
+            String[] str = new String[n];
+            StringBuilder sb = new StringBuilder();
 
-            while (t-- > 0) {
-                int n = in.nextInt();
-                int x = in.nextInt();
-                int[] arr = new int[n];
-                boolean[] check = new boolean[202];
-                int count = 0;
-
-                for (int i = 0; i < n; i++) {
-                    arr[i] = in.nextInt();
-                    check[arr[i]] = true;
-                }
-
-                for (int i = n + x; i > 0; i--) {
-                    count = 0;
-                    for (int j = 1; j <= i; j++) {
-                        if (!check[j])
-                            count++;
-                    }
-                    if (count <= x) {
-                        out.println(i);
-                        break;
-                    }
+            for (int i = 0; i < m; i++) {
+                String s = in.readLine();
+                list.add(s);
+            }
+//        for (String s : list)
+//        out.print(s + " ");
+            for (int i = 0; i < n; i++) {
+                str[i] = in.next();
+            }
+            for (int i = 0; i < n; i++) {
+                for (String value : list) {
+                    String[] s = value.split(" ");
+                    String a = s[0];
+                    String b = s[1];
+                    if (a.equals(str[i]) || b.equals(str[i]))
+                        sb.append(a.length() <= b.length() ? a : b).append(" ");
                 }
             }
-        }
-
-    }
-
-    static class OutputWriter {
-        private final PrintWriter writer;
-
-        public OutputWriter(OutputStream outputStream) {
-            writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(outputStream)));
-        }
-
-        public OutputWriter(Writer writer) {
-            this.writer = new PrintWriter(writer);
-        }
-
-        public void close() {
-            writer.close();
-        }
-
-        public void println(int i) {
-            writer.println(i);
+            out.println(sb);
         }
 
     }
@@ -131,6 +112,21 @@ public class Main {
             return res * sgn;
         }
 
+        public String nextString() {
+            int c = read();
+            while (isSpaceChar(c)) {
+                c = read();
+            }
+            StringBuilder res = new StringBuilder();
+            do {
+                if (Character.isValidCodePoint(c)) {
+                    res.appendCodePoint(c);
+                }
+                c = read();
+            } while (!isSpaceChar(c));
+            return res.toString();
+        }
+
         public boolean isSpaceChar(int c) {
             if (filter != null) {
                 return filter.isSpaceChar(c);
@@ -142,9 +138,64 @@ public class Main {
             return c == ' ' || c == '\n' || c == '\r' || c == '\t' || c == -1;
         }
 
+        private String readLine0() {
+            StringBuilder buf = new StringBuilder();
+            int c = read();
+            while (c != '\n' && c != -1) {
+                if (c != '\r') {
+                    buf.appendCodePoint(c);
+                }
+                c = read();
+            }
+            return buf.toString();
+        }
+
+        public String readLine() {
+            String s = readLine0();
+            while (s.trim().length() == 0) {
+                s = readLine0();
+            }
+            return s;
+        }
+
+        public String next() {
+            return nextString();
+        }
+
         public interface SpaceCharFilter {
             public boolean isSpaceChar(int ch);
 
+        }
+
+    }
+
+    static class OutputWriter {
+        private final PrintWriter writer;
+
+        public OutputWriter(OutputStream outputStream) {
+            writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(outputStream)));
+        }
+
+        public OutputWriter(Writer writer) {
+            this.writer = new PrintWriter(writer);
+        }
+
+        public void print(Object... objects) {
+            for (int i = 0; i < objects.length; i++) {
+                if (i != 0) {
+                    writer.print(' ');
+                }
+                writer.print(objects[i]);
+            }
+        }
+
+        public void println(Object... objects) {
+            print(objects);
+            writer.println();
+        }
+
+        public void close() {
+            writer.close();
         }
 
     }

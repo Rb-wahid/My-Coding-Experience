@@ -27,14 +27,26 @@ public class BSortedAdjacentDifferences {
             for (int i = 0; i < n ; i++) {
                 arr[i] = in.nextInt();
             }
-
-            int midleft = (arr.length/2) - 1;
-            int midRight = midleft+1;
             Arrays.sort(arr);
-            while (midleft>= 0 && midRight < arr.length){
-                sb.append(arr[midleft]).append(" ").append(arr[midRight]).append(" ");
-                midleft--;
-                midRight++;
+
+            if ((arr.length&1) == 0){
+                int midleft = (arr.length/2) - 1;
+                int midRight = midleft+1;
+                while (midleft>= 0){
+                    sb.append(arr[midleft]).append(" ").append(arr[midRight]).append(" ");
+                    midleft--;
+                    midRight++;
+                }
+            }
+            else {
+                int midleft =(int) Math.round(arr.length/2.0) - 1;
+                int midRight = midleft+1;
+                while (midleft>0){
+                    sb.append(arr[midleft]).append(" ").append(arr[midRight]).append(" ");
+                    midleft--;
+                    midRight++;
+                }
+                sb.append(arr[0]);
             }
            out.println(sb);
         }

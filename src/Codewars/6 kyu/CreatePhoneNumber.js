@@ -1,21 +1,12 @@
 function createPhoneNumber(n) {
+  let format = "(xxx) xxx-xxxx";
 
-    let ans = `(`;
-    for (let i = 0; i < 3; i++) {
-        ans += `${n[i]}`;
-    }
+  for (let i = 0; i < n.length; i++) {
+    format = format.replace("x", n[i]);
+  }
 
-    ans += `) `;
-
-    for (let i = 3; i < 6; i++) {
-      ans += `${n[i]}`;
-    }
-
-    ans += `-`;
-
-    for (let i = 6; i < n.length; i++) {
-      ans += `${n[i]}`;
-    }
-
-    return ans;
+  console.log(format);
 }
+
+
+//link -> https://www.codewars.com/kata/reviews/525f50e3b73515a6db000b86/groups/539ceeedb9de00c4da000a4e

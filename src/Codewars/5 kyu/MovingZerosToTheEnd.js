@@ -1,23 +1,20 @@
 var moveZeros = function (arr) {
   // TODO: Program me
-    for (let i = 0; i < arr.length; i++) {
-        if (arr[i] === 0) {
-            sheftItem(i, arr);
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] === 0) {
+        for (let j = i + 1; j < arr.length; j++) {
+            if (arr[j] !== 0) {
+                let temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+            }
         }
     }
-    
-    return arr;
+  }
+
+  return arr;
 };
 
-function sheftItem(index, arr) {
-    for (let i = index; i < arr.length - 1; i++) {
-        arr[i] = arr[i+1]
-    }
-
-    arr[arr.length - 1] = 0;
-}
-
-
-let arr = [false, 1, 0, 1, 2, 0, 1, 3, "a"];
+let arr = [1, 2, 1, 0, 0, 1, 0, 3, 0, 1];
 
 console.log(moveZeros(arr));

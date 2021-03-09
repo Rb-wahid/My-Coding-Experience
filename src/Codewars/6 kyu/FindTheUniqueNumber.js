@@ -1,20 +1,14 @@
 function findUniq(arr) {
   // do magic
-  let flag;
-  for (let i = 0; i < arr.length - 2; i++) {
-    flag = check(arr[i], arr[i + 1], arr[i + 2]);
-    if (flag) {
-      return flag;
-    }
-  }
-    return 0;
-}
+    let first = arr[0];
+    let second = arr[1];
+    let third = arr[2];
 
-function check(a, b, c) {
-  if (a === b && b === c) return false;
-  else if (a === b) return c;
-  else if (a === c) return b;
-  else return a;
+    if (first === second) {
+        return arr.find(item => item != first);
+    } else {
+        return arr.find(item => item != third);
+    }
 }
 
 let arr = [ 1, 1, 1];

@@ -7,6 +7,7 @@ var moveZeros = function (arr) {
                 let temp = arr[i];
                 arr[i] = arr[j];
                 arr[j] = temp;
+                break;
             }
         }
     }

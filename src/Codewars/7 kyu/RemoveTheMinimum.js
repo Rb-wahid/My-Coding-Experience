@@ -1,13 +1,15 @@
 function removeSmallest(numbers) {
-  if (numbers.length === 0)
-    return [];
+  let length = numbers.length;
+  if (length === 0) return [];
 
-  let copyArr = Array.from(numbers);
-  copyArr.sort((a, b) => a-b);
-  let low = copyArr.splice(0, 1);
-  let lowElIndex = numbers.indexOf(low[0]);
-  numbers.splice(lowElIndex, 1);
- 
+  if (length > 2) {
+    let copyArr = Array.from(numbers);
+    copyArr.sort((a, b) => a - b);
+    let low = copyArr.splice(0, 1);
+    let lowElIndex = numbers.indexOf(low[0]);
+    if (lowElIndex != length) numbers.splice(lowElIndex, 1);
+  }
+
   return numbers;
 }
 
@@ -22,7 +24,9 @@ let arr = [
   373,
   60,
   353,
-  126,239,28,
+  126,
+  239,
+  28,
   46,
   355,
   139,

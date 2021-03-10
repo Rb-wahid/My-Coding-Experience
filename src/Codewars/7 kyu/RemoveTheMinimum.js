@@ -1,6 +1,5 @@
 function removeSmallest(numbers) {
   let length = numbers.length;
-  if (length === 0) return [];
 
   if (length > 2) {
     let copyArr = Array.from(numbers);
@@ -8,9 +7,10 @@ function removeSmallest(numbers) {
     let low = copyArr.splice(0, 1);
     let lowElIndex = numbers.indexOf(low[0]);
     if (lowElIndex != length) numbers.splice(lowElIndex, 1);
+    return numbers;
   }
 
-  return numbers;
+  return [];
 }
 
 let arr = [

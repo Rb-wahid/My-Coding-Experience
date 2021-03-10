@@ -4,8 +4,8 @@ function removeSmallest(numbers) {
 
   let copyArr = Array.from(numbers);
   copyArr.sort((a, b) => a-b);
-  let low = copyArr.shift();
-  let lowElIndex = numbers.indexOf(low);
+  let low = copyArr.splice(0, 1);
+  let lowElIndex = numbers.indexOf(low[0]);
   numbers.splice(lowElIndex, 1);
  
   return numbers;

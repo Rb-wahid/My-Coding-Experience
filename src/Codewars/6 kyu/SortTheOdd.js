@@ -7,11 +7,9 @@ function sortArray(array) {
     flag = false;
     if ((array[i] & 1) === 1) {
       for (let j = i + 1; j < leng; j++) {
-        if ((array[j] & 1) === 1) {
-          if (array[j] < array[i]) {
-            smallIndex = j;
-            flag = true;
-          }
+        if ((array[j] & 1) === 1 && array[j] < array[i]) {
+          smallIndex = j;
+          flag = true;
         }
       }
       if (flag) {
@@ -24,5 +22,5 @@ function sortArray(array) {
   return array;
 }
 
-let array = [9, 8, 7, 6, 5, 4, 3, 2, 1, 0];
+let array = [1, 5, 1, 11, 2, 11, 111, 0];
 console.log(sortArray(array));

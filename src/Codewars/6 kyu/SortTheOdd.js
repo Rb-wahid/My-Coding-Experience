@@ -3,11 +3,16 @@ function sortArray(array) {
   let leng = array.length;
   let smallIndex;
   let flag;
+  let value = array[0];
+
   for (let i = 0; i < leng; i++) {
     flag = false;
+    smallIndex = 0;
     if ((array[i] & 1) === 1) {
-      for (let j = i + 1; j < leng; j++) {
-        if ((array[j] & 1) === 1 && array[j] < array[i]) {
+      value = array[i];
+      for (let j = i; j < leng; j++) {
+        if (value > array[j] && (array[j] & 1) === 1) {
+          value = array[j];
           smallIndex = j;
           flag = true;
         }
@@ -22,5 +27,5 @@ function sortArray(array) {
   return array;
 }
 
-let array = [1, 5, 1, 11, 2, 11, 111, 0];
+let array = [23, 48, -43, -29, 29, -22, 43, -38];
 console.log(sortArray(array));

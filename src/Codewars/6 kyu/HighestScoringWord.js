@@ -10,7 +10,8 @@ function high(x) {
         str = arr[i];
 
         for (let j = 0; j < str.length; j++) {
-            sum += str.charCodeAt(j);
+            sum +=  str.charCodeAt(j) - 96;
+            console.log(sum);
         }
         
         if (high < sum) {
@@ -21,6 +22,6 @@ function high(x) {
     return highValue;
 }
 
-let x = "man i need a taxi up to ubud";
+let x = "b aa";
 
 console.log(high(x));

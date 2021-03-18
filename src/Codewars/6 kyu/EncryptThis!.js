@@ -8,7 +8,8 @@ var encryptThis = function (text) {
             ans += arr[i].charCodeAt(0);
             if (arr[i].length === 2) {
                  ans += arr[i].substring(1);
-             }
+            }
+            ans += " ";
         } else {
             ans += getEncrypt(arr[i]);
         }

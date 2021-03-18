@@ -47,17 +47,17 @@ PaginationHelper.prototype.pageItemCount = function (pageIndex) {
 // this method should return -1 for itemIndex values that are out of range
 PaginationHelper.prototype.pageIndex = function (itemIndex) {
   let item = this.itemCount();
-  if (itemIndex < 0 || itemIndex > item) {
+  if (item === 0 | itemIndex < 0 || itemIndex > item) {
     return -1;
   }
   let arr = [];
   let i;
-  let el = 0;
+  let el = -1;
   while (itemIndex !== el) {
     let a = [];
     for (i = 0; i < this.itemsPerPage; i++) {
-      a.push(this.array[el]);
-      el++;
+        el++;
+        a.push(this.array[el]);
       if (itemIndex === el) {
         break;
       }
@@ -68,6 +68,6 @@ PaginationHelper.prototype.pageIndex = function (itemIndex) {
   return arr.length - 1;
 };
 
-let helper = new PaginationHelper(["a", "b", "c", "d", "e", "f"], 4);
+let helper = new PaginationHelper([], 0);
 
-console.log(helper.pageItemCount(10));
+console.log(helper.pageIndex(0));

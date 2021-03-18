@@ -4,7 +4,14 @@ var encryptThis = function (text) {
     let ans = "";
 
     for (let i = 0; i < arr.length; i++) {
-        ans += getEncrypt(arr[i]);
+        if (arr[i].length < 3) {
+            ans += arr[i].charCodeAt(0);
+            if (arr[i].length === 2) {
+                 ans += arr[i].substring(1);
+             }
+        } else {
+            ans += getEncrypt(arr[i]);
+        }
     }
     return ans.trim();
 };

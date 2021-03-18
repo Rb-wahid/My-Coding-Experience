@@ -1,64 +1,27 @@
-// TODO
-//square(), cube(), average(), sum(), even() and odd().
 Array.prototype.square = function () {
-    let array = this;
-    let arr = [];
-
-    for (let i = 0; i < array.length; i++) {
-        arr.push(array[i] * array[i]);
-    }
-    return arr;
+  return this.map((n) => n * n);
 };
 
 Array.prototype.cube = function () {
-    let array = this;
-    let arr = [];
-
-    for (let i = 0; i < array.length; i++) {
-        arr.push(array[i] * array[i] * array[i]);
-    }
-    return arr;
-}
-
-Array.prototype.average = function () {
-    
-    return this.sum() / this.length;
-}
-
-Array.prototype.sum = function () {
-    let array = this;
-    let sum = 0;
-
-    for (let i = 0; i < array.length; i++) {
-      sum += array[i];
-    }
-    return sum;
-}
-
-Array.prototype.even = function () {
-    let array = this;
-    let arr = [];
-
-    for (let i = 0; i < array.length; i++) {
-        if ((array[i] & 1) === 0) {
-            arr.push(array[i]);
-        }
-    }
-    return arr;
-}
-
-Array.prototype.odd = function () {
-  let array = this;
-  let arr = [];
-
-  for (let i = 0; i < array.length; i++) {
-    if ((array[i] & 1) === 1) {
-      arr.push(array[i]);
-    }
-  }
-  return arr;
+  return this.map((n) => n * n * n);
 };
 
-let numbers = [1, 2, 3, 4, 5];
+Array.prototype.sum = function () {
+  return this.reduce((a, b) => a + b, 0);
+};
 
-console.log(numbers.odd());
+Array.prototype.average = function () {
+  return this.sum() / this.length;
+};
+
+Array.prototype.even = function () {
+  return this.filter((el) => (el & 1) === 0);
+};
+
+Array.prototype.odd = function () {
+  return this.filter((el) => (el & 1) === 1);
+};
+
+let numbers = [1, 5, 3, 4, 5];
+
+console.log(numbers.sum());

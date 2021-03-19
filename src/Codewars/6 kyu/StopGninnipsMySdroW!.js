@@ -13,7 +13,7 @@ function spinWords(text) {
 
         ans += " ";
     }
-    return ans;
+    return ans.trim();
 }
 
 let text = "Hey fellow warriors";

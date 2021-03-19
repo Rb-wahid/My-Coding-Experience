@@ -4,11 +4,10 @@ function duplicateCount(text) {
     let arr = [];
     let unic = [];
 
-    for (const value of text) {
+    for (const value of text.toLowerCase()) {
         if (arr.includes(value)) {
             if (!unic.includes(value)) {
                 count++;
-            } else {
                 unic.push(value);
             }
         } else {
@@ -18,6 +17,6 @@ function duplicateCount(text) {
     return count;
 }
 
-let text = "abcde";
+let text = "Indivisibilities";
 
 console.log(duplicateCount(text));

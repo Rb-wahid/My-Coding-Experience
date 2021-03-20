@@ -1,24 +1,8 @@
 function order(words) {
-  // ...
-  let arr = words.split(" ");
-  if (arr.length < 2) {
-    return words;
-  } else {
-    for (let i = 0; i < arr.length; i++) {
-      arr[i] = findInt(arr[i]) + arr[i].substring(0);
-    }
-    arr.sort();
-
-    for (let i = 0; i < arr.length; i++) {
-      arr[i] = arr[i].substring(1);
-    }
-
-    return arr.join(" ");
-  }
-}
-
-function findInt(str) {
-  return str.match(/\d/)[0];
+  return words
+    .split(" ")
+    .sort((a, b) => a.match(/\d/) - b.match(/\d/))
+    .join(" ");
 }
 
 let str = "4of Fo1r pe6ople g3ood th5e the2";

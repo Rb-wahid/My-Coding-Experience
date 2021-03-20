@@ -7,7 +7,8 @@ function list(names) {
             ans += names[i].name + ", ";
         }
         return ans + names[len - 2].name + " & " + names[len - 1].name;
-    }
+    } else
+        return names.length ? names[0].name : "";
 }
 
 let names = [{ name: "Bart" }, { name: "Lisa" }, { name: "Maggie" }];

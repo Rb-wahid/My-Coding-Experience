@@ -1,13 +1,9 @@
 function anagrams(word, words) {
-  word = word.split("").sort().join("");
-  let arr = [];
+    return words.filter(x => x.sort() === word.sort());
+}
 
-  for (let i = 0; i < words.length; i++) {
-    if (words[i].split("").sort().join("") === word) {
-      arr.push(words[i]);
-    }
-  }
-  return arr;
+String.prototype.sort = function () {
+    return this.split("").sort().join("");
 }
 
 let str = "abba";

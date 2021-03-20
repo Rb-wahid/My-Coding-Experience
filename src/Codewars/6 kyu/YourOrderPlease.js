@@ -11,7 +11,7 @@ function order(words) {
        arr[i] = arr[i].substring(1);
      }
     
-    return arr;
+    return arr.join(" ");
 }
 
 

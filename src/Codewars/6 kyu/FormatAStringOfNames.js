@@ -1,14 +1,13 @@
 function list(names) {
   //your code here
-    let len = names.length;
-    let ans = "";
-    if (len > 1) {
-        for (let i = 0; i < len - 2; i++) {
-            ans += names[i].name + ", ";
-        }
-        return ans + names[len - 2].name + " & " + names[len - 1].name;
-    } else
-        return names.length ? names[0].name : "";
+    return names.reduce((prev, present, index, arr) => {
+        if (index === 0)
+            return present.name;
+        else if (index === arr.length - 1)
+            return prev + " & " + present.name;
+        else
+            return prev + ", " + present.name;
+    }, "");
 }
 
 let names = [{ name: "Bart" }, { name: "Lisa" }, { name: "Maggie" }];

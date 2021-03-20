@@ -1,14 +1,9 @@
 function alphabetPosition(text) {
-    text = text.toLowerCase();
-    let ch;
-    let ans = "";
-    for (let i = 0; i < text.length; i++) {
-        ch = text.charCodeAt(i)
-        if (ch >= 97 && ch <= 122) {
-            ans += ch - 96 + " ";
-        }
-    }
-  return ans.trim();
+  return text
+    .toLowerCase()
+    .match(/[a-z]/g)
+    .map((c) => c.charCodeAt() - 96)
+    .join(" ");
 }
 
 let text = "The sunset sets at twelve o' clock.";

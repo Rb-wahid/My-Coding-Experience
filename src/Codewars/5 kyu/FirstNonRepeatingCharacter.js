@@ -3,7 +3,7 @@ function firstNonRepeatingLetter(s) {
   let str = s.toLowerCase();
   let flag = false;
 
-  for (let i = 0; i < s.length - 1; i++) {
+  for (let i = 0; i < s.length; i++) {
     flag = true;
     for (let j = 0; j < s.length; j++) {
       if (i !== j && s.charAt(i).toLowerCase() === s.charAt(j).toLowerCase()) {
@@ -15,7 +15,7 @@ function firstNonRepeatingLetter(s) {
       return s.charAt(i);
     }
   }
-  return s.length === 1? s : "";
+  return "";
 }
 
 let s = "a";

@@ -1,21 +1,14 @@
 function firstNonRepeatingLetter(s) {
-  // Add your code here
-  let str = s.toLowerCase();
-  let flag = false;
+    // Add your code here
+    let ans = "";
 
-  for (let i = 0; i < s.length; i++) {
-    flag = true;
-    for (let j = 0; j < s.length; j++) {
-      if (i !== j && s.charAt(i).toLowerCase() === s.charAt(j).toLowerCase()) {
-        flag = false;
-        break;
-      }
+    for (let el of s) {
+        if (s.match(new RegExp(el, "gi")).length === 1) {
+            ans = el;
+            break;
+        }
     }
-    if (flag) {
-      return s.charAt(i);
-    }
-  }
-  return "";
+    return ans;
 }
 
 let s = "a";

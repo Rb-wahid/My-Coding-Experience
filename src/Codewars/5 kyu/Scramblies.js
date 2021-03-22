@@ -1,18 +1,7 @@
-function scramble(str1, str2) {
-  let arr1 = str1.split("").sort();
-  let arr2 = str2.split("").sort();
-
-  let i = 0;
-  let j = 0;
-  for (j = 0; i < arr2.length && j <= arr1.length; j++) {
-    if (arr1[j] === arr2[i]) {
-      i++;
-    }
-  }
-  return j <= arr1.length;
-}
-
-let str1 = "";
-let str2 = "";
+const scramble = (str1, str2) =>
+  [...str2].every((val) => str2.split(val).length <= str1.split(val).length);
+  
+let str1 = "dff";
+let str2 = "df";
 
 console.log(scramble(str1, str2));

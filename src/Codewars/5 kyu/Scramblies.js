@@ -1,28 +1,18 @@
 function scramble(str1, str2) {
-  if (str1.length > str2.length) {
-    return op(str2, str1);
-  } else return op(str1, str2);
-}
+  let arr1 = str1.split("").sort();
+  let arr2 = str2.split("").sort();
 
-function op(low, high) {
-  let flag;
-  low = low.split("");
-  high = high.split("");
-  for (let i = 0; i < low.length; i++) {
-    flag = false;
-    for (let j = 0; j < high.length; j++) {
-      if (low[i] === high[j]) {
-        high[j] = null;
-        flag = true;
-        break;
-      }
+  let i = 0;
+  let j = 0;
+  for (j = 0; i < arr2.length && j <= arr1.length; j++) {
+    if (arr1[j] === arr2[i]) {
+      i++;
     }
-    if (!flag) return false;
   }
-  return true;
+  return j <= arr1.length;
 }
 
-let str1 = "staek";
-let str2 = "katas";
+let str1 = "";
+let str2 = "";
 
 console.log(scramble(str1, str2));

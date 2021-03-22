@@ -1,16 +1,17 @@
 function incrementString(strng) {
   // return incrementedString
-  let digit = strng.match(/[1-9]/gi);
-    if (digit) {
-    digit = digit.join("");
-    let len = strng.length - digit.length;
-    digit = parseInt(digit) + 1;
-    return strng.substring(0, len) + digit;
-  } else {
-    return strng.match(/[0]/gi) ? strng.substring(0,strng.length - 1) + "1" : strng + 1;
+  let string = strng.replace(/[0-9]/g, "");
+  let len = strng.length - string.length;
+  let str = strng.slice(string.length) || "0";
+  str = (parseInt(str) + 1).toString();
+
+  while (str.length < len) {
+    str = "0" + str;
   }
+
+  return string.concat(str);
 }
 
-let strng = "foo000";
+let strng = "fodfgdfgduo00";
 
 console.log(incrementString(strng));

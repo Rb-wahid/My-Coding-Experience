@@ -2,8 +2,8 @@ function validISBN10(isbn) {
   // TODO: return true if (and only if) isbn is a valid 10-digit ISBN.
    
     let arr = isbn.split("");
-     if (arr.length > 10) {
-       return false + "kj";
+     if (arr.length !== 10 ) {
+       return false;
      }
     if (arr[9] === "X") {
         arr[9] = "10";

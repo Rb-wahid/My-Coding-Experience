@@ -1,12 +1,10 @@
-function hexStringToRGB(hexString) {
-    let r = parseInt(hexString.substring(1, 3), 16);
-    let g = parseInt(hexString.substring(3, 5), 16);
-    let b = parseInt(hexString.substring(5, 7), 16);
-
-    return { r: r, g: g, b: b };
+function hexStringToRGB(h) {
+  return {
+    r: parseInt(h.slice(1, 3), 16),
+    g: parseInt(h.slice(3, 5), 16),
+    b: parseInt(h.slice(5, 7), 16),
+  };
 }
 
 let hexString = "#FF9933";
 console.log(hexStringToRGB(hexString));
-
-console.log(parseInt("FF", 16));

@@ -1,20 +1,20 @@
 function test(r, g, b) {
-  r = r.toString(16).toUpperCase();
-  if (parseInt(r) < 0) r = "0";
-  g = g.toString(16).toUpperCase();
-  if (parseInt(g) < 0) g = "0";
-  b = b.toString(16).toUpperCase();
-  if (parseInt(b) < 0) b = "0";
+  r = valid(r);
+  g = valid(g);
+  b = valid(b);
 
-  return (
-    (r.length === 1 ? "0" + r : r) +
-    (g.length === 1 ? "0" + g : g) +
-    (b.length === 1 ? "0" + b : b)
-  );
+  return toHex(r) + toHex(g) + toHex(b);
 }
 
-let r = 0;
-let g = 0;
-let b = 0;
+function toHex(r) {
+  r = r.toString(16).toUpperCase();
+  return r.length === 1 ? "0" + r : r;
+}
 
-console.log(test(0, 0, -20));
+function valid(r) {
+  if (r > 255) return 255;
+  if (r < 0) return 0;
+  return r;
+}
+
+console.log(test(300, 255, 255));

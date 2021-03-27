@@ -1,20 +1,11 @@
-function test(r, g, b) {
-  r = valid(r);
-  g = valid(g);
-  b = valid(b);
-
+function rgb(r, g, b) {
   return toHex(r) + toHex(g) + toHex(b);
 }
 
 function toHex(r) {
-  r = r.toString(16).toUpperCase();
-  return r.length === 1 ? "0" + r : r;
+  if (r > 255) return "FF";
+  if (r < 0) return "00";
+  return ("0" + Number(r).toString(16)).slice(-2).toUpperCase();
 }
 
-function valid(r) {
-  if (r > 255) return 255;
-  if (r < 0) return 0;
-  return r;
-}
-
-console.log(test(300, 255, 255));
+console.log(rgb(300, -255, 255));

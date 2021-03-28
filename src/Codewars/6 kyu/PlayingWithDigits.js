@@ -15,7 +15,7 @@ function digPow(num, p) {
   }
     let ans = sum / num;
 
-    return ans >= 1 ? ans : -1;
+    return parseInt(ans) !== ans ? -1 : ans;
 }
 
 console.log(digPow(89, 1));

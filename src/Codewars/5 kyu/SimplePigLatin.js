@@ -1,19 +1,5 @@
 function pigIt(str) {
-  //Code here
-    let ans = "";
-    return str.split(" ").map(str =>  op(str)).join(" ");
-}
-
-function op(str) {
-    str = str.split("");
-    let len = str.length;
-    let first = str[0];
-    let last = str[len-1];
-    let ans = str.slice(1, len).join("") + first + "ay";
-    if (/\W/.test(last)) {
-        return last;
-    }
-    return ans;
+  return str.replace(/(\w)(\w*)/g, "$2$1ay");
 }
 
 console.log(pigIt("This is my string"));

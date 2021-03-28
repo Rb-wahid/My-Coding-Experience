@@ -1,11 +1,12 @@
-var uniqueInOrder = function (iterable) {
+var uniqueInOrder = function (iterabl) {
   //your code here - remember iterable can be a string or an array
-  let arr = [];
-  for (const el of iterable) {
-    if (!arr.includes(el)) {
-      arr.push(el);
+    iterable = iterabl.split("");
+    for (let i = 0; i < iterable.length - 1; i++) {
+            if (iterable[i] === iterable[i+1]) {
+                iterable[i + 1] = null;
+            }
+        
     }
-  }
-  return arr;
+    return iterable.filter(el => el != null);
 };
-console.log(uniqueInOrder("ABBCcAD"));
+console.log(uniqueInOrder("ABBCcAADAD"));

@@ -8,7 +8,7 @@ function op(str) {
     str = str.split("");
     let len = str.length;
     let first = str[0];
-    let last = str[len];
+    let last = str[len-1];
     let ans = str.slice(1, len).join("") + first + "ay";
     if (/\W/.test(last)) {
         return last;

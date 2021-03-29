@@ -1,9 +1,11 @@
 function validParentheses(parens) {
   //TODO
-    let first = parens.match(/\(/g);
-    let second = parens.match(/\)/g);
+  let regex = /\(\)/g;
 
-    return first && second ? first.length === second.length : false;
+  while (regex.test(parens)) {
+    parens = parens.replace(regex, "");
+  }
+  return !parens;
 }
 
-console.log(validParentheses(""));
+console.log(validParentheses("()"));

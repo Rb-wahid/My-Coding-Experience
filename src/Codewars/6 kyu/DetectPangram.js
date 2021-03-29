@@ -1,12 +1,12 @@
 function isPangram(string) {
   //...
-  let regx = /\W+/g;
+  let regx = /[\d\W]/g;
   let arr = [];
-    string = string.replace(regx, "").toLowerCase();
-  
+  string = string.replace(regx, "").toLowerCase();
+
   for (const el of string) {
     if (!arr.includes(el)) {
-      arr.push(el)
+      arr.push(el);
     }
   }
   return arr.length === 26;

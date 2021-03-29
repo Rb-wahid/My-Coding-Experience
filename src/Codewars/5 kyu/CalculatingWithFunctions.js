@@ -1,69 +1,19 @@
-function zero(middle) {
-  if (typeof middle === "undefined") return 0;
-  return oparation(0, middle);
-}
-function one(middle) {
-  if (typeof middle === "undefined") return 1;
-  return oparation(1, middle);
-}
-function two(middle) {
-  if (typeof middle === "undefined") return 2;
-  return oparation(2, middle);
-}
-function three(middle) {
-  if (typeof middle === "undefined") return 3;
-  return oparation(3, middle);
-}
-function four(middle) {
-  if (typeof middle === "undefined") return 4;
-  return oparation(4, middle);
-}
-function five(middle) {
-  if (typeof middle === "undefined") return 5;
-  return oparation(5, middle);
-}
-function six(middle) {
-  if (typeof middle === "undefined") return 6;
-  return oparation(6, middle);
-}
-function seven(middle) {
-  if (typeof middle === "undefined") return 7;
-  return oparation(7, middle);
-}
-function eight(middle) {
-  if (typeof middle === "undefined") return 8;
-  return oparation(8, middle);
-}
-function nine(middle) {
-  if (typeof middle === "undefined") return 9;
-  return oparation(9, middle);
-}
+const oparation = (digit) => (op) => (op ? op(digit) : digit);
 
-function plus(right) {
-  return "+" + right;
-}
-function minus(right) {
-  return "-" + right;
-}
-function times(right) {
-  return "*" + right;
-}
-function dividedBy(right) {
-  return "/" + right;
-}
+const zero = oparation(0);
+const one = oparation(1);
+const two = oparation(2);
+const three = oparation(3);
+const four = oparation(4);
+const five = oparation(5);
+const six = oparation(6);
+const seven = oparation(7);
+const eight = oparation(8);
+const nine = oparation();
 
-function oparation(left, middle) {
-  let arr = middle.split("");
-  let op = arr[0];
-  let right = Number(arr[1]);
-  switch (op) {
-    case "*":
-      return left * right;
-    case "/":
-      return parseInt(left / right);
-    case "+":
-      return left + right;
-    case "-":
-      return left - right;
-  }
-}
+const plus = (right) => (left) => left + right;
+const minus = (right) => (left) => left - right;
+const times = (right) => (left) => left * right;
+const dividedBy = (right) => (left) => parseInt(left / right);
+
+console.log(seven(times(5)));

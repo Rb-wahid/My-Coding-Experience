@@ -10,20 +10,18 @@ function rot13(message) {
       else {
         ancii += 13;
       }
-
-      console.log(ancii, String.fromCharCode(ancii));
       ans += String.fromCharCode(ancii);
     } else if (ancii >= 65 && ancii <= 90) {
       if (ancii + 13 > 90) ancii = ancii + 13 - 26;
       else {
         ancii += 13;
       }
-
-      console.log(ancii, String.fromCharCode(ancii));
+      ans += String.fromCharCode(ancii);
+    } else {
       ans += String.fromCharCode(ancii);
     }
   }
   return ans;
 }
 
-console.log(rot13("Test"));
+console.log(rot13("Ruby is cool!"));

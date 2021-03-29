@@ -2,13 +2,9 @@ function narcissistic(value) {
   // Code me to return true or false
   let valueStr = value.toString();
   let len = valueStr.length;
-  let ans = 0;
-
-  for (const el of valueStr) {
-    ans += Math.pow(Number(el), len);
-  }
-
-  return ans === value;
+  return (
+    valueStr.split("").reduce((sum, el) => sum + Math.pow(el, len), 0) === value
+  );
 }
 
-console.log(narcissistic(371));
+console.log(narcissistic(1652));

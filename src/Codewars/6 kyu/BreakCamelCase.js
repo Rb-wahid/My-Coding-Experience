@@ -1,15 +1,6 @@
 // complete the function
 function solution(string) {
-    let ans = "";
-    for (const el of string) {
-        if (/[A-Z]/.test(el)) {
-            ans += " " + el;
-        } else {
-            ans += el;
-        }
-    }
-
-    return ans;
+    return string.replace(/([A-Z])/g, ' $1');
 }
 
 console.log(solution("camelCasingTest"));

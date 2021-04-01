@@ -3,19 +3,14 @@ function longestConsec(strarr, k) {
   let n = strarr.length;
   if (n === 0 || k > n || k <= 0) return "";
   let arr = [];
-  let str;
-  let j;
-  for (let i = 0; i < strarr.length - k + 1; i++) {
-    j = 0;
-    str = "";
+  let longStr = "";
 
-    while (j < k) {
-      str += strarr[i + j];
-      j++;
-    }
-    arr.push(str);
+  for (let index = 0; index < strarr.length; index++) {
+    arr = strarr.slice(index, index + k);
+
+    if (arr.join("").length > longStr.length) longStr = arr.join("");
   }
-  return arr.sort((a, b) => b.length - a.length)[0];
+  return longStr;
 }
 
 let strarr = [

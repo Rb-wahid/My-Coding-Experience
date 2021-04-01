@@ -1,6 +1,6 @@
 //return the total number of smiling faces in the array
 function countSmileys(arr) {
-  let regex = /(:|;)+(-|~)*(\)|D)+/;
+  let regex = /(:|;)+(-|~)?(\)|D)+/;
   let count = 0;
 
   arr.forEach((el) => {
@@ -10,4 +10,4 @@ function countSmileys(arr) {
   return count;
 }
 
-console.log(countSmileys([";D", ":-(", ":-)", ";~)"]));
+console.log(countSmileys([":D", ":~)", ";~D", ":)"]));

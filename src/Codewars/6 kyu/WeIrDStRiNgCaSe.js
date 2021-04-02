@@ -1,15 +1,13 @@
 function toWeirdCase(string) {
-  //TODO
   return string
     .split(" ")
-    .map((el) => {
-      let s = "";
-      for (const key in el) {
-        if ((key & 1) === 0) {
-          s += el.charAt(key).toUpperCase();
-        } else s += el.charAt(key);
-      }
-      return s;
+    .map((world) => {
+      return world
+        .split("")
+        .map((letter, idx) =>
+          (idx & 1) === 0 ? letter.toUpperCase() : letter.toLowerCase()
+        )
+        .join("");
     })
     .join(" ");
 }

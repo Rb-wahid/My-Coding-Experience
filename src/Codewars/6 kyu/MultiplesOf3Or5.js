@@ -1,11 +1,7 @@
 function solution(number) {
   let sum = 0;
   for (let i = 1; i < number; i++) {
-    if (!(i % 3) && !(i % 5)) {
-      sum += i;
-    } else if (!(i % 3)) {
-      sum += i;
-    } else if (!(i % 5)) {
+    if (!(i % 3) | !(i % 5)) {
       sum += i;
     }
   }

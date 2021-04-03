@@ -35,8 +35,6 @@ function score(dice) {
     }
   }
 
-  console.log(one, six, five, four, three, two, one);
-
   if (one > 0) {
     while (one - 3 >= 0) {
       sum += 1000;
@@ -53,7 +51,7 @@ function score(dice) {
   }
 
   if (five > 0) {
-    while (six - 3 >= 0) {
+    while (five - 3 >= 0) {
       sum += 500;
       five -= 3;
     }
@@ -84,4 +82,4 @@ function score(dice) {
   return sum;
 }
 
-console.log(score([4, 4, 4, 3, 3]));
+console.log(score([5, 5, 5, 0, 3, 0, 3]));

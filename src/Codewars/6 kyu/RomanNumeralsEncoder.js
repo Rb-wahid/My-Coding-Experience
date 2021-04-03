@@ -1,8 +1,7 @@
 function solution(number) {
   // convert the number to a roman numeral
-
-  let ans = [];
   number = number.toString().split("").reverse();
+  console.log(number);
   let len = number.length;
   switch (len) {
     case 1:
@@ -21,25 +20,28 @@ function op(a, b, c, d) {
   let tens = ["X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC"];
   let hundreds = ["C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCCC", "CM"];
   let thousands = ["M", "MM", "MMM"];
+  let ans = [];
 
   if (
     typeof b === "undefined" &&
     typeof c === "undefined" &&
     typeof d === "undefined"
   )
-    return units[Number(a) - 1];
+    ans.push(units[Number(a) - 1]);
   else if (typeof c === "undefined" && typeof d === "undefined") {
-    return tens[Number(b) - 1] + units[Number(a) - 1];
-  } else if (typeof d === "undefined")
-    return hundreds[Number(c) - 1] + tens[Number(b) - 1] + units[Number(a) - 1];
-  else {
-    return (
-      thousands[Number(d) - 1] +
-      hundreds[Number(c) - 1] +
-      tens[Number(b) - 1] +
-      units[Number(a) - 1]
-    );
+    ans.push(tens[Number(b) - 1]);
+    ans.push(units[Number(a) - 1]);
+  } else if (typeof d === "undefined") {
+    ans.push(hundreds[Number(c) - 1]);
+    ans.push(tens[Number(b) - 1]);
+    ans.push(units[Number(a) - 1]);
+  } else {
+    ans.push(thousands[Number(d) - 1]);
+    ans.push(hundreds[Number(c) - 1]);
+    ans.push(tens[Number(b) - 1]);
+    ans.push(units[Number(a) - 1]);
   }
+    return ans.filter(a => a !== "undefined").join("");
 }
 
-console.log(solution(15));
+console.log(solution(100));

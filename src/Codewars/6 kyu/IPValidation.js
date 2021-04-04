@@ -1,6 +1,6 @@
 function isValidIP(str) {
   return (
-    str.split(".").filter((v) => v === Number(v).toString() && Number(v) < 256)
+    str.split(".").filter((v) => v === Number(v).toString() && Number(v) <= 255 && Number(v) >= 0)
       .length === 4
   );
 }

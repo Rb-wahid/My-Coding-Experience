@@ -1,18 +1,10 @@
 function isValidIP(str) {
-  str = str.split(".");
-  if (str.length !== 4) return false;
-  let num;
-  let flag = true;
-  for (const data of str) {
-    num = Number(data);
-    console.log(num.toString(), data);
-    if (num.toString() !== data) return false;
-    if (num < 0 || num > 255) return false;
-  }
-
-  return true;
+  return (
+    str.split(".").filter((v) => v === Number(v).toString() && Number(v) < 256)
+      .length === 4
+  );
 }
 
-let str = "1.2.3.4";
+let str = "123.045.067.089";
 
 console.log(isValidIP(str));

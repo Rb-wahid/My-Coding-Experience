@@ -1,5 +1,6 @@
 function formatDuration(seconds) {
   // Complete this function
+  if (seconds === 0) return "now";
   let t = seconds;
   let str = [];
 
@@ -30,8 +31,8 @@ function formatDuration(seconds) {
       t = 0;
     }
   }
-    let last = str.pop();
-  return str.join(", ") + ` and ${last}`;
+  let last = str.pop();
+  return str.length > 1 ? str.join(", ") + ` and ${last}` : str.join("");
 }
 
-console.log(formatDuration(91536001));
+console.log(formatDuration(1));

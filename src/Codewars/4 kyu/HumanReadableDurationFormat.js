@@ -32,7 +32,7 @@ function formatDuration(seconds) {
     }
   }
   let last = str.pop();
-  return str.length > 1 ? str.join(", ") + ` and ${last}` : str.join("");
+  return str.length > 1 ? str.join(", ") + ` and ${last}` : last;
 }
 
 console.log(formatDuration(1));

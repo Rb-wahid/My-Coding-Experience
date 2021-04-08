@@ -1,7 +1,7 @@
 function tripledouble(num1, num2) {
   //code me
-  let n1 = num1.toString().split("").sort();
-  let n2 = num2.toString().split("").sort();
+  let n1 = num1.toString().split("");
+  let n2 = num2.toString().split("");
   let first = [];
 
   for (let i = 0; i < n1.length - 2; i++) {
@@ -19,4 +19,4 @@ function tripledouble(num1, num2) {
   return 0;
 }
 
-console.log(tripledouble(857758444333666300, 77646166));
+console.log(tripledouble(915525199994, 839559181));

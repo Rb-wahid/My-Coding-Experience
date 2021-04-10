@@ -1,5 +1,10 @@
 function ranking(p) {
-    let people = p;
+  let people = p;
+  if (!p.length) return p;
+  if (p.length === 1) {
+    people[0].position = 1;
+    return people;
+  }
   for (let i = 0; i < people.length - 1; i++) {
     if (people[i].points < people[i + 1].points) {
       temp = people[i];
@@ -34,8 +39,11 @@ function ranking(p) {
       samePosition = 0;
     }
   }
-  people[people.length - 1].position = position + samePosition;
-
+  if (people[people.length - 2].points === people[people.length - 1].points) {
+    people[people.length - 1].position = position;
+  } else {
+    people[people.length - 1].position = position + samePosition;
+  }
   return people;
 }
 
@@ -44,18 +52,5 @@ let people = [
     name: "John",
     points: 100,
   },
-  {
-    name: "Bob",
-    points: 130,
-  },
-  {
-    name: "Mary",
-    points: 120,
-  },
-  {
-    name: "Kate",
-    points: 120,
-  },
 ];
-
 console.log(ranking(people));

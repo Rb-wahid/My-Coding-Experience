@@ -80,7 +80,7 @@ function wordify(n) {
             }
         }
     }
-    return ans;
+    return ans.trim();
 }
 
 console.log(wordify(326));

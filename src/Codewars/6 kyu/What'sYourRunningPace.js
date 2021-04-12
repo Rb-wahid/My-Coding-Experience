@@ -4,7 +4,7 @@ function runningPace(distance, time) {
   let ans = totalSeconds / distance;
   let minutes = Math.floor(ans / 60);
   let seconds = Math.floor(ans % 60);
-  return `${minutes}:${seconds}`;
+  return `${minutes}:${seconds.toString().length === 1 ? `0${seconds}` : seconds}`;
 }
 
-console.log(runningPace(0.2, "0:38"));
+console.log(runningPace(15, "75:80"));

@@ -3,7 +3,7 @@ function pizzaRewards(customers, minOrders, minPrice) {
   let ans = [];
   for (const key in customers) {
     for (const p of customers[key]) {
-      if (p > minPrice) {
+      if (p >= minPrice) {
         count++;
       }
     }

@@ -1,5 +1,6 @@
 function nextHappyYear(year) {
   //your code here
+  year++;
   while (!isDistinct(year)) {
     year++;
   }

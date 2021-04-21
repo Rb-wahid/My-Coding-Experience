@@ -1,16 +1,7 @@
 function pizzaRewards(customers, minOrders, minPrice) {
-  let count = 0;
-  let ans = [];
-  for (const key in customers) {
-    for (const p of customers[key]) {
-      if (p >= minPrice) {
-        count++;
-      }
-    }
-    if (count >= minOrders) ans.push(key);
-    count = 0;
-  }
-  return ans;
+  return Object.keys(customers).filter(
+    (el) => customers[el].filter((p) => p >= minPrice).length >= minOrders
+  );
 }
 
 var minOrders = 5;

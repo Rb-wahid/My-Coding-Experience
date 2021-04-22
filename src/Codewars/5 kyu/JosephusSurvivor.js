@@ -12,7 +12,7 @@ function josephusSurvivor(n, k) {
       arr.splice(idx, 1);
   }
 
-  return arr;
+  return arr.pop();
 }
 
 console.log(josephusSurvivor(14, 2));

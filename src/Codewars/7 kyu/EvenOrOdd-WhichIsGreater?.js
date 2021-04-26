@@ -5,12 +5,12 @@ function evenOrOdd(str) {
   let sumOfEven = 0;
   sumOfEven = even.map((a) => sumOfEven + Number(a));
   let sumOfOdd = 0;
-  sumOfOdd = even.map((a) => sumOfOdd + Number(a);
-  );
-  console.log(odd, even, sumOfEven, sumOfOdd);
-  if (sumOfEven > sumOfOdd) return "Even is greater than Odd";
+    sumOfOdd = odd.map((a) => sumOfOdd + Number(a));
+    
+
+    if (sumOfEven > sumOfOdd) return "Even is greater than Odd";
   else if (sumOfOdd > sumOfEven) return "Odd is greater than Even";
   else return "Even and Odd are the same";
 }
 
-console.log(evenOrOdd("12"));
+console.log(evenOrOdd("112"));

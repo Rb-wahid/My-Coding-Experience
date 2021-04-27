@@ -2,18 +2,17 @@ function distributionOf(golds) {
   //coding and coding..
   let sumForA = 0;
   let sumForB = 0;
-  while (golds.length !== 0) {
-    sumForA += golds[op(golds)] ? golds[op(golds)] : 0;
-    golds.splice(op(golds), 1);
+  let len = golds.length - 1;
+  while (len >= 0) {
+    if (len >= 0)
+      sumForA += golds[0] >= golds[len] ? golds.shift() : golds.pop();
+    len = golds.length - 1;
 
-    sumForB += golds[op(golds)] ? golds[op(golds)] : 0;
-    golds.splice(op(golds), 1);
+    if (len >= 0)
+      sumForB += golds[0] >= golds[len] ? golds.shift() : golds.pop();
+    len = golds.length - 1;
   }
   return [sumForA, sumForB];
-}
-function op(arr) {
-  let len = arr.length - 1;
-  return arr[0] >= arr[len] ? 0 : len;
 }
 
 console.log(

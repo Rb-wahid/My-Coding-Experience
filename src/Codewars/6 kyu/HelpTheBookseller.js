@@ -2,6 +2,7 @@ function stockList(listOfArt, listOfCat) {
   // ...
     let num;
     let str;
+    let flag = false;
     let ans = [];
     for (const c of listOfCat) {
         num = 0;
@@ -13,11 +14,13 @@ function stockList(listOfArt, listOfCat) {
             }
 
         }
+        if (num > 0)
+            flag = true;
         str = `(${c} : ${num})`
         ans.push(str);
     }
 
-    return ans.join(" - ");
+    return flag ? ans.join(" - ") : "";
 }
 b = ["ABAR 200", "CDXE 500", "BKWR 250", "BTSQ 890", "DRTY 600"];
 c = ["A", "B"];

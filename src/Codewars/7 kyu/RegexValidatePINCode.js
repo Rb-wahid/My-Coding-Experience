@@ -1,10 +1,6 @@
 function validatePIN(pin) {
   //return true or false
-  let isAllDigit = !/\D+/g.test(pin);
-  if (isAllDigit) {
-    return pin.length === 6 || pin.length === 4;
-  }
-  return isAllDigit;
+ return /^(\d{6}|\d{4})$/.test(pin);
 }
 
 console.log(validatePIN(".134"));

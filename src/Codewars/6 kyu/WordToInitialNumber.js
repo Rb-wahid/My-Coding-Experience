@@ -1,11 +1,11 @@
 function convert(str) {
-  let ans = str;
+    let ans = str.toLowerCase();
   let replace = (s, d) => ans.replace(new RegExp(s, "g"), d);
-  let set = new Set(str.split``);
+  let set = new Set(ans.split``);
   let i = 1;
   let j = 0;
 
-  for (const el of set) {
+    for (const el of set) {
     if (i === 1) {
       ans = replace(el, i);
       i = 0;
@@ -20,4 +20,4 @@ function convert(str) {
 
   return Number(ans);
 }
-console.log(convert("KATA"));
+console.log(convert("wctboaBBbFtjWFT"));

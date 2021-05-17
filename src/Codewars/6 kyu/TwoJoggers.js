@@ -1,17 +1,8 @@
-var nbrOfLaps =  (x, y) => {
-    let lapX = 1;
-    let lapY = 1;
-    let a, b;
-    while (lapX * x !== lapY * y) {
-        a = lapX * x;
-        b = lapY * y;
-        if (a > b) {
-            lapY++;
-        } else if (a < b) {
-            lapX++;
-        }
-    }
-  return [lapX, lapY];
+var nbrOfLaps = (x, y) => {
+  const gcd = (a, b) => (b === 0 ? a : gcd(b, a % b));
+  const lcm = (x * y) / gcd(x, y);
+
+  return [lcm / x, lcm / y];
 };
 
 console.log(nbrOfLaps(5, 3));

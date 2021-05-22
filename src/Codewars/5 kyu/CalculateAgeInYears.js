@@ -1,10 +1,13 @@
 function getAge(birthDate, nowDate) {
-  if (!nowDate) {
-    nowDate = new Date();
-  }
-  let dayInYear =
-    nowDate.getDate() === 28 && nowDate.getMonth() === 1 ? 366 : 365;
-  return parseInt((nowDate - birthDate) / dayInYear / 86400000);
+  nowDate = nowDate || new Date();
+
+  let year = nowDate.getFullYear() - birthDate.getFullYear();
+
+  return nowDate.getMonth() < birthDate.getMonth() ||
+    (nowDate.getMonth() == birthDate.getMonth() &&
+      nowDate.getDate() < birthDate.getDate())
+    ? --year
+    : year;
 }
 
 console.log(getAge(new Date("2008/02/29")));

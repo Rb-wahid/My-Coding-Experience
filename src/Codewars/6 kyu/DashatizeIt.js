@@ -6,16 +6,18 @@ function dashatize(num) {
   ans.push(+num[0] & 1 ? num[0] + "-" : num[0]);
   for (let i = 1; i < num.length - 1; i++) {
     if (+num[i] & 1) {
-      ans.push(`-${num[i]}`);
-      flag = true;
+      ans.push(`-${num[i]}-`);
     } else {
-      ans.push(flag ? "-" + num[i] : num[i]);
-      flag = false;
+      ans.push(num[i]);
     }
   }
   let len = num.length - 1;
-  ans.push(+num[len] & 1 ? "-" + num[len] : num[len]);
+  ans.push(+num[len] & 1 ? `-${num[len]}` : num[len]);
+  ans = ans.join``.split``;
+  for (let i = 1; i < ans.length; i++) {
+    if (ans[i] === "-" && ans[i] === ans[i - 1]) ans[i] = "";
+  }
   return ans.join``;
 }
 
-console.log(dashatize(6815));
+console.log(dashatize(2511));

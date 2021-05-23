@@ -1,6 +1,7 @@
 function dashatize(num) {
   //get 'em
   num = num.toString().replace("-", "");
+  if (num.length < 2) return num;
   let ans = [];
   let flag = false;
   ans.push(+num[0] & 1 ? num[0] + "-" : num[0]);

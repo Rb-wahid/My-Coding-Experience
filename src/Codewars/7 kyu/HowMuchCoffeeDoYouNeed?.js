@@ -7,16 +7,17 @@ function howMuchCoffee(events) {
   let count = 0;
 
   for (const el of events) {
-    if (regxLw.test(el)) {
-      count++;
-      console.log(count, el);
-    }
-    if (regxHg.test(el)) {
-      console.log(count, el);
-      count += 2;
+    if (!/OTHER/i.test(el)) {
+      if (regxLw.test(el)) {
+        count++;
+        console.log(count, el);
+      }
+      if (regxHg.test(el)) {
+        console.log(count, el);
+        count += 2;
+      }
     }
   }
-
   str = events.join``;
   return valid.test(str) ? "You need extra sleep" : count;
 }

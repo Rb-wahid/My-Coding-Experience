@@ -1,7 +1,7 @@
 function zipvalidate(postcode) {
   // ...
   let regex = /^[1-46][\d]+$/;
-  return postcode.match(regex)[0].length === 6;
+  return !postcode ? false : postcode.match(regex)[0].length === 6;
 }
 
 console.log(zipvalidate("424000"));

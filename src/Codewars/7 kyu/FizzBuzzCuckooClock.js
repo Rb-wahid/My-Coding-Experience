@@ -1,22 +1,17 @@
 function fizzBuzzCuckooClock(time) {
-  console.log(time);
-  // your code here
-  const cuckoo = (h) => {
-    let ans = "";
-    h = h % 12;
-    if (h == 0) h = 12;
-    while (h-- > 0) ans += "Cuckoo ";
+    const [h, m] = time.split`:`;
 
-    return ans.trim();
-  };
-  let [h, m] = time.split`:`;
-  m = +m;
-  h = +h;
-  if (!(m % 3) && !(m % 5)) {
-    return m == 0 ? cuckoo(h) : m == 30 ? "Cuckoo" : "Fizz Buzz";
-  } else if (!(m % 3)) return "Fizz";
-  else if (!(m % 5)) return "Buzz";
-  else return "tick";
+    return m == 0
+      ? "Cuckoo ".repeat(h % 12 || 12).trim()
+      : m == 30
+      ? "Cuckoo"
+      : !(m % 15)
+      ? "Fizz Buzz"
+      : !(m % 3)
+      ? "Fizz"
+      : !(m % 5)
+      ? "Buzz"
+      : "tick";
 }
 
 console.log(fizzBuzzCuckooClock("00:00"));

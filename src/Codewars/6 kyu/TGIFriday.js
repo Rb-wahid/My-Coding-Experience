@@ -1,4 +1,5 @@
 function lastDayIsFriday(initialYear, endYear) {
+  endYear = endYear || initialYear;
   let count = 0;
   let date = new Date();
 

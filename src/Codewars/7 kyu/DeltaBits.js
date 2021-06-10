@@ -1,14 +1,5 @@
 function convertBits(a, b) {
-  a = a.toString(2).split``;
-  b = b.toString(2).split``;
-
-  let diff = 0;
-  let maxLen = Math.max(a.length, b.length);
-  for (let i = 0; i < maxLen; i++) {
-    if (a[i] !== b[i]) diff++;
-  }
-
-  return diff;
+  return ((a ^ b).toString(2).match(/1/g) || []).length;
 }
 
 console.log(convertBits(31, 14));

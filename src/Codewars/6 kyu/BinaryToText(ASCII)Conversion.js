@@ -1,8 +1,5 @@
 function binaryToString(binary) {
-  let split = binary.match(/\d{8}/g);
-  return !split
-    ? ""
-    : split.map((a) => String.fromCharCode(parseInt(a, 2))).join``;
+  return binary.replace(/\d{8}/g, (a) => String.fromCharCode(parseInt(a, 2)));
 }
 
 console.log(

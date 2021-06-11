@@ -1,11 +1,10 @@
 function vowelStart(str) {
   //write your code here
   return str
-    .replace(/[\s-,!]/g, "")
     .toLowerCase()
-    .replace(/[aeiou]/g, (el) => " " + el)
-    .trim()
-    .replace(/\s+/g, " ");
+    .replace(/[\W\s_]/g, "")
+    .replace(/[aeiou]/g, " $&")
+    .trim();
 }
 
 console.log(vowelStart("Coding is great"));

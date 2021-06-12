@@ -1,15 +1,5 @@
 function blackFriday(year) {
-  let i = 2;
-  let count = 0;
-  let date = new Date(year, 10, i);
-  while (count != 4) {
-    date.setDate(i);
-    if (date.getDay() === 5) {
-      count++;
-    }
-    i++;
-  }
-  return date.getDate();
+  return 30 - (new Date(year, 11, 1).getDay() + 1);
 }
 
 console.log(blackFriday(2013));

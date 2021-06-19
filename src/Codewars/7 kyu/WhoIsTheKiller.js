@@ -1,15 +1,7 @@
 function killer(suspectInfo, dead) {
-  //your code here...
-  let flag;
-  for (const key in suspectInfo) {
-    flag = true;
-    dead.forEach((element) => {
-      if (!suspectInfo[key].includes(element)) {
-        flag = false;
-      }
-    });
-    if (flag) return key;
-  }
+  return Object.keys(suspectInfo).find((suspect) =>
+    dead.every((person) => suspectInfo[suspect].includes(person))
+  );
 }
 
 let suspects = {

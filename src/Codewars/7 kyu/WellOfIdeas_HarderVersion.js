@@ -1,12 +1,6 @@
 function well(x) {
-  let good = [];
-  x.map((a) => {
-    let arr = a.filter((el) => /good/i.test(el));
-    good.push(...arr);
-  });
-
-  let len = good.length;
-
+  let match = ("" + x).match(/good/gi) || [];
+  let len = match.length;
   return len > 2 ? "I smell a series!" : len > 0 ? "Publish!" : "Fail!";
 }
 

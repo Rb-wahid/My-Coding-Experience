@@ -1,3 +1,3 @@
 function regexContainsAll(str) {
-  return new RegExp(`[${str}]`, 'g');
+  return str.replace(/./g, "(?=.*$&)");
 }

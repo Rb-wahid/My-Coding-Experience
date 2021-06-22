@@ -47,12 +47,13 @@ Vector.prototype.toString = function () {
   return `(${this.components.toString()})`;
 };
 
-Vector.prototype.equals = function (b) {
-  return this.components.every((el, idx) => el === b.components[idx]);
+Object.prototype.equals = function (b) {
+  let obj = this.components || this;
+  return obj.every((el, idx) => el === b.components[idx]);
 };
 
 var a = new Vector([1, 2, 3]);
 var b = new Vector([3, 4, 5]);
 
-console.log(a.add(b).equals(new Vector([4, 6, 8])));
+console.log(a.equals(new Vector([4, 6, 8])));
 console.log(typeof a.add(b));

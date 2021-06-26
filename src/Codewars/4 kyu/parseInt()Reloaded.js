@@ -1,5 +1,6 @@
 function parseInt(string) {
   // TODO: it's your task now
+  string = string.replace(/\band\b/g, "").replace(/\s\s/, " ");
   console.log(string);
   let obj = {
     zero: 0,
@@ -71,13 +72,13 @@ function parseInt(string) {
             ? Number(ans.toString().padEnd(9, "0"))
             : Number(ans.toString().padEnd(8, "0"))
           : Number(ans.toString().padEnd(7, "0"));
-    } else if (v == "and") {
-      ans += v == "and" ? digit(arr[i + 1]) : digit(arr[i]);
-    } else if (i === string.length - 1 && !string.includes("and")) {
+    } else if (i === string.length - 1) {
       ans += digit(arr[i]);
     }
   });
   return ans;
 }
 
-console.log(parseInt("seven million"));
+console.log(
+  parseInt("three hundred and fifty-one thousand five hundred and eighty-four")
+);

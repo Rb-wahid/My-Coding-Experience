@@ -1,9 +1,6 @@
-const mirror = (object) => {
-  let obj = { ...object };
-  for (let key in obj) {
-    v = key.split``.reverse().join``;
-    console.log(key, v, typeof v);
-    obj[key] = v;
-  }
-  return obj;
+const mirror = (obj) => {
+    return Object.keys(obj).reduce((newObj, key) => {
+        newObj[key] = key.split``.reverse().join``;
+        return newObj;
+  },{})
 };

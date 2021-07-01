@@ -1,18 +1,9 @@
 function allContinents(list) {
   // thank you for checking out the Coding Meetup kata :)
-  let obj = {
-    Africa: false,
-    Americas: false,
-    Asia: false,
-    Europe: false,
-    Oceania: false,
-  };
 
-  list.map((dev) => {
-    obj[dev.continent] = true;
-  });
-
-  return Object.values(obj).every((el) => el);
+  return ["Africa", "Americas", "Asia", "Europe", "Oceania"].every((c) =>
+    list.some((dev) => dev.continent == c)
+  );
 }
 
 var list1 = [

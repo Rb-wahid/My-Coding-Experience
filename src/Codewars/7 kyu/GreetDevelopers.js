@@ -1,11 +1,8 @@
 function greetDevelopers(list) {
-  // thank you for checking out my kata :)
-  let greeting;
-  for (const key of list) {
-    greeting = `Hi ${key.firstName}, what do you like the most about ${key.language}?`;
-    key["greeting"] = greeting;
-  }
-  return list;
+  return list.map((obj) => {
+    obj.greeting = `Hi ${obj.firstName}, what do you like the most about ${obj.language}?`;
+    return obj;
+  });
 }
 
 var list1 = [

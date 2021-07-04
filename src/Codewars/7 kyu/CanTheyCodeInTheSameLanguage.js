@@ -1,9 +1,7 @@
 function isSameLanguage(list) {
   // thank you for checking out the Coding Meetup kata :)
-  let lan = {};
-  list.forEach((dev) => (lan[dev.language] = dev.language));
 
-  return Object.keys(lan).length == 1;
+  return list.every((dev) => dev.language == list[0].language);
 }
 
 var list1 = [

@@ -2,13 +2,7 @@ function countLanguages(list) {
   // thank you for checking out the Coding Meetup kata :)
   let ans = {};
 
-  list.map((dev) => {
-    if (ans.hasOwnProperty(dev.language)) {
-      ans[dev.language] = ans[dev.language] + 1;
-    } else {
-      ans[dev.language] = 1;
-    }
-  });
+  list.forEach((dev) => (ans[dev.language] = (ans[dev.language] || 0) + 1));
   return ans;
 }
 

@@ -1,16 +1,14 @@
 function askForMissingDetails(list) {
   // thank you for checking out the Coding Meetup kata :)
-    
-    
-    return list.filter(dev => {
-        let value = Object.values(dev);
-        if (value.includes(null)) {
-            let index = value.indexOf(null);
-            let key = Object.keys(dev);
-            dev["question"] = `Hi, could you please provide your ${key[index]}.`;
-            return dev;
-        }
-    }, [])
+
+  return list.filter((dev) => {
+    for (const key in dev) {
+      if (dev[key] == null) {
+        dev["question"] = `Hi, could you please provide your ${key}.`;
+        return dev;
+      }
+    }
+  }, []);
 }
 
 var list1 = [
@@ -39,6 +37,5 @@ var list1 = [
     language: "Ruby",
   },
 ];
-
 
 console.log(askForMissingDetails(list1));

@@ -1,20 +1,17 @@
 function parseKidList(csv) {
-  const formate = (digit) => (digit < 10 ? "0" + digit : digit);
-  const formateDate = (date) => {
-    date = date.split("/");
-    return `${formate(date[0])}/${formate(date[1])}/${date[2]}`;
-  };
-  let split = csv.split`\n`;
-  let filter = split
-    .map((per) => per.split(","))
-    .map((p) => {
-      let person = `${p[0].toUpperCase()} (${p[2].toUpperCase()}) ${formateDate(
-        p[1]
-      )}`;
-      return person;
-    });
+  const formate = (date) =>
+    date
+      .split("/")
+      .map((d) => d.padStart(2, "0"))
+      .join("/");
 
-  return filter; // return whatever you want
+  return csv.split`\n`.map((per) => {
+    let p = per.split(",");
+    let person = `${p[0].toUpperCase()} (${p[2].toUpperCase()}) ${formate(
+      p[1]
+    )}`;
+    return person;
+  });
 }
 
 function sortByNames(kids) {

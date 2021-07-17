@@ -1,7 +1,1 @@
-function compose(...arguments) {
-  // Your solution
-  let arr = arguments
-  return function (arg){
-    return arr.reverse().reduce((res, curr) =>  curr(res) , arg)
-  }
-}
+const compose = (...fns) => arg => fns.reduceRight((res, fn) => fn(res), arg);

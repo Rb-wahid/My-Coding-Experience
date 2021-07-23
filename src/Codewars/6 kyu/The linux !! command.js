@@ -1,8 +1,5 @@
 function bangBang(history) {
-  let sp = history.split("\n");
-    sp = sp.map((el) => el.replace(/(\d+)\s?\W/, ""));
-
-  return sp[sp.length - 1].trim();
+  return history.match(/\d+\s+(.*)$/)[1];
 }
 
 console.log(

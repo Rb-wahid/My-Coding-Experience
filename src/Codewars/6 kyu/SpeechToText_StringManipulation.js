@@ -1,23 +1,23 @@
 var bot = {
   message: function (msg) {
-    if (/Add/.test(msg)) {
-      let digit = msg.replace(/\D+/g, " ");
-      return digit.split(" ").reduce((sum, digit) => sum + Number(digit), 0);
-    } else if (/Subtract/.test(msg)) {
-      let digit = msg.replace(/\D+/g, " ");
-      return digit
-        .split(" ")
-        .reverse()
-        .reduce((sub, digit) => -sub + Number(digit), 0);
-    } else if (/weather/.test(msg)) {
-      let day = msg.match(/(am|pm)/)[0];
-      let [h] = msg.replace(/\D+/g, " ").trim().split(" ");
-      if (h >= 6 && h < 12) {
-        return day == "am" ? "sunny" : "raining";
-      } else if (h <= 12 && h < 6) {
-        return day == "pm" ? "sunny" : "raining";
-      }
+    let h, m, a;
+    [_, h, m] = msg.match(/Add (\d+) to (\d+)/) || [];
+
+    if (h && m) {
+      return Number(h) + Number(m);
     }
+
+    [_, h, m] = msg.match(/Subtract (\d+) from (\d+)/) || [];
+    if (h && m) {
+      return Number(m) - Number(h);
+    }
+
+    [_, h, m, c] = msg.match(/What is the weather at (\d+):(\d+)(am|pm)/) || [];
+    h = Number(h) + Number(m) / 60;
+    if (c == "pm") {
+      h += 12;
+    }
+    return h >= 6 && h <= 18 ? "sunny" : "raining";
   },
 };
 

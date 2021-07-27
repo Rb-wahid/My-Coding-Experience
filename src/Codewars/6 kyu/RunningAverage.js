@@ -1,8 +1,10 @@
 function runningAverage() {
-  let arr = [];
+  let sum = 0;
+  let items = 0;
   return (num) => {
-    arr.push(num);
-    let avr = arr.reduce((sum, val) => sum + val, 0) / arr.length;
-    return Number.isInteger(avr) ? avr : Number(avr.toFixed(2));
+    items += 1;
+    sum += num;
+
+    return Math.round((sum / items) * 100) / 100;
   };
 }

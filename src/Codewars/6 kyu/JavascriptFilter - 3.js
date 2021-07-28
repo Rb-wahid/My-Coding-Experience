@@ -1,11 +1,12 @@
 function searchNames(logins) {
-  return logins
-    .map((list, idx, arr) => {
-      if (list.endsWith(".") || list.startsWith(".")) {
-        return arr[idx + 1];
-      }
-    })
-    .filter((list) => list != undefined);
+  return logins.filter((str, idx, arr) => {
+    if (
+      (idx & 1) == 1 &&
+      (arr[idx - 1].startsWith(".") || arr[idx - 1].endsWith("."))
+    ) {
+      return true;
+    }
+  });
 }
 
 var a = ["foo", "foo@foo.com", "bar.", "bar@bar.com"];

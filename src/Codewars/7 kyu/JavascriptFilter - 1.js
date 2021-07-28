@@ -1,6 +1,5 @@
 function searchNames(logins) {
-  const isTrue = (list) => list.some((str) => /\w+_$/.test(str));
-  return logins.filter(isTrue);
+  return logins.filter((list) => list[0].endsWith("_"));
 }
 
 console.log(

@@ -1,8 +1,9 @@
 function roomMates(rooms, floor) {
-  let roomStart = (floor - 1) * 6;
-  let roomEnd = floor * 6;
-  let roomMate = rooms.slice(roomStart, roomEnd);
-  return roomMate.filter((mate) => mate != "");
+  return rooms.filter((mate, idx) => {
+    if (mate != "" && Math.floor(idx / 6) == floor - 1) {
+      return true;
+    }
+  });
 }
 
 rooms = [

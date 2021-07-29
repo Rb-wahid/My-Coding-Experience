@@ -1,18 +1,16 @@
 function Counter() {
   //quickly, now!
-  //  this.check =
   let counter = 0;
-  return {
-    increment: function () {
-      counter = counter + 1;
-    },
-    check: function () {
-      return counter;
-    },
+
+  this.check = function () {
+    return counter;
+  };
+  this.increment = function () {
+    counter += 1;
   };
 }
 
 var myCounter = new Counter();
 myCounter.increment();
 myCounter.increment();
-console.log(myCounter.check());
+console.log(myCounter);

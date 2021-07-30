@@ -1,17 +1,10 @@
 function pieChart(obj) {
-  obj = obj.split(",");
-
+  let json = JSON.parse(obj);
+  let sum = Object.values(json).reduce((sum, val) => sum + val, 0);
   const genarator = (x) => {
     res = (Number(x) * 360) / sum;
     return Number.isInteger(res) ? res : Math.floor(res * 100) / 100;
   };
-  let json = {};
-  let sum = 0;
-  for (let str of obj) {
-    let [key, value] = str.replace(/[\{\}\"\'\s]/g, "").split(/:/);
-    sum += Number(value);
-    json[key] = value;
-  }
 
   for (let key in json) {
     json[key] = genarator(json[key]);

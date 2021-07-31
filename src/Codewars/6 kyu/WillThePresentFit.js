@@ -1,7 +1,5 @@
 function willFit(present, box) {
-  console.log(present, box);
-  present = present.sort();
-  box = box.map((b) => b - 1).sort();
-  console.log(present, box);
-  return present.every((p, i) => box[i] > p);
+  let presentSorted = present.sort((a, b) => a - b);
+  let boxSorted = box.sort((a, b) => a - b);
+  return presentSorted.every((p, i) => boxSorted[i] > p + 1);
 }

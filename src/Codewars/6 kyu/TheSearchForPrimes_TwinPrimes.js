@@ -3,7 +3,7 @@ function twinPrime(n) {
     return 0;
   }
   const isTwin = (i, arr) => arr[i] - arr[i - 1] == 2;
-  let isPrimes = new Array(n + 1);
+  let isPrimes = new Array(n + 2);
   let count = 0;
   for (let i = 2; i < isPrimes.length; i++) {
     isPrimes[i] = true;

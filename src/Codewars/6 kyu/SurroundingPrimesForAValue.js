@@ -1,31 +1,29 @@
 function primeBefAft(n) {
-  if (n < 2) {
-    return 0;
-  }
-  let isPrimes = new Array(200001);
-  let primes = [];
-  let firstP = -1;
-  let lastPIdx = -1;
-  for (let i = 2; i < isPrimes.length; i++) {
-    isPrimes[i] = true;
-  }
+  const isPrime = (n) => {
+    if (n % 2 == 0) {
+      return false;
+    }
 
-  for (let i = 2; i < isPrimes.length; i++) {
-    if (isPrimes[i]) {
-      primes.push(i);
-      for (let j = i * 2; j < isPrimes.length; j += i) {
-        isPrimes[j] = false;
+    for (let i = 3; i * i <= n; i += 2) {
+      if (n % i == 0) {
+        return false;
       }
     }
-      if (i == n) {
-          lastPIdx = primes.length;
-          firstP = isPrimes[n] ? primes.length-1 :  primes.length;
-      console.log(primes.length);
-    }
+    return true;
+  };
+
+  const isNotPrime = (n) => !isPrime(n);
+  let before = n - 1;
+  let after = n + 1;
+
+  while (isNotPrime(before)) {
+    before -= 1;
   }
-console.log(primes);
-  console.log(primes[firstP-1], primes[lastPIdx]);
- // return [firstP, primes[lastPIdx]];
+
+  while (isNotPrime(after)) {
+    after += 1;
+  }
+  return [before, after];
 }
 
 console.log(primeBefAft(100));

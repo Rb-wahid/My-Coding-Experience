@@ -1,20 +1,13 @@
 function lastSurvivors(string) {
-  const isNotDuplicat = (arr) => new Set(arr).size == arr.length;
-  const getAlpha = (ancii) => (ancii + 1 > 122 ? 97 : ancii + 1);
-  let str = [...string].sort();
-  while (!isNotDuplicat(str)) {
-    for (let idx = 0; idx < str.length - 1; idx += 1) {
-      if (str[idx] == str[idx + 1]) {
-        let charCode = str[idx].charCodeAt();
-        str.splice(idx, 1);
-        str[idx] = String.fromCharCode(getAlpha(charCode));
-        break;
-      }
-    }
-
-    str = str.sort();
+  let regex = /(.)(.*?)\1/;
+  const isDuplicat = (str) => regex.test(str);
+  const getChar = (ch) =>
+    String.fromCharCode(ch.charCodeAt(0) + 1).replace("{", "a");
+  let str = string;
+  while (isDuplicat(str)) {
+    str = str.replace(regex, (_, repeat, rest) => getChar(repeat) + rest);
   }
-  return str.join("");
+  return str;
 }
 
 console.log(

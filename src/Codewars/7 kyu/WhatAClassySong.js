@@ -1,19 +1,14 @@
 class Song {
-  title = "";
-  artist = "";
-  arr = [];
-
   constructor(title, artist) {
     this.title = title;
     this.artist = artist;
+    this.listener = new Set();
   }
 
-  howMany(arr) {
-    let inputArr = arr.map((el) => el.toLowerCase());
-    let [...set] = new Set([...inputArr, ...this.arr]);
-    let newListener = set.length - this.arr.length;
-    this.arr = [...set];
-
-    return newListener;
+  howMany(pepple) {
+    let oldListener = this.listener.size;
+    pepple.forEach((pep) => this.listener.add(pep.toLowerCase()));
+    let totalListener = this.listener.size;
+    return totalListener - oldListener;
   }
 }

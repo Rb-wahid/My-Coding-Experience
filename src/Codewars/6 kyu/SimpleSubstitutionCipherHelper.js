@@ -4,6 +4,9 @@ function SubstitutionCipher(abc1, abc2) {
     return [...str]
       .map((ch) => {
         let encodeIndex = abc1.indexOf(ch);
+        if (encodeIndex == -1) {
+          return ch;
+        }
         let decodeValue = abc2[encodeIndex];
         return decodeValue;
       })
@@ -14,14 +17,16 @@ function SubstitutionCipher(abc1, abc2) {
     return [...str]
       .map((ch) => {
         let decodeIndex = abc2.indexOf(ch);
+
+        if (decodeIndex == -1) {
+          return ch;
+        }
         let encodeValue = abc1[decodeIndex];
         return encodeValue;
       })
       .join("");
   };
 }
-
-
 
 var abc1 = "abcdefghijklmnopqrstuvwxyz";
 var abc2 = "etaoinshrdlucmfwypvbgkjqxz";

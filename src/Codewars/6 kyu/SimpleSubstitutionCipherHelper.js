@@ -1,30 +1,24 @@
 function SubstitutionCipher(abc1, abc2) {
-  this.encode = function (str) {
-    //...
+  this.opration = function (str, encode, decode) {
     return [...str]
       .map((ch) => {
-        let encodeIndex = abc1.indexOf(ch);
+        let encodeIndex = encode.indexOf(ch);
         if (encodeIndex == -1) {
           return ch;
         }
-        let decodeValue = abc2[encodeIndex];
+        let decodeValue = decode[encodeIndex];
         return decodeValue;
       })
       .join("");
   };
+
+  this.encode = function (str) {
+    //...
+    return this.opration(str, abc1, abc2);
+  };
   this.decode = function (str) {
     //...
-    return [...str]
-      .map((ch) => {
-        let decodeIndex = abc2.indexOf(ch);
-
-        if (decodeIndex == -1) {
-          return ch;
-        }
-        let encodeValue = abc1[decodeIndex];
-        return encodeValue;
-      })
-      .join("");
+    return this.opration(str, abc2, abc1);
   };
 }
 

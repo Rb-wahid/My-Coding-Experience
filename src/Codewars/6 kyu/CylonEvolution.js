@@ -1,21 +1,21 @@
-class Cylon {
-  constructor(model) {
-    this.model = model;
-  }
-
-  attack() {
-    return "Destroy all humans!";
-  }
+function Cylon(model) {
+  this.model = model;
 }
 
-class HumanSkin extends Cylon {
-  constructor(model) {
-    super(model);
-  }
-  infiltrate() {
-    return "Infiltrate the colonies";
-  }
+Cylon.prototype.attack = function () {
+  return "Destroy all humans!";
+};
+
+function HumanSkin(model) {
+  this.model = model;
 }
+
+HumanSkin.prototype = Object.create(Cylon.prototype);
+HumanSkin.prototype.constructor = HumanSkin;
+
+HumanSkin.prototype.infiltrate = function () {
+  return "Infiltrate the colonies";
+};
 
 cylon = new Cylon("raider");
 console.log(cylon.attack());

@@ -1,36 +1,18 @@
 var CaesarCipher = function (shift) {
   // TODO: Complete the CaesarCipher object
+  const op = (str, shift) => {
+    return str.toUpperCase().replace(/[A-Z]/g, (ch) => {
+      let code = 65 + ((ch.charCodeAt() + shift - 65) % 26);
+      return String.fromCharCode(code);
+    });
+  };
   this.encode = function (str) {
-    str = str.toUpperCase();
-    return [...str]
-      .map((el) => {
-        let code = el.charCodeAt();
-        if (code >= 65 && code <= 90) {
-          code = ((code + shift - 64) % 26) + 64;
-          let value = String.fromCharCode(code);
-          return value;
-        } else {
-          return el;
-        }
-      })
-      .join("");
+    return op(str, shift);
   };
 
   this.decode = function (str) {
-    str = str.toUpperCase();
-    return [...str]
-      .map((el) => {
-        let code = el.charCodeAt();
-        if (code >= 65 && code <= 90) {
-          code = code - shift;
-          code = code < 65 ? 91 - (65 - code) : code;
-          let value = String.fromCharCode(code);
-          return value;
-        } else {
-          return el;
-        }
-      })
-      .join("");
+    shift = 26 - shift;
+    return op(str, shift);
   };
 };
 

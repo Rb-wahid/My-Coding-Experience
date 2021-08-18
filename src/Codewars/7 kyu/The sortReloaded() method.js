@@ -1,10 +1,15 @@
 // Always code your solution having best practices in mind
-Array.prototype.sortReloaded = function (dir) {
+Array.prototype.sortReloaded = function (dir = "asc") {
   let arr = this.slice();
-  if (dir == undefined || dir == "asc") {
-    return arr.sort((a, b) => a - b);
-  } else if (dir == "desc") {
-    return arr.sort((a, b) => b - a);
+  let functions = {
+    asc: (a, b) => a - b,
+    desc: (a, b) => b - a,
+  };
+
+  let sortFunction = functions[dir];
+
+  if (sortFunction) {
+    return arr.sort(sortFunction);
   } else {
     return false;
   }

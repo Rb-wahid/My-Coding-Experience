@@ -28,7 +28,16 @@ function KeywordCipher(abc, keyword) {
   this.decode = function (str) {
     // ...
     let map = setMap(main, keys);
-    return [...str].map((el) => map.get(el)).join("");
+    return [...str]
+      .map((el) => {
+        let value = map.get(el);
+        if (value) {
+          return value;
+        } else {
+          return el;
+        }
+      })
+      .join("");
   };
 }
 

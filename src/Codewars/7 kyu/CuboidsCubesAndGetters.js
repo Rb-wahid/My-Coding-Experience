@@ -1,16 +1,14 @@
 class Cuboid {
   // TODO: Program Me
   constructor(length, width, height) {
-    this.length = length;
-    this.width = width;
-    this.height = height;
+    Object.assign(this, { length, width, height });
   }
 
   get surfaceArea() {
     let l = this.length;
     let w = this.width;
     let h = this.height;
-    return 2 * l * w + 2 * l * h + 2 * h * w;
+    return 2 * (l * w + l * h + h * w);
   }
 
   get volume() {

@@ -1,6 +1,4 @@
 let obj = {};
-// [CALLER] called/texted [CALLEE] from [PHONE OWNER]'s phone([PHONE NUMBER])
-// Dan called Erin from Dan's phone(202-555-0149)
 // Create the NSA object
 var NSA = {
   log: function (person) {
@@ -16,20 +14,19 @@ class Person {
     this.name = name;
   }
   call(cellphone, callee) {
-    let { owner, number } = cellphone;
-    let { name } = owner;
-    obj[name] = (obj[name] || []).concat(
-      `${name} called ${callee.name} from ${name}'s phone(${number})`
+    let { owner, number: ownerNumber } = cellphone;
+    let { name: ownerName } = owner;
+    obj[this.name] = (obj[this.name] || []).concat(
+      `${this.name} called ${callee.name} from ${ownerName}'s phone(${ownerNumber})`
     );
-    console.log(obj[name]);
   }
   text(cellphone, ...recipients) {
-    // Dan texted Alex from Dan's phone(202-555-0149)
-    let { owner, number } = cellphone;
-    let { name } = owner;
-    recipients.forEach((p) => {
-      obj[name] = (obj[name] || []).concat(
-        `${name} texted ${p.name} from ${name}'s phone(${number})`
+    let { owner, number: ownerNumber } = cellphone;
+    let { name: ownerName } = owner;
+
+    recipients.forEach(({ name: recipientName }) => {
+      obj[this.name] = (obj[this.name] || []).concat(
+        `${this.name} texted ${recipientName} from ${ownerName}'s phone(${ownerNumber})`
       );
     });
   }

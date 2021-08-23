@@ -1,23 +1,21 @@
 const removeDuplicateIds = (obj) => {
   //
-    let arr = []
-    let keys = Object.keys(obj);
-    keys.reverse().forEach(key => {
-        let value = obj[key];
-               // console.log(value);
+  let arr = [];
+  let keys = Object.keys(obj);
+  keys.reverse().forEach((key) => {
+    let value = obj[key];
 
-        for (const i in value) {
-          //  console.log(value[i], arr, arr.indexOf(value[i]) );
-            if (arr.indexOf(value[i]) == -1) {
-                arr.push(value[i])
-            } else {
-               value.splice(i, 1);
-           }
-        }
-        console.log(value);
-        obj[key] = value;
-    })
-    return obj;
+    for (let i = 0; i < value.length; i++) {
+      if (arr.includes(value[i])) {
+        value.splice(i, 1);
+        i--;
+      } else {
+        arr.push(value[i]);
+      }
+    }
+    obj[key] = value;
+  });
+  return obj;
 };
 
 const obj1 = {

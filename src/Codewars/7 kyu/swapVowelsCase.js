@@ -1,12 +1,6 @@
 function swapVowelCase(str) {
   // your code here
-  return str.replace(/./g, (ch) => {
-    if (/[aeiou]/.test(ch)) {
-      return ch.toUpperCase();
-    } else if (/[AEIOU]/.test(ch)) {
-      return ch.toLowerCase();
-    } else {
-      return ch;
-    }
-  });
+  return str.replace(/[aeiou]/gi, (ch) =>
+    /[aeiou]/.test(ch) ? ch.toUpperCase() : ch.toLowerCase()
+  );
 }

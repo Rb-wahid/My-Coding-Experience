@@ -34,10 +34,13 @@ function readLine() {
 function rotLeft(a, d) {
   // Write your code here
   let arr = a.slice();
-  let shift;
+  let first;
   for (let i = 0; i < d; i++) {
-    shift = arr.shift();
-    arr.push(shift);
+    first = arr[0];
+    for (let j = 0; j < arr.length - 1; j++) {
+      arr[j] = arr[j + 1];
+    }
+    arr[arr.length - 1] = first;
   }
   return arr;
 }

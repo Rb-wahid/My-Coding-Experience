@@ -1,14 +1,11 @@
 var React = require("react");
 
-function createElement(content, tag, props) {
-  // create a react element here
-  tag = tag || "div";
-  props = props || {};
-  return React.createElement(tag, props, content);
-}
+const createElement = (content, tag = "div", props) =>
+  React.createElement(tag, props, content);
 
-function createUnorderedList(list) {
-  // create a react unordered list with children list items created form the list argument
-  list = list.map((content, i) => createElement(content, "li", { key: i }));
-  return React.createElement("ul", null, list);
-}
+const createUnorderedList = (list) => {
+  let list2 = list.map((content, i) =>
+    createElement(content, "li", { key: i })
+  );
+  return createElement(list2, "ul");
+};

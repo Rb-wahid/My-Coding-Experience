@@ -9,9 +9,6 @@ function createElement(content, tag, props) {
 
 function createUnorderedList(list) {
   // create a react unordered list with children list items created form the list argument
-  return React.createElement(
-    "ul",
-    {},
-    list.map((content) => createElement(content, "li"))
-  );
+  list = list.map((content, i) => createElement(content, "li", { key: i }));
+  return React.createElement("ul", null, list);
 }

@@ -1,13 +1,7 @@
 export function toAlternatingCase(s: string): string {
-  let str = [...s]
-    .map((ch) => {
-      if (/[a-z]/.test(ch)) {
-        return ch.toUpperCase();
-      } else {
-        return ch.toLowerCase();
-      }
+  return [...s]
+    .map((ch: string) => {
+      return ch === ch.toUpperCase() ? ch.toLowerCase() : ch.toUpperCase();
     })
-    .join("")
-    .toString();
-  return str;
+    .join("");
 }
